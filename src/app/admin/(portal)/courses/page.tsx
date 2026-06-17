@@ -1,0 +1,15 @@
+import prisma from "@/lib/prisma";
+import AdminCoursesClient from "./AdminCoursesClient";
+
+export const dynamic = 'force-dynamic';
+
+export default async function AdminCoursesPage() {
+    const courses = await prisma.course.findMany({
+        orderBy: { id: 'asc' },
+        include: { enrollments: { select: { id: true } } }
+    });
+
+    const safeCourses = JSON.parse(JSON.stringify(courses));
+
+    return <AdminCoursesClient initialCourses={safeCourses} />;
+}

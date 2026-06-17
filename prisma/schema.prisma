@@ -1,0 +1,277 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id                 String              @id @default(cuid())
+  email              String              @unique
+  name               String
+  password           String
+  role               String              @default("STUDENT")
+  createdAt          DateTime            @default(now())
+  emailVerified      Boolean             @default(true)
+  resetToken         String?             @unique
+  resetTokenExpiry   DateTime?
+  verificationToken  String?             @unique
+  googleId           String?             @unique
+  pendingEmail       String?
+  attendanceLogs     AttendanceLog[]
+  deadlineExceptions DeadlineException[]
+  enrollments        Enrollment[]
+  posts              Post[]
+  replies            Reply[]
+  submissions        Submission[]
+  testSessions       TestSession[]
+  videoProgresses    VideoProgress[]
+  groups             Group[]             @relation("GroupMembers")
+}
+
+model Course {
+  id              String       @id @default(cuid())
+  title           String
+  description     String?
+  thumbnail       String?
+  status          String       @default("published")
+  password        String       @default("dmtrader")
+  createdAt       DateTime     @default(now())
+  weightForum     Int          @default(10)
+  weightLab       Int          @default(30)
+  weightProject   Int          @default(40)
+  weightQuiz      Int          @default(20)
+  weightExam      Int          @default(0)
+  enableCopyPaste Boolean      @default(false)
+  category        String       @default("Trading")
+  enrollments     Enrollment[]
+  groups          Group[]
+  weeks           Week[]
+}
+
+model Enrollment {
+  id        String   @id @default(cuid())
+  userId    String
+  courseId  String
+  createdAt DateTime @default(now())
+  status    String   @default("ACTIVE")
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, courseId])
+}
+
+model Week {
+  id        String  @id @default(cuid())
+  title     String
+  order     Int
+  isVisible Boolean @default(true)
+  courseId  String
+  days      Day[]
+  course    Course  @relation(fields: [courseId], references: [id], onDelete: Cascade)
+}
+
+model Day {
+  id                  String              @id @default(cuid())
+  title               String
+  order               Int
+  isVisible           Boolean             @default(true)
+  videoId             String?
+  materialUrl         String?
+  weekId              String
+  assignmentUrl       String?
+  isDeliveryDay       Boolean             @default(false)
+  gradingSeverity     Int                 @default(1)
+  assignmentType      String              @default("LAB")
+  dueDate             DateTime?
+  availableFrom       DateTime?
+  forumTopics         String?
+  codeTemplate        String?
+  enablePlagiarism    Boolean             @default(false)
+  expectedOutput      String?
+  isCodingExercise    Boolean             @default(false)
+  similarityThreshold Float               @default(0.9)
+  exerciseDescription String?
+  testCases           Json?
+  summaryUrl          String?
+  thumbnail           String?
+  timeLimit           Int?
+  assignments         Assignment[]
+  week                Week                @relation(fields: [weekId], references: [id], onDelete: Cascade)
+  deadlineExceptions  DeadlineException[]
+  posts               Post[]
+  resources           Resource[]
+  submissions         Submission[]
+  testSessions        TestSession[]
+  videoProgresses     VideoProgress[]
+}
+
+model Assignment {
+  id                  String       @id @default(cuid())
+  title               String?
+  dayId               String
+  assignmentUrl       String?
+  assignmentType      String       @default("LAB")
+  dueDate             DateTime?
+  availableFrom       DateTime?
+  gradingSeverity     Int          @default(1)
+  exerciseDescription String?
+  isCodingExercise    Boolean      @default(false)
+  testCases           Json?
+  expectedOutput      String?
+  similarityThreshold Float        @default(0.9)
+  enablePlagiarism    Boolean      @default(false)
+  codeTemplate        String?
+  timeLimit           Int?
+  order               Int          @default(0)
+  createdAt           DateTime     @default(now())
+  updatedAt           DateTime     @updatedAt
+  day                 Day          @relation(fields: [dayId], references: [id], onDelete: Cascade)
+  submissions         Submission[]
+}
+
+model TestSession {
+  id        String   @id @default(cuid())
+  userId    String
+  dayId     String
+  startedAt DateTime @default(now())
+  day       Day      @relation(fields: [dayId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, dayId])
+}
+
+model Resource {
+  id        String  @id @default(cuid())
+  title     String
+  url       String
+  type      String
+  dayId     String
+  isVisible Boolean @default(true)
+  day       Day     @relation(fields: [dayId], references: [id], onDelete: Cascade)
+}
+
+model Post {
+  id        String   @id @default(cuid())
+  content   String
+  createdAt DateTime @default(now())
+  userId    String
+  dayId     String
+  day       Day      @relation(fields: [dayId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  replies   Reply[]
+}
+
+model Reply {
+  id        String   @id @default(cuid())
+  content   String
+  createdAt DateTime @default(now())
+  userId    String
+  postId    String
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VideoProgress {
+  id        String   @id @default(cuid())
+  userId    String
+  dayId     String
+  seconds   Int      @default(0)
+  percent   Int?
+  updatedAt DateTime @updatedAt
+  day       Day      @relation(fields: [dayId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, dayId])
+}
+
+model SiteConfig {
+  key   String @id
+  value Json
+}
+
+model Submission {
+  id           String      @id @default(cuid())
+  userId       String
+  dayId        String
+  content      String
+  fileName     String
+  status       String      @default("PENDING")
+  grade        Float?
+  feedback     Json?
+  createdAt    DateTime    @default(now())
+  groupId      String?
+  repoUrl      String?
+  assignmentId String?
+  assignment   Assignment? @relation(fields: [assignmentId], references: [id])
+  day          Day         @relation(fields: [dayId], references: [id], onDelete: Cascade)
+  group        Group?      @relation(fields: [groupId], references: [id])
+  user         User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, dayId, groupId, assignmentId])
+  @@index([userId])
+  @@index([dayId])
+  @@index([groupId])
+  @@index([assignmentId])
+}
+
+model Group {
+  id          String       @id @default(cuid())
+  name        String
+  courseId    String
+  createdAt   DateTime     @default(now())
+  course      Course       @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  submissions Submission[]
+  members     User[]       @relation("GroupMembers")
+}
+
+model Communication {
+  id              String   @id @default(cuid())
+  subject         String
+  content         String
+  recipientCount  Int
+  targetGroupId   String?
+  targetGroupName String
+  createdAt       DateTime @default(now())
+}
+
+model AttendanceSession {
+  id        String   @id @default(cuid())
+  code      String
+  expiresAt DateTime
+  sheetName String
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+model DeadlineException {
+  id         String   @id @default(cuid())
+  userId     String
+  dayId      String
+  newDueDate DateTime
+  createdAt  DateTime @default(now())
+  day        Day      @relation(fields: [dayId], references: [id], onDelete: Cascade)
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, dayId])
+  @@index([userId])
+  @@index([dayId])
+}
+
+model AttendanceLog {
+  id             String   @id @default(cuid())
+  userId         String
+  studentName    String
+  dateText       String
+  sheetName      String
+  checkIns       Int      @default(0)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  firstSessionId String?
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, dateText, sheetName])
+  @@index([userId])
+}
