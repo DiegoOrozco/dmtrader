@@ -97,6 +97,132 @@ export default async function DashboardPage() {
                     </div>
                 </section>
 
+                {/* ── PARTNERS / COMMUNITY SECTION ── */}
+                <section className="max-w-[1400px] mx-auto px-6 lg:px-10 mt-16 mb-24">
+                    <div className="flex items-center gap-4 mb-12">
+                        <span className="raw-label" style={{ color: 'var(--raw-outline)', whiteSpace: 'nowrap' }}>+ COMUNIDAD_Y_TRADING</span>
+                        <div className="h-px flex-1" style={{ background: 'var(--raw-outline-dim)' }} />
+                    </div>
+
+                    <div className="mb-12">
+                        <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tighter uppercase mb-4">
+                            ¡Hagamos Trading Juntos!
+                        </h2>
+                        <p className="text-base text-white/50 max-w-2xl leading-relaxed">
+                            Regístrate en nuestros brokers y plataformas recomendadas para unirte a nuestras sesiones en vivo, canal de alertas de mercado y operar con las mejores condiciones.
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {/* Deriv */}
+                        <a 
+                            href="https://deriv.partners/rx?sidc=55B279DC-01C5-41F3-8331-2B291B5DD053&utm_campaign=dynamicworks&utm_medium=affiliate&utm_source=CU50197" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="raw-card p-6 flex flex-col justify-between min-h-[220px] group transition-all duration-300 relative overflow-hidden"
+                        >
+                            <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-25 transition-opacity">
+                                <span className="text-xs font-mono text-[#cde641]">01</span>
+                            </div>
+                            <div>
+                                <div className="mb-6 flex items-center">
+                                    <svg viewBox="0 0 100 30" className="h-6 w-auto" fill="currentColor">
+                                        <path d="M5 22 L18 8 L31 22 Z" fill="#ff444f"/>
+                                        <path d="M18 22 L31 8 L44 22 Z" fill="#ff444f" opacity="0.8"/>
+                                        <text x="52" y="20" fontFamily="Space Grotesk, sans-serif" fontWeight="900" fontSize="13" fill="#ffffff">DERIV</text>
+                                    </svg>
+                                </div>
+                                <h3 className="text-lg font-bold text-white mb-2 uppercase tracking-tight">Índices Sintéticos</h3>
+                                <p className="text-xs text-white/40 mb-4">Opera CFDs, forex y mercados sintéticos con spreads competitivos y apalancamiento.</p>
+                            </div>
+                            <div className="flex items-center gap-2 text-[#cde641] font-black text-xs uppercase tracking-wider group-hover:text-white transition-colors mt-auto">
+                                Registrarse
+                                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                            </div>
+                        </a>
+
+                        {/* Bitunix */}
+                        <a 
+                            href="https://www.bitunix.com/register?vipCode=fq2H" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="raw-card p-6 flex flex-col justify-between min-h-[220px] group transition-all duration-300 relative overflow-hidden"
+                        >
+                            <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-25 transition-opacity">
+                                <span className="text-xs font-mono text-[#cde641]">02</span>
+                            </div>
+                            <div>
+                                <div className="mb-6 flex items-center">
+                                    <svg viewBox="0 0 120 30" className="h-6 w-auto" fill="currentColor">
+                                        <rect x="5" y="4" width="20" height="20" rx="3" fill="#00e5ff"/>
+                                        <path d="M10 8 h10 v3 h-10 z M10 14 h10 v3 h-10 z" fill="#000000"/>
+                                        <text x="35" y="20" fontFamily="Space Grotesk, sans-serif" fontWeight="900" fontSize="13" fill="#ffffff">BITUNIX</text>
+                                    </svg>
+                                </div>
+                                <h3 className="text-lg font-bold text-white mb-2 uppercase tracking-tight">Cripto Exchange</h3>
+                                <p className="text-xs text-white/40 mb-4">Compra, vende y opera contratos perpetuos de criptomonedas sin restricciones y alta liquidez.</p>
+                            </div>
+                            <div className="flex items-center gap-2 text-[#cde641] font-black text-xs uppercase tracking-wider group-hover:text-white transition-colors mt-auto">
+                                Registrarse
+                                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                            </div>
+                        </a>
+
+                        {/* Nexo */}
+                        <a 
+                            href="https://nexo.ibportal.io/auth/register?e=Pv53ERsz4qiVgd2HvuptUkqRsXcK9CnfEJBkTBAjSrw&a=2" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="raw-card p-6 flex flex-col justify-between min-h-[220px] group transition-all duration-300 relative overflow-hidden"
+                        >
+                            <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-25 transition-opacity">
+                                <span className="text-xs font-mono text-[#cde641]">03</span>
+                            </div>
+                            <div>
+                                <div className="mb-6 flex items-center">
+                                    <svg viewBox="0 0 100 30" className="h-6 w-auto" fill="currentColor">
+                                        <polygon points="5,4 14,4 23,16 23,4 30,4 30,22 21,22 12,10 12,22 5,22" fill="#3b82f6"/>
+                                        <text x="38" y="20" fontFamily="Space Grotesk, sans-serif" fontWeight="900" fontSize="13" fill="#ffffff">NEXO</text>
+                                    </svg>
+                                </div>
+                                <h3 className="text-lg font-bold text-white mb-2 uppercase tracking-tight">Crypto Banking</h3>
+                                <p className="text-xs text-white/40 mb-4">Genera intereses pasivos diarios en cripto y stablecoins con máxima seguridad garantizada.</p>
+                            </div>
+                            <div className="flex items-center gap-2 text-[#cde641] font-black text-xs uppercase tracking-wider group-hover:text-white transition-colors mt-auto">
+                                Registrarse
+                                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                            </div>
+                        </a>
+
+                        {/* Bridge Markets */}
+                        <a 
+                            href="https://trading.bridgemarkets.global/register?ref=4920d2e8-f6e2-48&branchUuid=de19e466-a9cd-4493-936b-1" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="raw-card p-6 flex flex-col justify-between min-h-[220px] group transition-all duration-300 relative overflow-hidden"
+                        >
+                            <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-25 transition-opacity">
+                                <span className="text-xs font-mono text-[#cde641]">04</span>
+                            </div>
+                            <div>
+                                <div className="mb-6 flex items-center">
+                                    <svg viewBox="0 0 140 30" className="h-6 w-auto" fill="currentColor">
+                                        <path d="M5 22 L15 4 L25 22 Z" fill="#cde641"/>
+                                        <path d="M18 4 L28 22 L38 4 Z" fill="#ffffff" opacity="0.7"/>
+                                        <text x="46" y="20" fontFamily="Space Grotesk, sans-serif" fontWeight="900" fontSize="13" fill="#ffffff">BRIDGE</text>
+                                    </svg>
+                                </div>
+                                <h3 className="text-lg font-bold text-white mb-2 uppercase tracking-tight">Multi-Asset Broker</h3>
+                                <p className="text-xs text-white/40 mb-4">Accede a mercados globales, forex tradicional y materias primas con ejecución institucional ultra rápida.</p>
+                            </div>
+                            <div className="flex items-center gap-2 text-[#cde641] font-black text-xs uppercase tracking-wider group-hover:text-white transition-colors mt-auto">
+                                Registrarse
+                                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                            </div>
+                        </a>
+                    </div>
+                </section>
+
                 {/* Technical divider */}
                 <div className="max-w-[1400px] mx-auto px-6 lg:px-10 flex items-center gap-4 mt-32 mb-12">
                     <span className="raw-label" style={{ color: 'var(--raw-outline)', whiteSpace: 'nowrap' }}>+ CATÁLOGO_ACADÉMICO</span>
