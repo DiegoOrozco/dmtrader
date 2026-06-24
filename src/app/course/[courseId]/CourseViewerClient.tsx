@@ -253,19 +253,30 @@ export default function CourseViewerClient({ course, studentId, userRole }: { co
 
         const ensureYT = () => new Promise<void>((resolve) => {
             const w = window as any;
-            if (w.YT && w.YT.Player) return resolve();
-            if (!document.getElementById("yt-iframe-api")) {
-                const tag = document.createElement("script");
-                tag.src = "https://www.youtube.com/iframe_api";
-                tag.id = "yt-iframe-api";
-                document.body.appendChild(tag);
+            if (w.YT && w.YT.Player) {
+                resolve();
+                return;
             }
-            const onReady = () => resolve();
-            if (!w.onYouTubeIframeAPIReady) w.onYouTubeIframeAPIReady = onReady;
-            else {
-                const prev = w.onYouTubeIframeAPIReady;
-                w.onYouTubeIframeAPIReady = () => { prev(); onReady(); };
+            const check = () => {
+                if (w.YT && w.YT.Player) {
+                    resolve();
+                } else {
+                    setTimeout(check, 50);
+                }
+            };
+            if (document.getElementById("yt-iframe-api")) {
+                check();
+                return;
             }
+            const tag = document.createElement("script");
+            tag.src = "https://www.youtube.com/iframe_api";
+            tag.id = "yt-iframe-api";
+            document.body.appendChild(tag);
+            const prev = w.onYouTubeIframeAPIReady;
+            w.onYouTubeIframeAPIReady = () => {
+                if (prev) prev();
+                resolve();
+            };
         });
 
         (async () => {
@@ -525,16 +536,16 @@ export default function CourseViewerClient({ course, studentId, userRole }: { co
                         ) : activeDay.videoId ? (
                             <>
                                 {/* YouTube Player container with disabled pointer events */}
-                                <div className="absolute inset-0 w-full h-full z-0 pointer-events-none select-none">
+                                <div className="absolute inset-0 w-full h-full z-0 overflow-hidden pointer-events-none select-none">
                                     {usePlainIframe ? (
                                         <iframe
                                             src={`https://www.youtube.com/embed/${activeDay.videoId}?rel=0&modestbranding=1&controls=0&disablekb=1&fs=0&iv_load_policy=3&showinfo=0&ecver=2`}
                                             title="YouTube video player"
                                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                            className="w-full h-full border-0 pointer-events-none select-none"
+                                            className="w-full h-[116%] absolute -top-[8%] left-0 border-0 pointer-events-none select-none"
                                         />
                                     ) : (
-                                        <div ref={playerDivRef} className="w-full h-full pointer-events-none select-none" />
+                                        <div ref={playerDivRef} className="w-full h-[116%] absolute -top-[8%] left-0 pointer-events-none select-none" />
                                     )}
                                 </div>
 
