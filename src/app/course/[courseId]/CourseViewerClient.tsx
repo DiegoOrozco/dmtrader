@@ -640,6 +640,7 @@ export default function CourseViewerClient({ course, studentId, userRole }: { co
                                         </div>
                                     </>
                                 )}
+                            </>
                         ) : (
                             <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center relative overflow-hidden">
                                 <img
