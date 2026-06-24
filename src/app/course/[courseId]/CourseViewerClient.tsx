@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { ChevronLeft, PlayCircle, FileText, Download, MessageSquare, Send, User, Menu, X, BookOpen, ChevronDown, ChevronRight, Lock, Clock, Link2, ExternalLink } from "lucide-react";
+import { ChevronLeft, PlayCircle, FileText, Download, MessageSquare, Send, User, Menu, X, BookOpen, ChevronDown, ChevronRight, Lock, Clock, Link2, ExternalLink, Play, Pause, Volume2, Volume1, VolumeX, Maximize, Minimize } from "lucide-react";
 import { createPost } from "@/actions/forum";
 import DayForum from "@/components/DayForum";
 import VideoQA from "@/components/VideoQA";
@@ -72,6 +72,113 @@ export default function CourseViewerClient({ course, studentId, userRole }: { co
     const lastSentAtRef = useRef<number>(0);
     const lastSecondsRef = useRef<number>(0);
     const [usePlainIframe, setUsePlainIframe] = useState(false);
+
+    // Custom Player states
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [currentTime, setCurrentTime] = useState(0);
+    const [duration, setDuration] = useState(0);
+    const [volume, setVolume] = useState(100);
+    const [isMuted, setIsMuted] = useState(false);
+    const [isFullscreen, setIsFullscreen] = useState(false);
+    const containerRef = useRef<HTMLDivElement | null>(null);
+
+    // Update time slider while playing
+    useEffect(() => {
+        let interval: any;
+        if (isPlaying) {
+            interval = setInterval(() => {
+                const p = playerRef.current;
+                if (p && typeof p.getCurrentTime === "function") {
+                    setCurrentTime(p.getCurrentTime());
+                    if (p.getDuration) {
+                        setDuration(p.getDuration());
+                    }
+                }
+            }, 250);
+        }
+        return () => {
+            if (interval) clearInterval(interval);
+        };
+    }, [isPlaying]);
+
+    // Handle Esc key or other ways exiting fullscreen
+    useEffect(() => {
+        const handleFullscreenChange = () => {
+            setIsFullscreen(document.fullscreenElement === containerRef.current);
+        };
+        document.addEventListener("fullscreenchange", handleFullscreenChange);
+        return () => document.removeEventListener("fullscreenchange", handleFullscreenChange);
+    }, []);
+
+    const togglePlay = (e?: React.MouseEvent) => {
+        if (e) {
+            e.stopPropagation();
+            e.preventDefault();
+        }
+        const p = playerRef.current;
+        if (!p) return;
+        const state = p.getPlayerState?.();
+        const YT = (window as any).YT;
+        if (state === YT?.PlayerState.PLAYING) {
+            p.pauseVideo();
+            setIsPlaying(false);
+        } else {
+            p.playVideo();
+            setIsPlaying(true);
+        }
+    };
+
+    const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const p = playerRef.current;
+        if (!p) return;
+        const val = parseFloat(e.target.value);
+        p.seekTo(val, true);
+        setCurrentTime(val);
+    };
+
+    const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const p = playerRef.current;
+        if (!p) return;
+        const val = parseInt(e.target.value);
+        p.setVolume(val);
+        setVolume(val);
+        if (val > 0) {
+            p.unMute();
+            setIsMuted(false);
+        }
+    };
+
+    const toggleMute = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        const p = playerRef.current;
+        if (!p) return;
+        if (p.isMuted()) {
+            p.unMute();
+            setIsMuted(false);
+        } else {
+            p.mute();
+            setIsMuted(true);
+        }
+    };
+
+    const toggleFullscreen = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        if (!containerRef.current) return;
+        if (!document.fullscreenElement) {
+            containerRef.current.requestFullscreen().catch(() => {});
+            setIsFullscreen(true);
+        } else {
+            document.exitFullscreen().catch(() => {});
+            setIsFullscreen(false);
+        }
+    };
+
+    const formatTime = (secs: number) => {
+        if (isNaN(secs)) return "0:00";
+        const m = Math.floor(secs / 60);
+        const s = Math.floor(secs % 60);
+        return `${m}:${s < 10 ? "0" : ""}${s}`;
+    };
 
     // RESTORATION FROM LOCALSTORAGE OR PROPS
     const getLocalProgress = () => {
@@ -181,9 +288,22 @@ export default function CourseViewerClient({ course, studentId, userRole }: { co
                     playerVars: { 
                         rel: 0, 
                         modestbranding: 1,
+                        controls: 0,
+                        disablekb: 1,
+                        fs: 0,
+                        iv_load_policy: 3,
+                        showinfo: 0,
+                        ecver: 2,
                         start: Math.floor(startSeconds)
                     },
                     events: {
+                        onReady: () => {
+                            if (playerRef.current) {
+                                setDuration(playerRef.current.getDuration() || 0);
+                                setVolume(playerRef.current.getVolume() || 100);
+                                setIsMuted(playerRef.current.isMuted() || false);
+                            }
+                        },
                         onStateChange: (e: any) => {
                             const YT = (window as any).YT;
                             const p: any = playerRef.current;
@@ -191,6 +311,8 @@ export default function CourseViewerClient({ course, studentId, userRole }: { co
                             const dur = p?.getDuration ? p.getDuration() : 0;
                             const pct = dur > 0 ? Math.min(100, Math.round((sec / dur) * 100)) : null;
                             
+                            setIsPlaying(e.data === YT.PlayerState.PLAYING);
+
                             // SYNC TO DB ONLY ON MANUAL EVENTS
                             if (e.data === YT.PlayerState.PAUSED) { 
                                 sendProgress(sec, pct); 
@@ -211,6 +333,9 @@ export default function CourseViewerClient({ course, studentId, userRole }: { co
             sendCurrentProgress(true); // Exit sync
             try { playerRef.current?.destroy?.(); } catch { }
             playerRef.current = null;
+            setIsPlaying(false);
+            setCurrentTime(0);
+            setDuration(0);
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [activeDay.id, activeDay.videoId]);
@@ -377,7 +502,10 @@ export default function CourseViewerClient({ course, studentId, userRole }: { co
                     )}
 
                     {/* Video Player Embed or AI Placeholder */}
-                    <div className="w-full aspect-video rounded-2xl overflow-hidden glass-effect border border-[var(--border-color)] shadow-2xl relative bg-black/5">
+                    <div 
+                        ref={containerRef}
+                        className="w-full aspect-video rounded-2xl overflow-hidden glass-effect border border-[var(--border-color)] shadow-2xl relative bg-black group"
+                    >
                         {!isMounted ? (
                             <div className="absolute top-0 left-0 w-full h-full bg-black/20 animate-pulse" />
                         ) : isNotAvailableYet ? (
@@ -395,17 +523,107 @@ export default function CourseViewerClient({ course, studentId, userRole }: { co
                                 </div>
                             </div>
                         ) : activeDay.videoId ? (
-                            usePlainIframe ? (
-                                <iframe
-                                    src={`https://www.youtube.com/embed/${activeDay.videoId}?rel=0&modestbranding=1`}
-                                    title="YouTube video player"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowFullScreen
-                                    className="absolute top-0 left-0 w-full h-full"
-                                />
-                            ) : (
-                                <div ref={playerDivRef} className="absolute top-0 left-0 w-full h-full" />
-                            )
+                            <>
+                                {/* YouTube Player container with disabled pointer events */}
+                                <div className={`absolute inset-0 w-full h-full ${usePlainIframe ? "" : "pointer-events-none select-none"}`}>
+                                    {usePlainIframe ? (
+                                        <iframe
+                                            src={`https://www.youtube.com/embed/${activeDay.videoId}?rel=0&modestbranding=1&controls=0&disablekb=1&fs=0&iv_load_policy=3&showinfo=0&ecver=2`}
+                                            title="YouTube video player"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                            className="w-full h-full border-0"
+                                        />
+                                    ) : (
+                                        <div ref={playerDivRef} className="w-full h-full" />
+                                    )}
+                                </div>
+
+                                {!usePlainIframe && (
+                                    <>
+                                        {/* Click interceptor overlay */}
+                                        <div 
+                                            onClick={(e) => togglePlay(e)}
+                                            className="absolute inset-0 z-10 cursor-pointer flex items-center justify-center bg-transparent"
+                                        >
+                                            {/* Play/Pause center overlay button */}
+                                            <div className={`p-4 rounded-full bg-black/60 backdrop-blur-md border border-white/10 transition-all duration-300 transform ${isPlaying ? "opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100" : "opacity-100 scale-100"}`}>
+                                                {isPlaying ? (
+                                                    <Pause size={32} className="text-white fill-white" />
+                                                ) : (
+                                                    <Play size={32} className="text-white fill-white ml-1" />
+                                                )}
+                                            </div>
+                                        </div>
+
+                                        {/* Custom premium control bar at the bottom */}
+                                        <div className={`absolute bottom-0 left-0 right-0 z-20 p-4 bg-gradient-to-t from-black/90 via-black/50 to-transparent transition-all duration-300 flex flex-col gap-3 ${isPlaying ? "translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100" : "translate-y-0 opacity-100"}`}>
+                                            {/* Timeline Slider */}
+                                            <div className="flex items-center gap-3 w-full">
+                                                <span className="text-xs text-white/80 font-mono select-none">{formatTime(currentTime)}</span>
+                                                <input 
+                                                    type="range"
+                                                    min={0}
+                                                    max={duration || 100}
+                                                    value={currentTime}
+                                                    onChange={handleSeek}
+                                                    className="flex-grow h-1 rounded-lg appearance-none cursor-pointer bg-white/20 hover:bg-white/30 accent-[var(--color-primary)] transition-all outline-none"
+                                                    style={{
+                                                        background: `linear-gradient(to right, var(--color-primary) 0%, var(--color-primary) ${duration > 0 ? (currentTime / duration) * 100 : 0}%, rgba(255,255,255,0.2) ${duration > 0 ? (currentTime / duration) * 100 : 0}%, rgba(255,255,255,0.2) 100%)`
+                                                    }}
+                                                />
+                                                <span className="text-xs text-white/80 font-mono select-none">{formatTime(duration)}</span>
+                                            </div>
+
+                                            {/* Bottom controls row */}
+                                            <div className="flex items-center justify-between">
+                                                <div className="flex items-center gap-4">
+                                                    {/* Play/Pause button */}
+                                                    <button 
+                                                        onClick={(e) => togglePlay(e)}
+                                                        className="text-white hover:text-[var(--color-primary)] transition-colors focus:outline-none"
+                                                    >
+                                                        {isPlaying ? <Pause size={20} className="fill-white" /> : <Play size={20} className="fill-white" />}
+                                                    </button>
+
+                                                    {/* Volume Controls */}
+                                                    <div className="flex items-center gap-2 group/volume">
+                                                        <button 
+                                                            onClick={toggleMute}
+                                                            className="text-white hover:text-[var(--color-primary)] transition-colors focus:outline-none"
+                                                        >
+                                                            {isMuted || volume === 0 ? (
+                                                                <VolumeX size={20} />
+                                                            ) : volume < 50 ? (
+                                                                <Volume1 size={20} />
+                                                            ) : (
+                                                                <Volume2 size={20} />
+                                                            )}
+                                                        </button>
+                                                        <input 
+                                                            type="range"
+                                                            min={0}
+                                                            max={100}
+                                                            value={isMuted ? 0 : volume}
+                                                            onChange={handleVolumeChange}
+                                                            className="w-0 overflow-hidden group-hover/volume:w-20 transition-all duration-300 h-1 rounded-lg appearance-none cursor-pointer bg-white/20 accent-[var(--color-primary)] outline-none"
+                                                            style={{
+                                                                background: `linear-gradient(to right, var(--color-primary) 0%, var(--color-primary) ${isMuted ? 0 : volume}%, rgba(255,255,255,0.2) ${isMuted ? 0 : volume}%, rgba(255,255,255,0.2) 100%)`
+                                                            }}
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                {/* Fullscreen Button */}
+                                                <button 
+                                                    onClick={toggleFullscreen}
+                                                    className="text-white hover:text-[var(--color-primary)] transition-colors focus:outline-none"
+                                                >
+                                                    {isFullscreen ? <Minimize size={20} /> : <Maximize size={20} />}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </>
+                                )}
                         ) : (
                             <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center relative overflow-hidden">
                                 <img
