@@ -33,22 +33,6 @@ html {
 }
 
 :root {
-  --background: var(--raw-bg);
-  --foreground: var(--raw-on-surface);
-  --glass-bg: var(--color-glass);
-  --glass-border: var(--color-glass-border);
-  --text-muted: var(--raw-slate);
-  --nav-bg: rgba(14, 14, 19, 0.95);
-  --header-bg: rgba(14, 14, 19, 0.95);
-  --sidebar-bg: var(--raw-bg);
-  --card-bg: var(--raw-surface-low);
-  --border-color: var(--raw-outline-dim);
-  --text-primary: var(--raw-on-surface);
-  --text-secondary: var(--raw-slate);
-  --safe-top: env(safe-area-inset-top, 0px);
-}
-
-.light {
   --background: #f0f0f0;
   --foreground: #0e0e13;
   --glass-bg: rgba(255, 255, 255, 0.7);
@@ -61,6 +45,22 @@ html {
   --border-color: rgba(0, 0, 0, 0.08);
   --text-primary: #0e0e13;
   --text-secondary: #475569;
+  --safe-top: env(safe-area-inset-top, 0px);
+}
+
+.dark {
+  --background: var(--raw-bg);
+  --foreground: var(--raw-on-surface);
+  --glass-bg: var(--color-glass);
+  --glass-border: var(--color-glass-border);
+  --text-muted: var(--raw-slate);
+  --nav-bg: rgba(14, 14, 19, 0.95);
+  --header-bg: rgba(14, 14, 19, 0.95);
+  --sidebar-bg: var(--raw-bg);
+  --card-bg: var(--raw-surface-low);
+  --border-color: var(--raw-outline-dim);
+  --text-primary: var(--raw-on-surface);
+  --text-secondary: var(--raw-slate);
 }
 
 body {

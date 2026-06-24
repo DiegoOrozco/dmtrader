@@ -72,8 +72,8 @@ export default function Navbar({ user }: NavbarProps) {
         <nav
             className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 nav-blur"
             style={{
-                background: isScrolled ? 'rgba(14,14,19,0.98)' : 'rgba(14,14,19,0.88)',
-                borderBottom: '1px solid var(--raw-outline-dim)',
+                background: isScrolled ? 'var(--nav-bg)' : 'var(--header-bg)',
+                borderBottom: '1px solid var(--border-color)',
                 fontFamily: "'Space Grotesk', sans-serif",
                 paddingTop: 'var(--safe-top)'
             }}
@@ -125,12 +125,14 @@ export default function Navbar({ user }: NavbarProps) {
                         })}
                     </div>
 
-                    <div style={{ width: '1px', height: '24px', background: 'var(--raw-outline-dim)' }} />
+                    <ThemeToggle />
+
+                    <div style={{ width: '1px', height: '24px', background: 'var(--border-color)' }} />
 
                     {user ? (
                         <div className="flex items-center gap-4">
                             <div className="flex flex-col items-end">
-                                <span className="text-[11px] font-black uppercase tracking-widest text-white">
+                                <span className="text-[11px] font-black uppercase tracking-widest text-[var(--text-primary)]">
                                     {user.name.split(" ")[0]}
                                 </span>
                                 <span className="text-[9px] uppercase tracking-widest" style={{ color: 'var(--raw-accent)' }}>
@@ -141,7 +143,7 @@ export default function Navbar({ user }: NavbarProps) {
                                 <div
                                     className="w-10 h-10 flex items-center justify-center text-sm font-black cursor-pointer rounded-full overflow-hidden"
                                     style={{
-                                        background: 'var(--raw-surface-highest)',
+                                        background: 'var(--card-bg)',
                                         border: '1px solid var(--raw-accent)',
                                         color: 'var(--raw-accent)',
                                     }}
@@ -150,12 +152,12 @@ export default function Navbar({ user }: NavbarProps) {
                                 </div>
                                 <div
                                     className="absolute right-0 top-full mt-2 w-48 py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 rounded-xl"
-                                    style={{ background: 'var(--raw-surface-low)', border: '1px solid var(--raw-outline-dim)', boxShadow: '0 20px 40px rgba(0,0,0,0.4)' }}
+                                    style={{ background: 'var(--card-bg)', border: '1px solid var(--border-color)', boxShadow: '0 20px 40px rgba(0,0,0,0.15)' }}
                                 >
                                     <Link
                                         href="/profile"
                                         className="w-full flex items-center gap-3 px-4 py-3 text-[10px] font-black uppercase tracking-widest hover:bg-white/5 transition-colors"
-                                        style={{ color: 'var(--raw-slate)' }}
+                                        style={{ color: 'var(--text-secondary)' }}
                                     >
                                         <UserIcon size={14} /> Mi Perfil
                                     </Link>
@@ -173,8 +175,8 @@ export default function Navbar({ user }: NavbarProps) {
                         <div className="flex items-center gap-4">
                             <Link
                                 href="/login"
-                                className="text-[11px] font-black uppercase tracking-widest transition-colors hover:text-white"
-                                style={{ color: 'var(--raw-slate)' }}
+                                className="text-[11px] font-black uppercase tracking-widest transition-colors hover:text-[var(--text-primary)]"
+                                style={{ color: 'var(--text-secondary)' }}
                             >
                                 Iniciar Sesión
                             </Link>
@@ -188,15 +190,18 @@ export default function Navbar({ user }: NavbarProps) {
                     )}
                 </div>
 
-                {/* Mobile toggle */}
-                <button
-                    className="md:hidden flex items-center gap-2 text-[10px] font-black uppercase bg-white/5 px-4 py-2 rounded-full border border-white/10 relative z-[110]"
-                    style={{ color: 'var(--raw-on-surface)' }}
-                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                >
-                    {isMobileMenuOpen ? "CERRAR" : "MENÚ"}
-                    {isMobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
-                </button>
+                {/* Mobile toggle & theme button */}
+                <div className="md:hidden flex items-center gap-3">
+                    <ThemeToggle />
+                    <button
+                        className="flex items-center gap-2 text-[10px] font-black uppercase bg-white/5 dark:bg-white/5 bg-black/5 px-4 py-2 rounded-full border border-black/10 dark:border-white/10 relative z-[110]"
+                        style={{ color: 'var(--text-primary)' }}
+                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                    >
+                        {isMobileMenuOpen ? "CERRAR" : "MENÚ"}
+                        {isMobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
+                    </button>
+                </div>
             </div>
         </nav>
 
@@ -204,7 +209,7 @@ export default function Navbar({ user }: NavbarProps) {
             <div
                 className={`fixed inset-0 md:hidden transition-all duration-300 ${isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"}`}
                 style={{ 
-                    background: 'rgba(14,14,19,0.98)', 
+                    background: 'var(--background)', 
                     backdropFilter: 'blur(20px)',
                     zIndex: 100, 
                     top: 0 
@@ -212,7 +217,7 @@ export default function Navbar({ user }: NavbarProps) {
             >
                 <div className="flex flex-col h-full">
                     {/* Mobile menu header */}
-                    <div className="flex justify-between items-center h-14 px-6 border-b border-[var(--raw-outline-dim)]">
+                    <div className="flex justify-between items-center h-14 px-6 border-b border-[var(--border-color)]">
                         <span className="font-black text-sm tracking-tighter" style={{ color: 'var(--raw-accent)' }}>
                             DM TRADER
                         </span>
