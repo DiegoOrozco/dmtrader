@@ -525,16 +525,16 @@ export default function CourseViewerClient({ course, studentId, userRole }: { co
                         ) : activeDay.videoId ? (
                             <>
                                 {/* YouTube Player container with disabled pointer events */}
-                                <div className={`absolute inset-0 w-full h-full ${usePlainIframe ? "" : "pointer-events-none select-none"}`}>
+                                <div className="absolute inset-0 w-full h-full z-0 pointer-events-none select-none">
                                     {usePlainIframe ? (
                                         <iframe
                                             src={`https://www.youtube.com/embed/${activeDay.videoId}?rel=0&modestbranding=1&controls=0&disablekb=1&fs=0&iv_load_policy=3&showinfo=0&ecver=2`}
                                             title="YouTube video player"
                                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                            className="w-full h-full border-0"
+                                            className="w-full h-full border-0 pointer-events-none select-none"
                                         />
                                     ) : (
-                                        <div ref={playerDivRef} className="w-full h-full" />
+                                        <div ref={playerDivRef} className="w-full h-full pointer-events-none select-none" />
                                     )}
                                 </div>
 
@@ -543,7 +543,12 @@ export default function CourseViewerClient({ course, studentId, userRole }: { co
                                         {/* Click interceptor overlay */}
                                         <div 
                                             onClick={(e) => togglePlay(e)}
-                                            className="absolute inset-0 z-10 cursor-pointer flex items-center justify-center bg-transparent"
+                                            onDoubleClick={(e) => {
+                                                e.preventDefault();
+                                                e.stopPropagation();
+                                            }}
+                                            className="absolute inset-0 z-10 cursor-pointer flex items-center justify-center"
+                                            style={{ backgroundColor: "rgba(0, 0, 0, 0)" }}
                                         >
                                             {/* Play/Pause center overlay button */}
                                             <div className={`p-4 rounded-full bg-black/60 backdrop-blur-md border border-white/10 transition-all duration-300 transform ${isPlaying ? "opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100" : "opacity-100 scale-100"}`}>
