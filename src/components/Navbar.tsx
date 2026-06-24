@@ -12,7 +12,8 @@ import {
     Info,
     Shield,
     GraduationCap,
-    ArrowRight
+    ArrowRight,
+    Calendar
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import ThemeToggle from "./ThemeToggle";
@@ -51,6 +52,7 @@ export default function Navbar({ user }: NavbarProps) {
     const navLinks = [
         { name: "Inicio", href: "/", icon: <Home size={18} /> },
         { name: "Cursos", href: "/courses", icon: <BookOpen size={18} /> },
+        { name: "Mentorías", href: "/mentorias", icon: <Calendar size={18} /> },
     ];
 
     if (!user) {
