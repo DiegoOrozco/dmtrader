@@ -12,7 +12,7 @@ export default async function MentoriasPage() {
     }
 
     return (
-        <div className="min-h-screen relative pt-32 pb-40" style={{ background: 'var(--raw-bg)' }}>
+        <div className="min-h-screen relative pt-32 pb-40" style={{ background: 'var(--background)' }}>
             {/* Background decorative elements */}
             <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden select-none" style={{ opacity: 0.05 }}>
                 <span className="raw-watermark top-[20%] right-[10%]">MENTORÍA</span>
@@ -23,10 +23,10 @@ export default async function MentoriasPage() {
                 {/* ── HEADER ── */}
                 <div className="mb-12 text-center md:text-left">
                     <span className="raw-label" style={{ color: 'var(--raw-accent)' }}>// PROGRAMA DE MENTORÍAS EXCLUSIVAS</span>
-                    <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-none tracking-tighter uppercase mt-4 mb-6">
+                    <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-[var(--text-primary)] leading-none tracking-tighter uppercase mt-4 mb-6">
                         RESERVA TU MENTORÍA
                     </h1>
-                    <p className="text-base sm:text-lg text-white/50 max-w-2xl leading-relaxed uppercase tracking-tight italic">
+                    <p className="text-base sm:text-lg text-[var(--text-secondary)] max-w-2xl leading-relaxed uppercase tracking-tight italic">
                         Hola {student.name.split(" ")[0]}, agenda tu sesión individual para revisar estrategias, análisis de mercado y optimizar tu operativa de trading junto a nosotros.
                     </p>
                 </div>
