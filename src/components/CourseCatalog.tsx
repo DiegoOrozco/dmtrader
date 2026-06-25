@@ -81,9 +81,9 @@ export default function CourseCatalog({ allCourses, enrolledCourseIds, student }
             <div
                 className="sticky top-14 z-30 flex flex-col gap-3 py-4 -mx-4 px-4 md:-mx-6 md:px-6 lg:-mx-10 lg:px-10"
                 style={{
-                    background: 'rgba(14,14,19,0.95)',
+                    background: 'var(--background)',
                     backdropFilter: 'blur(16px)',
-                    borderBottom: '1px solid var(--raw-outline-dim)',
+                    borderBottom: '1px solid var(--border-color)',
                 }}
             >
                 {/* Search */}
