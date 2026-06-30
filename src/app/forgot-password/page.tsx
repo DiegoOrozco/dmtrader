@@ -42,7 +42,7 @@ function ForgotPasswordContent() {
             <div className="relative z-10 w-full max-w-md">
                 <Link
                     href="/login"
-                    className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors mb-8"
+                    className="inline-flex items-center gap-2 text-slate-400 hover:text-sky-500 dark:hover:text-white transition-colors mb-8"
                 >
                     <ArrowLeft size={16} /> Volver al inicio de sesión
                 </Link>
@@ -51,8 +51,8 @@ function ForgotPasswordContent() {
                     <div className="inline-block p-4 rounded-2xl glass-effect mb-4 shadow-[0_0_15px_rgba(255,255,255,0.05)]">
                         <Mail className="w-10 h-10 text-[var(--color-primary)] drop-shadow-md" />
                     </div>
-                    <h1 className="text-3xl font-black tracking-tight text-white mb-2">Recuperar Contraseña</h1>
-                    <p className="text-slate-400 font-medium">Te enviaremos un enlace para restablecer tu contraseña.</p>
+                    <h1 className="text-3xl font-black tracking-tight text-slate-900 dark:text-white mb-2">Recuperar Contraseña</h1>
+                    <p className="text-slate-500 dark:text-slate-400 font-medium">Te enviaremos un enlace para restablecer tu contraseña.</p>
                 </div>
 
                 <div className="glass-effect rounded-2xl p-8 shadow-2xl border border-[var(--color-glass-border)]">
@@ -62,7 +62,7 @@ function ForgotPasswordContent() {
                                 <CheckCircle size={40} className="text-emerald-400" />
                             </div>
                             <div>
-                                <h2 className="text-xl font-black text-white mb-3">¡Email enviado!</h2>
+                                <h2 className="text-xl font-black text-slate-900 dark:text-white mb-3">¡Email enviado!</h2>
                                 <p className="text-slate-400 text-sm leading-relaxed">
                                     Si ese correo tiene una cuenta activa, recibirás un enlace de recuperación pronto. Revisa tu carpeta de spam o promociones si no lo ves.
                                 </p>
@@ -108,18 +108,18 @@ function ForgotPasswordContent() {
 
                             <form action={handleSubmit} className="space-y-5">
                                 <div className="space-y-2">
-                                    <label className="block text-sm font-semibold text-slate-300">
+                                    <label className="block text-sm font-semibold text-slate-600 dark:text-slate-300">
                                         Correo Electrónico
                                     </label>
                                     <div className="relative">
-                                        <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
+                                        <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
                                         <input
                                             type="email"
                                             name="email"
                                             required
                                             autoComplete="email"
                                             disabled={isPending}
-                                            className="w-full bg-[rgba(0,0,0,0.3)] border border-[var(--color-glass-border)] rounded-lg pl-10 pr-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-[var(--color-primary)] focus:ring-1 focus:ring-[var(--color-primary)] transition-all disabled:opacity-50"
+                                            className="w-full bg-slate-50 dark:bg-[rgba(0,0,0,0.3)] border border-slate-200 dark:border-[var(--color-glass-border)] rounded-lg pl-10 pr-4 py-3 text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:border-[var(--color-primary)] focus:ring-1 focus:ring-[var(--color-primary)] transition-all disabled:opacity-50"
                                             placeholder="tunombre@ejemplo.com"
                                         />
                                     </div>

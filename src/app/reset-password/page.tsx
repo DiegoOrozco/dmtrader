@@ -38,7 +38,7 @@ export default async function ResetPasswordPage({
             <div className="relative z-10 w-full max-w-md">
                 <Link
                     href="/login"
-                    className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors mb-8"
+                    className="inline-flex items-center gap-2 text-slate-400 hover:text-sky-500 dark:hover:text-white transition-colors mb-8"
                 >
                     <ArrowLeft size={16} /> Volver al inicio de sesión
                 </Link>
@@ -47,9 +47,9 @@ export default async function ResetPasswordPage({
                     <div className="inline-block p-4 rounded-2xl glass-effect mb-4 shadow-[0_0_15px_rgba(255,255,255,0.05)]">
                         <Key className="w-10 h-10 text-[var(--color-primary)] drop-shadow-md" />
                     </div>
-                    <h1 className="text-3xl font-black tracking-tight text-white mb-2">Nueva Contraseña</h1>
-                    <p className="text-slate-400 font-medium">
-                        Hola <span className="text-white font-bold">{user.name.split(" ")[0]}</span>, elige una contraseña segura.
+                    <h1 className="text-3xl font-black tracking-tight text-slate-900 dark:text-white mb-2">Nueva Contraseña</h1>
+                    <p className="text-slate-500 dark:text-slate-400 font-medium">
+                        Hola <span className="text-slate-900 dark:text-white font-bold">{user.name.split(" ")[0]}</span>, elige una contraseña segura.
                     </p>
                 </div>
 
@@ -74,31 +74,31 @@ export default async function ResetPasswordPage({
                         <input type="hidden" name="token" value={token} />
 
                         <div className="space-y-2">
-                            <label className="block text-sm font-semibold text-slate-300">Nueva Contraseña</label>
+                            <label className="block text-sm font-semibold text-slate-600 dark:text-slate-300">Nueva Contraseña</label>
                             <div className="relative">
-                                <Key className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
+                                <Key className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
                                 <input
                                     type="password"
                                     name="password"
                                     required
                                     minLength={6}
                                     autoComplete="new-password"
-                                    className="w-full bg-[rgba(0,0,0,0.3)] border border-[var(--color-glass-border)] rounded-lg pl-10 pr-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-[var(--color-primary)] focus:ring-1 focus:ring-[var(--color-primary)] transition-all"
+                                    className="w-full bg-slate-50 dark:bg-[rgba(0,0,0,0.3)] border border-slate-200 dark:border-[var(--color-glass-border)] rounded-lg pl-10 pr-4 py-3 text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:border-[var(--color-primary)] focus:ring-1 focus:ring-[var(--color-primary)] transition-all"
                                     placeholder="Mínimo 6 caracteres"
                                 />
                             </div>
                         </div>
 
                         <div className="space-y-2">
-                            <label className="block text-sm font-semibold text-slate-300">Confirmar Contraseña</label>
+                            <label className="block text-sm font-semibold text-slate-600 dark:text-slate-300">Confirmar Contraseña</label>
                             <div className="relative">
-                                <Key className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
+                                <Key className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
                                 <input
                                     type="password"
                                     name="confirm"
                                     required
                                     autoComplete="new-password"
-                                    className="w-full bg-[rgba(0,0,0,0.3)] border border-[var(--color-glass-border)] rounded-lg pl-10 pr-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-[var(--color-primary)] focus:ring-1 focus:ring-[var(--color-primary)] transition-all"
+                                    className="w-full bg-slate-50 dark:bg-[rgba(0,0,0,0.3)] border border-slate-200 dark:border-[var(--color-glass-border)] rounded-lg pl-10 pr-4 py-3 text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:border-[var(--color-primary)] focus:ring-1 focus:ring-[var(--color-primary)] transition-all"
                                     placeholder="Repite tu contraseña"
                                 />
                             </div>

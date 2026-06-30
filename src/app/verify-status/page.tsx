@@ -21,17 +21,17 @@ export default async function VerifyStatusPage() {
                 {/* Decorative background blur */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-emerald-500/10 blur-[100px] rounded-full"></div>
                 
-                <div className="relative glass-effect p-10 rounded-3xl border border-emerald-500/20 text-center space-y-8 shadow-2xl">
+                    <div className="relative bg-white dark:bg-[rgba(10,14,26,0.7)] backdrop-blur-xl p-10 rounded-3xl border border-slate-200 dark:border-emerald-500/20 text-center space-y-8 shadow-2xl">
                     <div className="inline-flex items-center justify-center w-20 h-20 bg-emerald-500/10 rounded-full border border-emerald-500/20 shadow-[0_0_30px_rgba(16,185,129,0.1)]">
                         <Mail className="w-10 h-10 text-emerald-400" />
                     </div>
 
                     <div className="space-y-3">
-                        <h1 className="text-3xl font-black text-white tracking-tight italic">¡CASI LISTO!</h1>
+                        <h1 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight italic">¡CASI LISTO!</h1>
                         <div className="h-1 w-12 bg-emerald-500 mx-auto rounded-full"></div>
-                        <p className="text-slate-400 font-medium leading-relaxed">
+                        <p className="text-slate-500 dark:text-slate-400 font-medium leading-relaxed">
                             Hemos enviado un enlace de verificación a: <br />
-                            <span className="text-white font-bold">{user.email}</span>
+                            <span className="text-slate-900 dark:text-white font-bold">{user.email}</span>
                         </p>
                     </div>
 
@@ -49,7 +49,7 @@ export default async function VerifyStatusPage() {
                         <VerifyStatusClient email={user.email} />
                         
                         <div className="flex flex-col gap-2">
-                            <Link href="/" className="text-slate-500 hover:text-white text-xs font-bold transition-colors">
+                            <Link href="/" className="text-slate-500 hover:text-sky-500 dark:hover:text-white text-xs font-bold transition-colors">
                                 Volver al inicio
                             </Link>
                         </div>

@@ -53,7 +53,7 @@ export default function RegisterForm({ courseId, initialError }: RegisterFormPro
     }
 
     const fieldClass = (hasError: boolean) =>
-        `w-full bg-[#05070f] border rounded-lg pl-10 pr-4 py-3 text-xs text-white placeholder-slate-700 focus:outline-none focus:border-sky-500 transition-all font-semibold ${errors.email ? 'border-red-500/60' : 'border-slate-800'}`;
+        `w-full bg-slate-50 dark:bg-[#05070f] border rounded-lg pl-10 pr-4 py-3 text-xs text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:border-sky-500 transition-all font-semibold ${hasError ? 'border-red-500/60' : 'border-slate-200 dark:border-slate-800'}`;
 
     return (
         <form onSubmit={handleSubmit} noValidate className="space-y-5">
@@ -72,7 +72,7 @@ export default function RegisterForm({ courseId, initialError }: RegisterFormPro
             <div className="space-y-2">
                 <label className="block text-xs font-black text-slate-500 uppercase tracking-widest">Nombre Completo</label>
                 <div className="relative">
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-650">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
                         <svg width="16" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
                     </span>
                     <input
@@ -90,7 +90,7 @@ export default function RegisterForm({ courseId, initialError }: RegisterFormPro
             <div className="space-y-2">
                 <label className="block text-xs font-black text-slate-500 uppercase tracking-widest">Correo Electrónico</label>
                 <div className="relative">
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-650">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
                         <svg width="16" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
                     </span>
                     <input
@@ -108,7 +108,7 @@ export default function RegisterForm({ courseId, initialError }: RegisterFormPro
             <div className="space-y-2">
                 <label className="block text-xs font-black text-slate-500 uppercase tracking-widest">Contraseña</label>
                 <div className="relative">
-                    <Key className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-650" size={16} />
+                    <Key className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
                     <input
                         type={showPassword ? "text" : "password"}
                         name="password"
@@ -121,7 +121,7 @@ export default function RegisterForm({ courseId, initialError }: RegisterFormPro
                             if (errors.password) setErrors(p => ({ ...p, password: undefined }));
                         }}
                     />
-                    <button type="button" onClick={() => setShowPassword(v => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-600">
+                    <button type="button" onClick={() => setShowPassword(v => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300">
                         {showPassword ? <EyeOff size={14} /> : <Eye size={14} />}
                     </button>
                 </div>
@@ -131,7 +131,7 @@ export default function RegisterForm({ courseId, initialError }: RegisterFormPro
             <div className="space-y-2">
                 <label className="block text-xs font-black text-slate-500 uppercase tracking-widest">Confirmar Contraseña</label>
                 <div className="relative">
-                    <Key className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-650" size={16} />
+                    <Key className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
                     <input
                         type={showPassword ? "text" : "password"}
                         name="confirm"

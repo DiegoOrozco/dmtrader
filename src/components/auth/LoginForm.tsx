@@ -86,12 +86,12 @@ export default function LoginForm({ returnUrl, initialError, successMessage, goo
                     Correo Electrónico
                 </label>
                 <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-650" size={16} />
+                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
                     <input
                         type="email"
                         name="email"
                         autoComplete="email"
-                        className={`w-full bg-[#05070f] border rounded-lg pl-10 pr-4 py-3 text-xs text-white placeholder-slate-700 focus:outline-none focus:border-sky-500 transition-all font-semibold ${errors.email ? 'border-red-500/60' : 'border-slate-800'}`}
+                        className={`w-full bg-slate-50 dark:bg-[#05070f] border rounded-lg pl-10 pr-4 py-3 text-xs text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:border-sky-500 transition-all font-semibold ${errors.email ? 'border-red-500/60' : 'border-slate-200 dark:border-slate-800'}`}
                         placeholder="tunombre@ejemplo.com"
                         onChange={() => errors.email && setErrors(prev => ({ ...prev, email: undefined }))}
                     />
@@ -111,18 +111,18 @@ export default function LoginForm({ returnUrl, initialError, successMessage, goo
                     </label>
                     <Link
                         href="/forgot-password"
-                        className="text-[10px] text-sky-400 hover:text-white font-black uppercase tracking-wider transition-colors hover:underline"
+                        className="text-[10px] text-sky-400 hover:text-sky-600 dark:hover:text-white font-black uppercase tracking-wider transition-colors hover:underline"
                     >
                         ¿Olvidaste tu contraseña?
                     </Link>
                 </div>
                 <div className="relative">
-                    <Key className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-650" size={16} />
+                    <Key className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
                     <input
                         type="password"
                         name="password"
                         autoComplete="current-password"
-                        className={`w-full bg-[#05070f] border rounded-lg pl-10 pr-4 py-3 text-xs text-white placeholder-slate-700 focus:outline-none focus:border-sky-500 transition-all font-semibold ${errors.password ? 'border-red-500/60' : 'border-slate-800'}`}
+                        className={`w-full bg-slate-50 dark:bg-[#05070f] border rounded-lg pl-10 pr-4 py-3 text-xs text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:border-sky-500 transition-all font-semibold ${errors.password ? 'border-red-500/60' : 'border-slate-200 dark:border-slate-800'}`}
                         placeholder="••••••••"
                         onChange={() => errors.password && setErrors(prev => ({ ...prev, password: undefined }))}
                     />
