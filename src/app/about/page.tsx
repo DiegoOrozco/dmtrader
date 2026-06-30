@@ -71,11 +71,11 @@ export default async function AboutPage() {
                             <span className="text-[10px] font-bold uppercase tracking-widest text-sky-500">Fundadora & Mentora</span>
                         </div>
                         
-                        <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-[#0f172a] dark:text-white">
                             {aboutConfig.name}
                         </h1>
                         
-                        <p className="text-lg md:text-xl font-bold text-slate-500 dark:text-slate-400 leading-tight">
+                        <p className="text-lg md:text-xl font-bold text-[#64748b] dark:text-[#94a3b8] leading-tight">
                             {aboutConfig.title}
                         </p>
                         
