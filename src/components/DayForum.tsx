@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 import { MessageSquare, Send, User, CornerDownRight, HelpCircle, Trash2, Clock, AlertCircle, ChevronDown, ChevronRight, Hash } from "lucide-react";
-
 import { createPost, createReply, deletePost, deleteReply } from "@/actions/forum";
 
 interface DayForumProps {
@@ -187,44 +186,46 @@ export default function DayForum({ day, studentId, courseId, userRole, onPostCre
         }
     });
 
-    // Render a single post with its replies (recursive-ready)
+    // Render a single post with its replies
     const renderPost = (post: any, isNested = false) => (
-        <div key={post.id} className={`${isNested ? "ml-4 sm:ml-8 border-l-2 border-slate-700/50 pl-4" : ""} flex flex-col gap-2`}>
-            <div className="bg-[var(--card-bg)] p-4 rounded-xl border border-[var(--border-color)] flex flex-col gap-2 hover:border-[var(--color-primary)]/20 transition-colors shadow-sm">
-                <div className="flex items-center gap-3">
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-xs flex-shrink-0 ${post.user?.role === "ADMIN" ? "bg-purple-600" : "bg-[var(--color-primary)]"}`}>
-                        <User size={14} />
-                    </div>
-                    <div className="flex flex-col">
-                        <span className="font-bold text-[var(--text-primary)] text-sm flex items-center gap-2">
-                            {post.user?.name || "Estudiante"}
-                            {post.user?.role === "ADMIN" && <span className="text-[9px] bg-purple-500/20 text-purple-400 px-1.5 py-[1px] rounded uppercase tracking-wider">Profesor</span>}
-                        </span>
-                        <span className="text-[10px] text-[var(--text-muted)]">{formatDate(post.createdAt)}</span>
+        <div key={post.id} className={`${isNested ? "ml-4 sm:ml-8 border-l border-slate-800 pl-4" : ""} flex flex-col gap-2`}>
+            <div className="bg-[#0a0e1a] p-4 rounded-xl border border-slate-800 flex flex-col gap-2 hover:border-sky-500/30 transition-colors shadow-sm">
+                <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                        <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white font-black text-xs flex-shrink-0 ${post.user?.role === "ADMIN" ? "bg-amber-500" : "bg-sky-500"}`}>
+                            <User size={14} />
+                        </div>
+                        <div className="flex flex-col">
+                            <span className="font-black text-white text-xs flex items-center gap-2 uppercase tracking-wider">
+                                {post.user?.name || "Estudiante"}
+                                {post.user?.role === "ADMIN" && <span className="text-[8px] bg-amber-500/20 text-amber-400 px-1.5 py-[1px] rounded uppercase tracking-wider">Profesor</span>}
+                            </span>
+                            <span className="text-[9px] text-slate-500 font-bold uppercase tracking-wider mt-0.5">{formatDate(post.createdAt)}</span>
+                        </div>
                     </div>
                 </div>
 
-                <p className="text-sm text-[var(--text-secondary)] leading-relaxed whitespace-pre-wrap pl-11">
+                <p className="text-xs text-slate-300 leading-relaxed font-semibold pl-11">
                     {isNested ? post.content : getPostContent(post.content)}
                 </p>
 
-                <div className="flex justify-end gap-3">
+                <div className="flex justify-end gap-3 border-t border-slate-800/40 pt-2 mt-1">
                     <button
                         onClick={() => {
                             setReplyingTo(replyingTo === post.id ? null : post.id);
                             setReplyText("");
                         }}
-                        className="text-xs font-semibold text-slate-500 hover:text-[var(--color-primary)] transition-colors flex items-center gap-1"
+                        className="text-[9px] font-black uppercase tracking-wider text-slate-500 hover:text-sky-400 transition-colors flex items-center gap-1"
                     >
-                        <CornerDownRight size={12} />
+                        <CornerDownRight size={10} />
                         Responder
                     </button>
                     {isAdmin && (
                         <button
                             onClick={() => handleDeletePost(post.id)}
-                            className="text-xs font-semibold text-rose-500/50 hover:text-rose-500 transition-colors flex items-center gap-1"
+                            className="text-[9px] font-black uppercase tracking-wider text-rose-500/50 hover:text-rose-500 transition-colors flex items-center gap-1"
                         >
-                            <Trash2 size={12} />
+                            <Trash2 size={10} />
                             Eliminar
                         </button>
                     )}
@@ -237,13 +238,13 @@ export default function DayForum({ day, studentId, courseId, userRole, onPostCre
                             value={replyText}
                             onChange={(e) => setReplyText(e.target.value)}
                             placeholder="Escribe tu respuesta..."
-                            className="flex-grow bg-[var(--background)] border border-[var(--border-color)] rounded-lg p-3 text-sm text-[var(--text-primary)] focus:outline-none focus:border-[var(--color-primary)] min-h-[50px] resize-y"
+                            className="flex-grow bg-[#05070f] border border-slate-800 rounded-lg p-3 text-xs text-white focus:outline-none focus:border-sky-500 placeholder:text-slate-700 min-h-[50px] resize-y font-semibold"
                             required
                         />
                         <button
                             type="submit"
                             disabled={isReplying || !replyText.trim()}
-                            className="bg-[var(--color-primary)] hover:bg-blue-600 disabled:opacity-50 text-white p-3 rounded-lg flex items-center justify-center h-fit self-end"
+                            className="bg-sky-600 hover:bg-sky-500 disabled:opacity-50 text-white p-3 rounded-lg flex items-center justify-center h-fit self-end"
                         >
                             <Send size={14} />
                         </button>
@@ -253,30 +254,30 @@ export default function DayForum({ day, studentId, courseId, userRole, onPostCre
 
             {/* Replies */}
             {(post.replies || []).map((reply: any) => (
-                <div key={reply.id} className="ml-4 sm:ml-8 border-l-2 border-[var(--color-primary)]/20 pl-4">
-                    <div className="bg-[var(--card-bg)] p-3 rounded-xl border border-[var(--border-color)] flex flex-col gap-2 hover:border-[var(--color-primary)]/20 transition-colors shadow-sm">
+                <div key={reply.id} className="ml-4 sm:ml-8 border-l border-slate-800 pl-4">
+                    <div className="bg-[#0a0e1a]/60 p-3 rounded-xl border border-slate-850 flex flex-col gap-2 hover:border-sky-500/20 transition-colors shadow-sm">
                         <div className="flex items-center gap-2">
-                            <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs flex-shrink-0 ${reply.user?.role === "ADMIN" ? "bg-purple-600 text-white" : "bg-slate-700 text-slate-300"}`}>
+                            <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs flex-shrink-0 ${reply.user?.role === "ADMIN" ? "bg-amber-500 text-white" : "bg-slate-800 text-slate-300"}`}>
                                 <User size={12} />
                             </div>
                             <div className="flex flex-col">
-                                <span className="font-semibold text-[var(--text-primary)] text-xs flex items-center gap-2">
+                                <span className="font-black text-white text-[11px] uppercase tracking-wider flex items-center gap-2">
                                     {reply.user?.name || "Estudiante"}
-                                    {reply.user?.role === "ADMIN" && <span className="text-[8px] bg-purple-500/20 text-purple-400 px-1 py-[1px] rounded uppercase">Profesor</span>}
+                                    {reply.user?.role === "ADMIN" && <span className="text-[8px] bg-amber-500/20 text-amber-400 px-1 py-[1px] rounded uppercase">Profesor</span>}
                                 </span>
-                                <span className="text-[10px] text-[var(--text-muted)]">{formatDate(reply.createdAt)}</span>
+                                <span className="text-[9px] text-slate-500 font-bold uppercase tracking-wider">{formatDate(reply.createdAt)}</span>
                             </div>
                         </div>
-                        <p className="text-sm text-[var(--text-secondary)] leading-relaxed whitespace-pre-wrap pl-9">{reply.content}</p>
+                        <p className="text-xs text-slate-300 font-medium leading-relaxed pl-9">{reply.content}</p>
 
                         {/* Reply to reply */}
-                        <div className="flex justify-end gap-3">
+                        <div className="flex justify-end gap-3 border-t border-slate-850/40 pt-2 mt-1">
                             <button
                                 onClick={() => {
                                     setReplyingTo(replyingTo === `reply-${reply.id}` ? null : `reply-${reply.id}`);
                                     setReplyText("");
                                 }}
-                                className="text-[10px] font-semibold text-slate-500 hover:text-[var(--color-primary)] transition-colors flex items-center gap-1"
+                                className="text-[9px] font-black uppercase tracking-wider text-slate-500 hover:text-sky-400 transition-colors flex items-center gap-1"
                             >
                                 <CornerDownRight size={10} />
                                 Responder
@@ -284,7 +285,7 @@ export default function DayForum({ day, studentId, courseId, userRole, onPostCre
                             {isAdmin && (
                                 <button
                                     onClick={() => handleDeleteReply(reply.id)}
-                                    className="text-[10px] font-semibold text-rose-500/50 hover:text-rose-500 transition-colors flex items-center gap-1"
+                                    className="text-[9px] font-black uppercase tracking-wider text-rose-500/50 hover:text-rose-500 transition-colors flex items-center gap-1"
                                 >
                                     <Trash2 size={10} />
                                     Eliminar
@@ -298,13 +299,13 @@ export default function DayForum({ day, studentId, courseId, userRole, onPostCre
                                     value={replyText}
                                     onChange={(e) => setReplyText(e.target.value)}
                                     placeholder={`Respondiendo a ${reply.user?.name || "Estudiante"}...`}
-                                    className="flex-grow bg-[rgba(0,0,0,0.5)] border border-slate-700/50 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-[var(--color-primary)] min-h-[40px] resize-y"
+                                    className="flex-grow bg-[#05070f] border border-slate-800 rounded-lg p-2 text-xs text-white focus:outline-none focus:border-sky-500 min-h-[40px] placeholder:text-slate-700 resize-y font-semibold"
                                     required
                                 />
                                 <button
                                     type="submit"
                                     disabled={isReplying || !replyText.trim()}
-                                    className="bg-[var(--color-primary)] hover:bg-blue-600 disabled:opacity-50 text-white p-2 rounded-lg flex items-center justify-center h-fit self-end"
+                                    className="bg-sky-600 hover:bg-sky-500 disabled:opacity-50 text-white p-2 rounded-lg flex items-center justify-center h-fit self-end"
                                 >
                                     <Send size={12} />
                                 </button>
@@ -317,21 +318,21 @@ export default function DayForum({ day, studentId, courseId, userRole, onPostCre
     );
 
     return (
-        <div className="flex flex-col gap-6 mt-8 p-6 glass-effect rounded-2xl border border-[var(--color-glass-border)] relative overflow-hidden">
+        <div className="flex flex-col gap-6 mt-8 p-6 bg-[#0a0e1a] rounded-2xl border border-slate-800 shadow-2xl relative overflow-hidden">
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 border-b border-slate-800 pb-4">
                 <div>
-                    <h3 className="text-xl font-bold text-white flex items-center gap-2">
-                        <MessageSquare size={20} className="text-purple-400" />
+                    <h3 className="text-md font-black text-white uppercase tracking-wider flex items-center gap-2">
+                        <MessageSquare size={18} className="text-sky-400" />
                         Foro de Discusión
                     </h3>
-                    <p className="text-sm text-slate-400 mt-1 max-w-lg">
+                    <p className="text-xs text-slate-400 mt-1 max-w-lg font-medium">
                         Participa en la discusión. Tu post debe contener al menos 50 caracteres para ser válido.
                     </p>
                 </div>
                 {day.dueDate && (
-                    <div className="flex items-center gap-2 bg-rose-500/10 text-rose-400 px-3 py-1.5 rounded-lg border border-rose-500/20 whitespace-nowrap text-sm font-semibold shadow-inner">
-                        <Clock size={16} />
+                    <div className="flex items-center gap-2 bg-rose-500/10 text-rose-400 px-3 py-1.5 rounded-lg border border-rose-500/20 whitespace-nowrap text-xs font-black uppercase tracking-wider">
+                        <Clock size={14} />
                         {timeLeft}
                     </div>
                 )}
@@ -339,15 +340,15 @@ export default function DayForum({ day, studentId, courseId, userRole, onPostCre
 
             {/* Input Area */}
             {timeLeft !== "Plazo finalizado" ? (
-                <div className="bg-black/20 p-4 rounded-xl border border-slate-700/50">
+                <div className="bg-black/20 p-4 rounded-xl border border-slate-800">
                     <form onSubmit={handlePost} className="flex flex-col gap-4">
                         {topics.length > 0 && (
                             <div className="space-y-2">
-                                <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Selecciona un Tema</label>
+                                <label className="text-[9px] font-black text-slate-500 uppercase tracking-widest">Selecciona un Tema</label>
                                 <select
                                     value={selectedTopic}
                                     onChange={(e) => setSelectedTopic(e.target.value)}
-                                    className="w-full bg-[rgba(255,255,255,0.05)] border border-slate-700/50 rounded-lg px-3 py-3 text-sm text-white focus:outline-none focus:border-purple-500 transition-all"
+                                    className="w-full bg-[#05070f] border border-slate-800 rounded-lg px-3 py-3 text-xs text-white focus:outline-none focus:border-sky-500 transition-all font-semibold"
                                 >
                                     <option value="" disabled>-- Elige con qué tema vas a participar --</option>
                                     {topics.map((t: string, i: number) => (
@@ -361,28 +362,28 @@ export default function DayForum({ day, studentId, courseId, userRole, onPostCre
                             value={newPost}
                             onChange={(e) => setNewPost(e.target.value)}
                             placeholder="Escribe tu aporte principal aquí. (Mínimo 50 caracteres)..."
-                            className="w-full bg-[rgba(0,0,0,0.3)] border border-slate-700/50 rounded-lg p-4 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 transition-all min-h-[120px] resize-y"
+                            className="w-full bg-[#05070f] border border-slate-800 rounded-lg p-4 text-xs text-white placeholder-slate-700 focus:outline-none focus:border-sky-500 transition-all min-h-[120px] resize-y font-semibold"
                             required
                         />
                         <div className="flex justify-between items-center mt-1">
-                            <span className={`text-xs ${newPost.length < 50 ? 'text-rose-400' : 'text-emerald-400'}`}>
+                            <span className={`text-[10px] font-black uppercase tracking-wider ${newPost.length < 50 ? 'text-rose-400' : 'text-emerald-400'}`}>
                                 {newPost.length} / 50 caracteres mínimos
                             </span>
                             <button
                                 type="submit"
                                 disabled={isPosting || newPost.trim().length < 50 || (topics.length > 0 && !selectedTopic)}
-                                className="bg-purple-600 hover:bg-purple-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold py-2 px-6 rounded-lg transition-all duration-300 text-sm flex items-center gap-2 shadow-lg shadow-purple-900/20"
+                                className="bg-sky-600 hover:bg-sky-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-black text-xs uppercase tracking-wider py-2.5 px-6 rounded-lg transition-all duration-300 flex items-center gap-2"
                             >
                                 {isPosting ? "Publicando..." : "Publicar Aporte"}
-                                <Send size={14} />
+                                <Send size={12} />
                             </button>
                         </div>
                     </form>
                 </div>
             ) : (
-                <div className="flex items-center gap-3 bg-orange-500/10 text-orange-400 p-4 rounded-xl border border-orange-500/20">
-                    <AlertCircle size={20} />
-                    <span className="text-sm font-medium">El plazo para participar en este foro ha finalizado.</span>
+                <div className="flex items-center gap-3 bg-amber-500/10 text-amber-400 p-4 rounded-xl border border-amber-500/20">
+                    <AlertCircle size={18} />
+                    <span className="text-xs font-black uppercase tracking-wider">El plazo para participar en este foro ha finalizado.</span>
                 </div>
             )}
 
@@ -396,31 +397,31 @@ export default function DayForum({ day, studentId, courseId, userRole, onPostCre
                             const isExpanded = expandedTopics.includes(topicKey);
 
                             return (
-                                <div key={topicKey} className="rounded-xl border border-slate-700/50 overflow-hidden bg-black/20">
+                                <div key={topicKey} className="rounded-xl border border-slate-800 overflow-hidden bg-black/20">
                                     {/* Topic Header */}
                                     <button
                                         onClick={() => toggleTopic(topicKey)}
-                                        className="w-full flex items-center justify-between p-4 bg-white/[0.02] hover:bg-white/[0.04] transition-colors text-left"
+                                        className="w-full flex items-center justify-between p-4 bg-white/[0.01] hover:bg-white/[0.03] transition-colors text-left border-b border-slate-850"
                                     >
                                         <div className="flex items-center gap-3">
-                                            <div className="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center">
-                                                <Hash size={16} className="text-purple-400" />
+                                            <div className="w-8 h-8 rounded-lg bg-sky-500/10 border border-sky-500/20 flex items-center justify-center">
+                                                <Hash size={14} className="text-sky-400" />
                                             </div>
                                             <div>
-                                                <h4 className="text-sm font-bold text-white">{topic}</h4>
-                                                <span className="text-[10px] text-slate-500">{topicPosts.length} {topicPosts.length === 1 ? "participación" : "participaciones"}</span>
+                                                <h4 className="text-xs font-black text-white uppercase tracking-wider">{topic}</h4>
+                                                <span className="text-[9px] text-slate-500 font-bold uppercase tracking-wider mt-0.5 block">{topicPosts.length} {topicPosts.length === 1 ? "participación" : "participaciones"}</span>
                                             </div>
                                         </div>
-                                        {isExpanded ? <ChevronDown size={18} className="text-slate-400" /> : <ChevronRight size={18} className="text-slate-400" />}
+                                        {isExpanded ? <ChevronDown size={16} className="text-slate-400" /> : <ChevronRight size={16} className="text-slate-400" />}
                                     </button>
 
                                     {/* Topic Thread */}
                                     {isExpanded && (
-                                        <div className="p-4 flex flex-col gap-3 border-t border-slate-700/30 animate-in fade-in slide-in-from-top-2 duration-200">
+                                        <div className="p-4 flex flex-col gap-3 border-t border-slate-800/30 animate-in fade-in slide-in-from-top-2 duration-200 bg-[#05070f]/40">
                                             {topicPosts.length > 0 ? (
                                                 topicPosts.map((post: any) => renderPost(post))
                                             ) : (
-                                                <p className="text-xs text-slate-500 italic text-center py-4">Nadie ha participado en este tema aún. ¡Sé el primero!</p>
+                                                <p className="text-[10px] font-black uppercase tracking-wider text-slate-600 italic text-center py-4">Nadie ha participado en este tema aún. ¡Sé el primero!</p>
                                             )}
                                         </div>
                                     )}
@@ -428,24 +429,24 @@ export default function DayForum({ day, studentId, courseId, userRole, onPostCre
                             );
                         })}
 
-                        {/* Ungrouped posts (legacy or without topic) */}
+                        {/* Ungrouped posts */}
                         {ungroupedPosts.length > 0 && (
-                            <div className="rounded-xl border border-slate-700/50 overflow-hidden bg-black/20">
-                                <div className="p-4 bg-white/[0.02]">
-                                    <h4 className="text-sm font-bold text-slate-400">Otros Aportes</h4>
+                            <div className="rounded-xl border border-slate-800 overflow-hidden bg-black/20">
+                                <div className="p-4 bg-white/[0.01] border-b border-slate-850">
+                                    <h4 className="text-xs font-black text-slate-400 uppercase tracking-wider">Otros Aportes</h4>
                                 </div>
-                                <div className="p-4 flex flex-col gap-3 border-t border-slate-700/30">
+                                <div className="p-4 flex flex-col gap-3">
                                     {ungroupedPosts.map((post: any) => renderPost(post))}
                                 </div>
                             </div>
                         )}
                     </>
                 ) : (
-                    // No topics defined - flat list
+                    // No topics defined
                     allPosts.length > 0 ? (
                         allPosts.map((post: any) => renderPost(post))
                     ) : (
-                        <div className="text-sm text-slate-500 italic p-8 text-center border border-dashed border-slate-700/50 rounded-xl bg-black/20">
+                        <div className="text-[10px] font-black uppercase tracking-wider text-slate-500 italic p-8 text-center border border-dashed border-slate-800 rounded-xl bg-black/20">
                             Nadie ha participado aún. ¡Sé el primero en iniciar la discusión!
                         </div>
                     )

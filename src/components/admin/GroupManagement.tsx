@@ -135,7 +135,7 @@ export default function GroupManagement({ courseId }: { courseId: string }) {
                         <button
                             onClick={handleCreateGroup}
                             disabled={isCreating || !newGroupName.trim()}
-                            className="p-2 bg-[var(--color-primary)] text-white rounded-xl hover:bg-blue-600 disabled:opacity-50 transition-all font-bold text-sm flex items-center justify-center min-w-[40px]"
+                            className="p-2 bg-[var(--color-primary)] text-white rounded-xl hover:bg-sky-600 disabled:opacity-50 transition-all font-bold text-sm flex items-center justify-center min-w-[40px]"
                         >
                             {isCreating ? <Loader2 className="animate-spin" size={18} /> : <Plus size={18} />}
                         </button>

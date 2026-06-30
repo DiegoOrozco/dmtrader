@@ -46,7 +46,7 @@ export default function ProfileClient({ user }: ProfileClientProps) {
             <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
                 {/* Header */}
                 <div className="flex items-center gap-6">
-                    <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-[var(--color-primary)] to-blue-400 flex items-center justify-center text-white shadow-2xl shadow-blue-500/20">
+                    <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-[var(--color-primary)] to-sky-400 flex items-center justify-center text-white shadow-2xl shadow-sky-500/20">
                         <User size={40} />
                     </div>
                     <div>
@@ -94,7 +94,7 @@ export default function ProfileClient({ user }: ProfileClientProps) {
                                         />
                                     </div>
                                     {isGoogleUser && (
-                                        <p className="mt-2 text-[10px] text-blue-400 font-bold flex items-center gap-1.5 ml-1">
+                                        <p className="mt-2 text-[10px] text-sky-400 font-bold flex items-center gap-1.5 ml-1">
                                             <Shield size={12} />
                                             AUTENTICADM CON GOOGLE - CORREO PROTEGIDO
                                         </p>
@@ -124,7 +124,7 @@ export default function ProfileClient({ user }: ProfileClientProps) {
                             <button
                                 type="submit"
                                 disabled={isPending}
-                                className="w-full flex items-center justify-center gap-2 bg-[var(--color-primary)] hover:bg-blue-600 disabled:opacity-50 text-white font-black uppercase tracking-widest py-4 rounded-2xl transition-all shadow-xl shadow-blue-500/20 active:scale-[0.98]"
+                                className="w-full flex items-center justify-center gap-2 bg-[var(--color-primary)] hover:bg-sky-600 disabled:opacity-50 text-white font-black uppercase tracking-widest py-4 rounded-2xl transition-all shadow-xl shadow-sky-500/20 active:scale-[0.98]"
                             >
                                 {isPending ? (
                                     <>
@@ -148,7 +148,7 @@ export default function ProfileClient({ user }: ProfileClientProps) {
                             <div className="space-y-4">
                                 <div className="flex justify-between items-center text-sm">
                                     <span className="text-[var(--text-secondary)] font-medium">Autenticación</span>
-                                    <span className={`px-2 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider ${isGoogleUser ? "bg-blue-500/10 text-blue-400 border border-blue-500/20" : "bg-white/5 text-slate-400 border border-white/5"}`}>
+                                    <span className={`px-2 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider ${isGoogleUser ? "bg-sky-500/10 text-sky-400 border border-sky-500/20" : "bg-white/5 text-slate-400 border border-white/5"}`}>
                                         {isGoogleUser ? "Google Auth" : "Email / Pass"}
                                     </span>
                                 </div>
@@ -161,7 +161,7 @@ export default function ProfileClient({ user }: ProfileClientProps) {
                             </div>
                         </div>
 
-                        <div className="p-6 rounded-3xl bg-gradient-to-br from-indigo-500/10 to-purple-500/10 border border-indigo-500/20 shadow-lg">
+                        <div className="p-6 rounded-3xl bg-gradient-to-br from-sky-500/10 to-sky-600/5 border border-sky-500/20 shadow-lg">
                             <h4 className="text-white font-bold mb-2">Seguridad de tu Cuenta</h4>
                             <p className="text-xs text-slate-400 leading-relaxed font-medium">
                                 Si cambias tu correo electrónico, recibirás un enlace de confirmación. Tu cuenta seguirá vinculada a tu nombre y progreso actual.

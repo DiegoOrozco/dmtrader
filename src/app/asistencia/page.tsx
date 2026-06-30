@@ -95,8 +95,8 @@ export default function StudentCheckInPage() {
         return (
             <div className="min-h-screen bg-[var(--background)] flex flex-col items-center justify-center p-6 text-center">
                 <div className="glass-effect p-12 rounded-3xl border border-white/10 max-w-md w-full space-y-6">
-                    <div className="w-20 h-20 bg-orange-500/10 rounded-full flex items-center justify-center mx-auto border border-orange-500/20">
-                        <AlertCircle className="text-orange-400" size={40} />
+                    <div className="w-20 h-20 bg-amber-500/10 rounded-full flex items-center justify-center mx-auto border border-amber-500/20">
+                        <AlertCircle className="text-amber-400" size={40} />
                     </div>
                     <h1 className="text-2xl font-black text-white">Sin Sesión Activa</h1>
                     <p className="text-slate-400">Pídele al profesor que genere una clave de asistencia.</p>
@@ -128,7 +128,7 @@ export default function StudentCheckInPage() {
                         <div className={`p-4 rounded-2xl flex gap-3 items-center border ${message.type === "success"
                             ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20 shadow-[0_0_15px_rgba(16,185,129,0.1)]"
                             : message.type === "info"
-                                ? "bg-blue-500/10 text-blue-400 border-blue-500/20 shadow-[0_0_15px_rgba(59,130,246,0.1)]"
+                                ? "bg-sky-500/10 text-sky-400 border-sky-500/20 shadow-[0_0_15px_rgba(59,130,246,0.1)]"
                                 : "bg-red-500/10 text-red-500 border-red-500/20"
                             }`}>
                             {message.type === "success" ? <CheckCircle size={20} /> : message.type === "info" ? <CheckCircle size={20} /> : <AlertCircle size={20} />}
@@ -220,7 +220,7 @@ export default function StudentCheckInPage() {
                         <button
                             type="submit"
                             disabled={isLoading || !selectedStudent || !code || checkInStep >= 2}
-                            className={`w-full ${checkInStep >= 2 ? 'bg-slate-700' : 'bg-[var(--color-primary)] hover:bg-blue-600'} text-white disabled:opacity-30 font-black py-5 rounded-2xl shadow-xl shadow-blue-500/30 transition-all flex items-center justify-center gap-3 relative overflow-hidden group`}
+                            className={`w-full ${checkInStep >= 2 ? 'bg-slate-700' : 'bg-[var(--color-primary)] hover:bg-sky-600'} text-white disabled:opacity-30 font-black py-5 rounded-2xl shadow-xl shadow-sky-500/30 transition-all flex items-center justify-center gap-3 relative overflow-hidden group`}
                         >
                             {isLoading ? (
                                 <Loader2 className="animate-spin" />

@@ -164,7 +164,7 @@ export default function AdminQAInboxClient({ initialQuestions }: { initialQuesti
                                             <button
                                                 type="submit"
                                                 disabled={!!isReplying}
-                                                className="bg-[var(--color-primary)] hover:bg-blue-600 disabled:opacity-50 text-white font-semibold py-2 px-6 rounded-lg transition-all duration-300 glow-accent text-sm flex items-center gap-2"
+                                                className="bg-[var(--color-primary)] hover:bg-sky-600 disabled:opacity-50 text-white font-semibold py-2 px-6 rounded-lg transition-all duration-300 glow-accent text-sm flex items-center gap-2"
                                             >
                                                 {isReplying === q.id ? "Enviando..." : "Enviar Respuesta y Resolver"}
                                             </button>

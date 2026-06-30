@@ -1,6 +1,6 @@
 "use client";
 
-import { X, Play, FileText, CheckCircle2, Calendar, Layout, Award } from "lucide-react";
+import { X, Play, FileText, Calendar, Layout, Award, Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -55,151 +55,140 @@ export default function CoursePreviewModal({ course, onClose, student }: CourseP
 
     const modalContent = (
         <div 
-            className="fixed inset-0 flex items-center justify-center p-4 md:p-12"
+            className="fixed inset-0 flex items-center justify-center p-4 md:p-8"
             style={{ zIndex: 999999, position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}
         >
-            {/* Backdrop: SOLID BLACK with slight opacity for ultra focus */}
+            {/* Backdrop with elegant premium blur */}
             <div 
-                className="absolute inset-0 bg-[#000000] opacity-98 backdrop-blur-3xl animate-in fade-in duration-500"
+                className="absolute inset-0 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-300"
                 onClick={onClose}
             />
 
             {/* Main Modal Container */}
             <div 
-                className="relative w-full max-w-[1200px] h-full max-h-[90vh] bg-[#09090b] border border-white/10 rounded-[2.5rem] overflow-hidden shadow-[0_0_120px_rgba(0,0,0,1)] flex flex-col lg:flex-row animate-in zoom-in-95 scale-in-95 fade-in duration-500"
+                className="relative w-full max-w-[1150px] h-full max-h-[90vh] bg-slate-900 dark:bg-slate-950 border border-slate-200/20 dark:border-slate-800/80 rounded-2xl overflow-hidden shadow-2xl flex flex-col lg:flex-row animate-in zoom-in-95 duration-300"
                 style={{ fontFamily: "'Space Grotesk', sans-serif" }}
             >
                 {/* Close Button UI */}
                 <button 
                     onClick={onClose}
-                    className="absolute top-8 right-8 z-[100] w-14 h-14 flex items-center justify-center bg-white/5 hover:bg-[#cde641] border border-white/10 rounded-full transition-all duration-500 hover:rotate-90 group shadow-2xl"
+                    className="absolute top-6 right-6 z-[100] w-10 h-10 flex items-center justify-center bg-slate-850 dark:bg-slate-900 hover:bg-sky-500 border border-slate-700/50 rounded-full transition-all group shadow-md"
                 >
-                    <X size={28} className="text-white group-hover:text-black transition-colors" />
+                    <X size={18} className="text-white group-hover:text-white" />
                 </button>
 
                 {/* LEFT SIDE: Identity & Features */}
-                <div className="w-full lg:w-[42%] flex flex-col border-r border-white/5 h-full bg-gradient-to-b from-[#111115] to-[#09090b] overflow-y-auto custom-scrollbar">
+                <div className="w-full lg:w-[42%] flex flex-col border-r border-slate-200/10 dark:border-slate-800/80 h-full bg-slate-950 overflow-y-auto">
                     {/* Course Visual */}
-                    <div className="relative aspect-[16/10] lg:aspect-auto lg:h-[450px] overflow-hidden group">
+                    <div className="relative aspect-[16/10] lg:aspect-auto lg:h-[300px] overflow-hidden group">
                         {course.thumbnail ? (
                             <Image 
                                 src={course.thumbnail} 
                                 alt={course.title} 
                                 fill 
-                                className="object-cover opacity-60 group-hover:scale-105 transition-transform duration-1000"
+                                className="object-cover opacity-80"
                             />
                         ) : (
-                            <div className="w-full h-full flex items-center justify-center bg-white/[0.02]">
-                                <span className="text-[140px] font-black text-white/5 select-none">{course.title.charAt(0)}</span>
+                            <div className="w-full h-full flex items-center justify-center bg-slate-900">
+                                <span className="text-[100px] font-extrabold text-white/5 select-none">{course.title.charAt(0)}</span>
                             </div>
                         )}
                         
-                        {/* Overlay Gradients */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#09090b] via-transparent to-transparent" />
-                        <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 to-transparent" />
 
                         {/* Floating Play Icon */}
                         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                            <div className="w-24 h-24 rounded-full bg-[#cde641] text-black flex items-center justify-center shadow-[0_0_50px_rgba(205,230,65,0.4)] scale-110 animate-pulse-subtle">
-                                <Play size={36} fill="currentColor" strokeWidth={0} />
+                            <div className="w-16 h-16 rounded-full bg-sky-500 text-white flex items-center justify-center shadow-lg shadow-sky-500/30">
+                                <Play size={24} className="ml-1 text-white fill-white" />
                             </div>
                         </div>
                     </div>
 
-                    <div className="p-10 lg:p-14 space-y-10 flex-1 flex flex-col justify-between">
-                        <div className="space-y-6">
-                            <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#cde641]/10 border border-[#cde641]/20 rounded-full">
-                                <span className="text-[9px] font-black uppercase tracking-[0.3em] text-[#cde641] px-1">Academy Pro</span>
+                    <div className="p-8 sm:p-10 space-y-8 flex-1 flex flex-col justify-between">
+                        <div className="space-y-4">
+                            <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-sky-500/10 border border-sky-500/20 rounded-md">
+                                <Star size={11} className="text-sky-400 fill-sky-400" />
+                                <span className="text-[9px] font-bold uppercase tracking-widest text-sky-400">Trading Academy Premium</span>
                             </div>
-                            <h2 className="text-4xl lg:text-5xl font-black tracking-tighter leading-[0.9] text-white">
+                            <h2 className="text-3xl font-extrabold tracking-tight leading-tight text-white">
                                 {course.title}
                             </h2>
-                            <p className="text-lg leading-relaxed text-white/50 font-medium">
-                                {course.description || "Desarrolla habilidades de élite con una metodología basada en proyectos de alto rendimiento."}
+                            <p className="text-sm leading-relaxed text-slate-400">
+                                {course.description || "Iníciate en los mercados financieros globales con Dayan Moraga. Clases estructuradas de alto impacto."}
                             </p>
                         </div>
 
                         {/* Feature Grid */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 py-6 border-y border-white/5">
+                        <div className="grid grid-cols-2 gap-4 py-6 border-y border-slate-200/10 dark:border-slate-800/80">
                             {[
-                                { icon: Layout, text: "Acceso total" },
-                                { icon: Calendar, text: "A tu ritmo" },
-                                { icon: Award, text: "Certificado" },
-                                { icon: Play, text: "Video HD" }
+                                { icon: Layout, text: "Acceso ilimitado" },
+                                { icon: Calendar, text: "Flexibilidad horaria" },
+                                { icon: Award, text: "Especialización" },
+                                { icon: Play, text: "Material Digital" }
                             ].map((f, i) => (
-                                <div key={i} className="flex items-center gap-3">
-                                    <f.icon size={16} className="text-[#cde641]" />
-                                    <span className="text-[10px] font-black uppercase tracking-[0.15em] text-white/40">{f.text}</span>
+                                <div key={i} className="flex items-center gap-2.5">
+                                    <f.icon size={15} className="text-sky-400" />
+                                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">{f.text}</span>
                                 </div>
                             ))}
                         </div>
 
-                        <div className="pt-8">
+                        <div className="pt-4">
                             <Link
                                 href={student ? `/course/${course.id}/unlock` : `/register?courseId=${course.id}`}
-                                className="raw-btn-primary w-full py-7 text-[13px] shadow-[0_25px_50px_rgba(205,230,65,0.25)] hover:bg-[#ffffff] hover:text-black hover:scale-[1.02] active:scale-[0.98] transition-all"
+                                className="raw-btn-primary w-full py-4 text-xs font-bold text-center justify-center rounded-xl transition-all"
                             >
-                                {student ? "INSCRIBIRME AHORA →" : "INICIAR MI CAMINO →"}
+                                {student ? "ADQUIRIR ACCESO AL CURSO →" : "REGISTRARME E INSCRIBIRME →"}
                             </Link>
                         </div>
                     </div>
                 </div>
 
-                {/* RIGHT SIDE: Dynamic Syllabus Content */}
-                <div className="flex-1 flex flex-col h-full bg-[#050508] overflow-hidden">
-                    <div className="p-10 lg:p-14 border-b border-white/5 bg-gradient-to-r from-black/20 to-transparent flex items-center justify-between">
-                        <div className="flex items-center gap-5">
-                            <div className="w-14 h-14 rounded-2xl bg-[#cde641]/5 flex items-center justify-center border border-[#cde641]/20 shadow-inner">
-                                <FileText size={24} className="text-[#cde641]" />
+                {/* RIGHT SIDE: Syllabus/Timeline Timeline */}
+                <div className="flex-1 flex flex-col h-full bg-slate-900 overflow-hidden">
+                    <div className="p-8 sm:p-10 border-b border-slate-200/10 dark:border-slate-800/80 bg-slate-950/40 flex items-center justify-between">
+                        <div className="flex items-center gap-4">
+                            <div className="w-11 h-11 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20">
+                                <FileText size={20} className="text-sky-400" />
                             </div>
                             <div>
-                                <span className="text-[10px] font-black tracking-[0.3em] text-[#cde641] opacity-70 uppercase mb-1 block">Syllabus_</span>
-                                <h3 className="text-xl font-black tracking-tight text-white uppercase">Estructura del Programa</h3>
+                                <span className="text-[9px] font-bold tracking-widest text-sky-400 uppercase mb-0.5 block">Syllabus Académico</span>
+                                <h3 className="text-base font-bold tracking-tight text-white uppercase">Estructura Curricular</h3>
                             </div>
-                        </div>
-                        <div className="hidden lg:flex flex-col items-end opacity-20">
-                            <span className="text-[10px] font-black uppercase tracking-widest">DM TRADER</span>
-                            <span className="text-[8px] font-medium uppercase tracking-widest">Technical Preview v2.1</span>
                         </div>
                     </div>
 
-                    <div className="flex-1 overflow-y-auto p-10 lg:p-14 custom-scrollbar">
-                        <div className="space-y-16">
+                    <div className="flex-1 overflow-y-auto p-8 sm:p-10 custom-scrollbar">
+                        <div className="space-y-12">
                             {course.weeks && course.weeks.length > 0 ? (
                                 course.weeks.map((week, idx) => (
-                                    <div key={week.id} className="relative group/week">
-                                        {/* Vertical connector line */}
-                                        <div className="absolute left-6 top-14 bottom-[-40px] w-px bg-gradient-to-b from-white/10 to-transparent last:hidden" />
+                                    <div key={week.id} className="relative pl-8">
+                                        {/* Vertical Timeline Connection Line */}
+                                        <div className="absolute left-3.5 top-8 bottom-[-32px] w-0.5 bg-gradient-to-b from-sky-500/30 to-transparent last:hidden" />
                                         
-                                        <div className="flex items-center gap-6 mb-10">
-                                            <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-xs font-black text-[#cde641] border border-white/10 shadow-lg group-hover/week:border-[#cde641]/50 transition-all duration-500">
-                                                {String(idx + 1).padStart(2, '0')}
+                                        <div className="flex items-center gap-4 mb-6">
+                                            <div className="w-8 h-8 rounded-lg bg-sky-500/10 flex items-center justify-center text-xs font-bold text-sky-400 border border-sky-500/20 shadow-md">
+                                                {idx + 1}
                                             </div>
-                                            <h4 className="text-sm font-black uppercase tracking-[0.25em] text-white/90">
+                                            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-300">
                                                 {week.title}
                                             </h4>
                                         </div>
 
-                                        <div className="grid grid-cols-1 gap-4 pl-16">
+                                        <div className="grid grid-cols-1 gap-3 pl-2">
                                             {week.days.map((day) => (
                                                 <div 
                                                     key={day.id} 
-                                                    className="flex items-center gap-6 p-6 rounded-3xl border border-white/5 bg-white/[0.01] hover:bg-white/[0.04] hover:border-white/20 transition-all cursor-default group/day"
+                                                    className="flex items-center gap-4 p-4 rounded-xl border border-slate-200/10 dark:border-slate-800/40 bg-slate-950/20 hover:bg-slate-950/55 hover:border-sky-500/20 transition-all cursor-default"
                                                 >
-                                                    <div className="w-10 h-10 rounded-xl bg-black flex items-center justify-center text-[10px] font-black text-white/20 border border-white/5 group-hover/day:border-[#cde641]/40 group-hover/day:text-[#cde641] transition-all">
+                                                    <div className="w-8 h-8 rounded-lg bg-slate-950 flex items-center justify-center text-[10px] font-bold text-slate-500 border border-slate-800">
                                                         {day.order}
                                                     </div>
                                                     <div className="flex-1">
-                                                        <p className="text-sm font-bold text-white/60 group-hover/day:text-white transition-colors">
+                                                        <p className="text-xs font-bold text-slate-300">
                                                             {day.title}
                                                         </p>
-                                                        <div className="flex items-center gap-2 mt-1">
-                                                            <div className="w-1 h-1 rounded-full bg-[#cde641] animate-pulse" />
-                                                            <span className="text-[9px] uppercase tracking-widest text-[#cde641] font-bold opacity-60">Mastery Lesson</span>
-                                                        </div>
-                                                    </div>
-                                                    <div className="opacity-0 group-hover/day:opacity-100 transition-opacity">
-                                                        <Play size={14} className="text-[#cde641]" />
+                                                        <span className="text-[8px] uppercase tracking-wider text-sky-400/80 font-bold block mt-0.5">Módulo de Especialización</span>
                                                     </div>
                                                 </div>
                                             ))}
@@ -207,9 +196,9 @@ export default function CoursePreviewModal({ course, onClose, student }: CourseP
                                     </div>
                                 ))
                             ) : (
-                                <div className="py-40 flex flex-col items-center justify-center opacity-10 text-center">
-                                    <Layout size={80} strokeWidth={0.5} className="mb-8" />
-                                    <p className="text-xs font-black uppercase tracking-[0.5em]">Content Pending</p>
+                                <div className="py-24 flex flex-col items-center justify-center opacity-30 text-center">
+                                    <Layout size={60} strokeWidth={1} className="mb-4 text-slate-400" />
+                                    <p className="text-xs font-bold uppercase tracking-widest text-slate-400">Programa sin módulos publicados</p>
                                 </div>
                             )}
                         </div>

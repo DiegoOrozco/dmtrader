@@ -321,7 +321,7 @@ export default function DayDelivery({ day, studentId, initialSubmission, userRol
 
                         <div
                             className={`relative group flex flex-col items-center justify-center p-8 border-2 border-dashed rounded-2xl transition-all ${isDragging
-                                ? "border-purple-500 bg-purple-500/10 scale-[1.02]"
+                                ? "border-sky-500 bg-sky-500/10 scale-[1.02]"
                                 : (isLate || isNotAvailableYet)
                                     ? "border-slate-800 bg-slate-900/50 opacity-50 cursor-not-allowed pointer-events-none"
                                     : "border-slate-700 hover:border-slate-500 bg-black/20 cursor-pointer"
@@ -339,7 +339,7 @@ export default function DayDelivery({ day, studentId, initialSubmission, userRol
                             />
                             {file ? (
                                 <>
-                                    <div className="w-16 h-16 bg-purple-500/20 rounded-2xl flex items-center justify-center mb-4 text-purple-400 group-hover:scale-110 transition-transform">
+                                    <div className="w-16 h-16 bg-sky-500/20 rounded-2xl flex items-center justify-center mb-4 text-sky-400 group-hover:scale-110 transition-transform">
                                         <FileText size={32} />
                                     </div>
                                     <p className="text-white font-bold mb-1">{file.name}</p>
@@ -347,7 +347,7 @@ export default function DayDelivery({ day, studentId, initialSubmission, userRol
                                 </>
                             ) : (
                                 <>
-                                    <div className="w-16 h-16 bg-slate-800 rounded-2xl flex items-center justify-center mb-4 text-slate-500 group-hover:text-purple-400 group-hover:bg-purple-500/10 transition-all group-hover:scale-110">
+                                    <div className="w-16 h-16 bg-slate-800 rounded-2xl flex items-center justify-center mb-4 text-slate-500 group-hover:text-sky-400 group-hover:bg-sky-500/10 transition-all group-hover:scale-110">
                                         <Upload size={32} />
                                     </div>
                                     <p className="text-slate-300 font-medium mb-1">

@@ -51,11 +51,7 @@ export default function AIGradingUploadModal({ isOpen, onClose, studentName, stu
             const res = await customAIGradeAction(formData);
             if (res.success && res.result) {
                 setLastResult(res.result as GradingResult);
-                if (studentId && dayId) {
-                    alert("Análisis completado. La nota y el feedback se han guardado en la plataforma y los documentos están listos para descargar.");
-                } else {
-                    alert("Análisis completado. Puedes descargar los documentos ahora.");
-                }
+                alert("Análisis completado de forma exitosa.");
             } else {
                 alert("Error: " + res.error);
             }
@@ -77,38 +73,38 @@ export default function AIGradingUploadModal({ isOpen, onClose, studentName, stu
     const modalContent = (
         <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200" onClick={onClose}>
             <div
-                className="relative w-full max-w-lg glass-effect rounded-3xl border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] overflow-hidden animate-in zoom-in-95 duration-200 bg-[#0f172a]"
+                className="relative w-full max-w-lg bg-[#0a0e1a] rounded-3xl border border-slate-800 shadow-[0_0_50px_rgba(0,0,0,0.5)] overflow-hidden animate-in zoom-in-95 duration-200"
                 onClick={(e) => e.stopPropagation()}
             >
-                <div className="p-6 border-b border-white/5 flex justify-between items-start">
+                <div className="p-6 border-b border-slate-800 flex justify-between items-center bg-black/20">
                     <div>
-                        <h3 className="text-xl font-black text-white tracking-tight flex items-center gap-2">
-                            <Sparkles className="text-purple-400" size={20} />
+                        <h3 className="text-xs font-black text-white uppercase tracking-wider flex items-center gap-2">
+                            <Sparkles className="text-sky-400" size={16} />
                             Evaluación IA Personalizada
                         </h3>
-                        <p className="text-slate-400 text-xs mt-1">Genera retroalimentación automática y descarga en Word/PDF.</p>
+                        <p className="text-slate-500 text-[9px] font-black uppercase tracking-wider mt-1">Genera retroalimentación automática.</p>
                     </div>
-                    <button onClick={onClose} className="text-slate-400 hover:text-white p-2">
-                        <X size={20} />
+                    <button onClick={onClose} className="text-slate-500 hover:text-white p-2">
+                        <X size={16} />
                     </button>
                 </div>
 
                 <div className="p-6 space-y-5">
                     <div>
-                        <label className="block text-xs font-bold text-slate-300 uppercase tracking-widest mb-2">Nombre del Estudiante</label>
+                        <label className="block text-[9px] font-black text-slate-500 uppercase tracking-widest mb-2">Nombre del Estudiante</label>
                         <input
                             type="text"
                             value={inputStudentName}
                             onChange={(e) => setInputStudentName(e.target.value)}
                             placeholder="Nombre completo"
-                            className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white text-sm focus:outline-none focus:border-purple-500 transition-all"
+                            className="w-full bg-[#05070f] border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-sky-500 transition-all font-semibold"
                         />
                     </div>
 
                     <div>
-                        <label className="block text-xs font-bold text-slate-300 uppercase tracking-widest mb-2">Archivo de Entrega</label>
+                        <label className="block text-[9px] font-black text-slate-500 uppercase tracking-widest mb-2">Archivo de Entrega</label>
                         <div
-                            className="relative group p-6 rounded-2xl border-2 border-dashed border-white/10 hover:border-purple-500/50 bg-black/40 text-center transition-all cursor-pointer"
+                            className="relative group p-6 rounded-2xl border-2 border-dashed border-slate-800 hover:border-sky-500/50 bg-black/25 text-center transition-all cursor-pointer"
                         >
                             <input
                                 type="file"
@@ -116,38 +112,38 @@ export default function AIGradingUploadModal({ isOpen, onClose, studentName, stu
                                 className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                             />
                             {file ? (
-                                <div className="flex flex-col items-center gap-2 text-purple-400">
-                                    <FileText size={32} />
-                                    <p className="text-sm font-bold truncate max-w-[250px]">{file.name}</p>
-                                    <p className="text-[10px] text-slate-500 uppercase tracking-widest">Haga clic para cambiar</p>
+                                <div className="flex flex-col items-center gap-2 text-sky-400">
+                                    <FileText size={24} />
+                                    <p className="text-xs font-black truncate max-w-[200px]">{file.name}</p>
+                                    <p className="text-[9px] text-slate-600 uppercase tracking-widest font-black">Haga clic para cambiar</p>
                                 </div>
                             ) : (
-                                <div className="flex flex-col items-center gap-2 text-slate-500 group-hover:text-purple-400 transition-colors">
-                                    <UploadCloud size={32} />
-                                    <p className="text-sm font-bold">Selecciona el archivo</p>
-                                    <p className="text-[10px] text-slate-600 uppercase tracking-widest">O arrastra y suelta aquí</p>
+                                <div className="flex flex-col items-center gap-2 text-slate-600 group-hover:text-sky-400 transition-colors">
+                                    <UploadCloud size={24} />
+                                    <p className="text-xs font-black uppercase tracking-wider">Selecciona el archivo</p>
+                                    <p className="text-[9px] text-slate-700 uppercase tracking-widest font-black">O arrastra y suelta aquí</p>
                                 </div>
                             )}
                         </div>
                     </div>
 
                     <div>
-                        <label className="block text-xs font-bold text-slate-300 uppercase tracking-widest mb-2">Instrucciones Especiales y/o Enunciado</label>
+                        <label className="block text-[9px] font-black text-slate-500 uppercase tracking-widest mb-2">Instrucciones Especiales</label>
                         <textarea
                             value={prompt}
                             onChange={(e) => setPrompt(e.target.value)}
-                            placeholder="Añade el enunciado del problema, reglas o detalles específicos a revisar (ej. Revisa miniciosamente variables en inglés)..."
-                            className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white text-sm focus:outline-none focus:border-purple-500 transition-all min-h-[100px] resize-y custom-scrollbar"
+                            placeholder="Añade el enunciado o detalles específicos a revisar..."
+                            className="w-full bg-[#05070f] border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-sky-500 transition-all min-h-[100px] resize-y font-semibold"
                         />
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
                         <div>
-                            <label className="block text-xs font-bold text-slate-300 uppercase tracking-widest mb-2">Exigencia</label>
+                            <label className="block text-[9px] font-black text-slate-500 uppercase tracking-widest mb-2">Exigencia</label>
                             <select
                                 value={severity}
                                 onChange={(e) => setSeverity(e.target.value)}
-                                className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white text-xs focus:outline-none focus:border-purple-500 transition-all cursor-pointer"
+                                className="w-full bg-[#05070f] border border-slate-800 rounded-xl p-3 text-slate-400 text-xs focus:outline-none focus:border-sky-500 transition-all cursor-pointer font-black uppercase tracking-wider"
                             >
                                 <option value="0">Nv 0: Consejos</option>
                                 <option value="1">Nv 1: Sintaxis</option>
@@ -158,13 +154,13 @@ export default function AIGradingUploadModal({ isOpen, onClose, studentName, stu
                             </select>
                         </div>
                         <div className="flex flex-col">
-                            <label className="block text-xs font-bold text-slate-300 uppercase tracking-widest mb-2">Acción</label>
+                            <label className="block text-[9px] font-black text-slate-500 uppercase tracking-widest mb-2">Acción</label>
                             <button
                                 onClick={handleUpload}
                                 disabled={isPending || !file}
-                                className="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-black text-[10px] uppercase tracking-widest transition-all shadow-[0_0_20px_rgba(168,85,247,0.3)] disabled:opacity-50"
+                                className="flex-grow flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-black text-[10px] uppercase tracking-wider transition-all"
                             >
-                                {isPending ? <Loader2 className="animate-spin" size={14} /> : <Sparkles size={14} />}
+                                {isPending ? <Loader2 className="animate-spin" size={12} /> : <Sparkles size={12} />}
                                 {isPending ? "Analizando..." : "Analizar con IA"}
                             </button>
                         </div>
@@ -172,27 +168,27 @@ export default function AIGradingUploadModal({ isOpen, onClose, studentName, stu
 
                     {lastResult && (
                         <div className="p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl animate-in zoom-in-95">
-                            <p className="text-center text-xs font-bold text-emerald-400 uppercase tracking-widest mb-4">¡Análisis Listo! Descargar en:</p>
+                            <p className="text-center text-[10px] font-black text-emerald-400 uppercase tracking-widest mb-4">¡Análisis Listo! Descargar en:</p>
                             <div className="grid grid-cols-2 gap-4">
                                 <button
                                     onClick={handleDocx}
-                                    className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-[10px] uppercase tracking-widest transition-all"
+                                    className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-black text-[9px] uppercase tracking-widest transition-all"
                                 >
-                                    <FileType size={16} /> Word (.docx)
+                                    <FileType size={14} /> Word (.docx)
                                 </button>
                                 <button
                                     onClick={handlePdf}
-                                    className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-[10px] uppercase tracking-widest transition-all"
+                                    className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-black text-[9px] uppercase tracking-widest transition-all"
                                 >
-                                    <FileDown size={16} /> PDF (.pdf)
+                                    <FileDown size={14} /> PDF (.pdf)
                                 </button>
                             </div>
                         </div>
                     )}
                 </div>
 
-                <div className="p-6 bg-black/40 border-t border-white/5 flex justify-end">
-                    <button onClick={onClose} className="px-6 py-3 rounded-xl font-bold text-slate-400 hover:text-white transition-all text-xs uppercase">
+                <div className="p-6 bg-black/20 border-t border-slate-800 flex justify-end">
+                    <button onClick={onClose} className="px-6 py-2 bg-white/5 border border-slate-800 rounded-xl font-black text-slate-400 hover:text-white transition-all text-[10px] uppercase tracking-wider">
                         Cerrar
                     </button>
                 </div>

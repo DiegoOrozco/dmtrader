@@ -352,37 +352,37 @@ export default function CourseViewerClient({ course, studentId, userRole }: { co
     }, [activeDay.id, activeDay.videoId]);
 
     return (
-        <div className="min-h-screen bg-[var(--background)] flex flex-col">
+        <div className="min-h-screen bg-[#0a0e1a] text-slate-100 flex flex-col">
             {/* Top Navbar */}
-            <header className="sticky top-0 z-50 w-full border-b border-[var(--border-color)] bg-[var(--header-bg)] backdrop-blur-md px-4 sm:px-6 py-4">
+            <header className="sticky top-0 z-50 w-full border-b border-slate-800 bg-[#0a0e1a]/80 backdrop-blur-md px-4 sm:px-6 py-4">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
                     <div className="flex items-center gap-3 sm:gap-4 overflow-hidden">
                         <Link
                             href="/"
-                            className="text-[var(--text-secondary)] hover:text-[var(--color-primary)] transition-colors flex items-center gap-2 flex-shrink-0"
+                            className="text-slate-400 hover:text-sky-400 transition-colors flex items-center gap-2 flex-shrink-0 text-xs font-black uppercase tracking-wider"
                         >
-                            <ChevronLeft size={20} />
+                            <ChevronLeft size={18} />
                             <span className="hidden xs:block">Catálogo</span>
                         </Link>
-                        <div className="h-6 w-px bg-[var(--border-color)] mx-1 sm:mx-2 flex-shrink-0"></div>
-                        <h1 className="text-sm sm:text-lg md:text-xl font-bold text-[var(--text-primary)] truncate">{course.title}</h1>
+                        <div className="h-4 w-px bg-slate-800 mx-1 sm:mx-2 flex-shrink-0"></div>
+                        <h1 className="text-xs sm:text-sm font-black text-white uppercase tracking-wider truncate">{course.title}</h1>
                     </div>
 
                     {/* Mobile Toggle Button */}
                     <div className="flex items-center gap-2">
                         <Link
                             href="/asistencia"
-                            className="flex items-center gap-2 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 px-3 py-1.5 rounded-lg border border-emerald-500/20 transition-all text-xs font-bold glow-emerald-sm animate-pulse-subtle"
+                            className="flex items-center gap-2 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 px-3 py-1.5 rounded-lg border border-emerald-500/20 transition-all text-[10px] font-black uppercase tracking-wider"
                         >
-                            <User size={16} />
+                            <User size={14} />
                             <span>Asistencia</span>
                         </Link>
 
                         <button
                             onClick={() => setIsSidebarOpen(true)}
-                            className="lg:hidden flex items-center gap-2 bg-[var(--color-primary)]/10 hover:bg-[var(--color-primary)]/20 text-[var(--color-primary)] px-3 py-1.5 rounded-lg border border-[var(--color-primary)]/20 transition-all text-xs font-bold"
+                            className="lg:hidden flex items-center gap-2 bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 px-3 py-1.5 rounded-lg border border-sky-500/20 transition-all text-[10px] font-black uppercase tracking-wider"
                         >
-                            <BookOpen size={16} />
+                            <BookOpen size={14} />
                             <span className="hidden sm:inline">Ver Contenido</span>
                         </button>
                     </div>
@@ -394,31 +394,31 @@ export default function CourseViewerClient({ course, studentId, userRole }: { co
                 {/* Mobile Sidebar Overlay (Backdrop) */}
                 {isSidebarOpen && (
                     <div
-                        className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] lg:hidden transition-opacity"
+                        className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[60] lg:hidden transition-opacity"
                         onClick={() => setIsSidebarOpen(false)}
                     />
                 )}
 
                 {/* Left Sidebar (Navigation) - Becomes a Drawer on Mobile */}
-                <div className={`fixed inset-y-0 left-0 w-[280px] sm:w-80 bg-[var(--sidebar-bg)] z-[70] lg:relative lg:z-10 lg:w-80 flex-shrink-0 flex flex-col gap-4 transform transition-transform duration-300 ease-in-out lg:translate-x-0 ${isSidebarOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full"
+                <div className={`fixed inset-y-0 left-0 w-[280px] sm:w-80 bg-[#0a0e1a] z-[70] lg:relative lg:z-10 lg:w-80 flex-shrink-0 flex flex-col gap-4 transform transition-transform duration-300 ease-in-out lg:translate-x-0 ${isSidebarOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full"
                     }`}>
-                    <div className="lg:hidden p-4 border-b border-[var(--border-color)] flex items-center justify-between">
-                        <span className="font-bold text-[var(--text-primary)] uppercase tracking-widest text-xs">Contenido del Curso</span>
-                        <button onClick={() => setIsSidebarOpen(false)} className="text-[var(--text-secondary)] hover:text-[var(--text-primary)]">
+                    <div className="lg:hidden p-4 border-b border-slate-800 flex items-center justify-between bg-black/40">
+                        <span className="font-black text-white uppercase tracking-widest text-xs">Contenido del Curso</span>
+                        <button onClick={() => setIsSidebarOpen(false)} className="text-slate-400 hover:text-white">
                             <X size={20} />
                         </button>
                     </div>
 
-                    <div className="glass-effect rounded-none lg:rounded-2xl overflow-hidden shadow-lg border-0 lg:border border-[var(--border-color)] h-full lg:h-auto flex flex-col bg-[var(--card-bg)]">
-                        <div className="p-4 border-b border-[var(--border-color)] bg-black/5">
-                            <h3 className="text-[10px] font-bold text-[var(--text-secondary)] uppercase tracking-[0.2em]">Contenido del Curso</h3>
+                    <div className="rounded-xl lg:rounded-2xl overflow-hidden shadow-2xl border border-slate-800 h-full lg:h-auto flex flex-col bg-[#0a0e1a]">
+                        <div className="p-4 border-b border-slate-800 bg-black/20">
+                            <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Contenido del Curso</h3>
                         </div>
 
                         <div className="flex flex-col overflow-y-auto custom-scrollbar flex-grow max-h-[calc(100vh-250px)] lg:max-h-[600px]">
                             {course.weeks?.map((week: any, wIdx: number) => {
                                 const isCurrentWeek = activeWeek.id === week.id;
                                 return (
-                                    <div key={week.id} className="border-b border-[var(--border-color)] last:border-b-0">
+                                    <div key={week.id} className="border-b border-slate-800 last:border-b-0">
                                         {/* Week Header / Toggle */}
                                         <button
                                             onClick={() => {
@@ -428,27 +428,27 @@ export default function CourseViewerClient({ course, studentId, userRole }: { co
                                                     setActiveDay(week.days?.[0] || initialDay);
                                                 }
                                             }}
-                                            className={`w-full flex items-center justify-between p-4 text-left transition-all hover:bg-white/5 ${isCurrentWeek ? "bg-[var(--color-primary)]/5" : ""
+                                            className={`w-full flex items-center justify-between p-4 text-left transition-all hover:bg-white/[0.02] ${isCurrentWeek ? "bg-sky-500/[0.03]" : ""
                                                 }`}
                                         >
                                             <div className="flex flex-col gap-0.5">
-                                                <span className={`text-[10px] font-bold uppercase tracking-wider ${isCurrentWeek ? "text-[var(--color-primary)]" : "text-[var(--text-secondary)]"
+                                                <span className={`text-[10px] font-black uppercase tracking-wider ${isCurrentWeek ? "text-sky-400" : "text-slate-500"
                                                     }`}>
                                                     Semana {wIdx + 1}
                                                 </span>
-                                                <span className={`font-bold text-sm leading-tight ${isCurrentWeek ? "text-[var(--color-primary)]" : "text-[var(--text-primary)]"
+                                                <span className={`font-black text-sm leading-tight ${isCurrentWeek ? "text-sky-400" : "text-slate-200"
                                                     }`}>
                                                     {week.title}
                                                 </span>
                                             </div>
-                                            <div className={`${isCurrentWeek ? "text-[var(--color-primary)]" : "text-[var(--text-secondary)]"}`}>
-                                                {isCurrentWeek ? <ChevronDown size={18} /> : <ChevronRight size={18} />}
+                                            <div className={`${isCurrentWeek ? "text-sky-400" : "text-slate-500"}`}>
+                                                {isCurrentWeek ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
                                             </div>
                                         </button>
 
                                         {/* Days List (Collapsible) */}
                                         {isCurrentWeek && (
-                                            <div className="bg-black/20 p-2 space-y-1 animate-in fade-in slide-in-from-top-2 duration-300">
+                                            <div className="bg-black/30 p-2 space-y-1 animate-in fade-in slide-in-from-top-2 duration-300">
                                                 {week.days?.map((day: any, dIdx: number) => {
                                                     const isActive = activeDay.id === day.id;
                                                     return (
@@ -459,18 +459,18 @@ export default function CourseViewerClient({ course, studentId, userRole }: { co
                                                                 if (window.innerWidth < 1024) setIsSidebarOpen(false);
                                                             }}
                                                             className={`w-full flex items-start text-left gap-3 p-3 rounded-xl transition-all ${isActive
-                                                                ? "bg-[var(--color-primary)]/10 border border-[var(--color-primary)]/30 text-[var(--text-primary)] shadow-sm"
-                                                                : "text-[var(--text-secondary)] hover:bg-[var(--color-primary)]/5 hover:text-[var(--text-primary)]"
+                                                                ? "bg-sky-500/10 border border-sky-500/20 text-white shadow-[0_0_15px_rgba(56,189,248,0.1)]"
+                                                                : "text-slate-400 hover:bg-white/[0.02] hover:text-white"
                                                                 }`}
                                                         >
-                                                            <div className={`mt-0.5 ${isActive ? "text-[var(--color-primary)]" : "text-[var(--text-secondary)]"}`}>
-                                                                <PlayCircle size={16} fill={isActive ? "currentColor" : "none"} />
+                                                            <div className={`mt-0.5 ${isActive ? "text-sky-400" : "text-slate-600"}`}>
+                                                                <PlayCircle size={14} fill={isActive ? "currentColor" : "none"} />
                                                             </div>
                                                             <div className="flex flex-col">
-                                                                <span className="text-[10px] font-bold text-[var(--text-secondary)] uppercase tracking-wide mb-0.5">
+                                                                <span className="text-[9px] font-black text-slate-500 uppercase tracking-wide mb-0.5">
                                                                     Sección {dIdx + 1}
                                                                 </span>
-                                                                <span className="text-sm font-medium line-clamp-2 leading-snug">
+                                                                <span className="text-xs font-black line-clamp-2 leading-snug">
                                                                     {day.title}
                                                                 </span>
                                                             </div>
@@ -492,22 +492,22 @@ export default function CourseViewerClient({ course, studentId, userRole }: { co
                     {/* Main Content Header */}
                     <div className="mb-2">
                         <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-3 mb-1">
-                            <p className="text-[var(--color-secondary)] font-bold text-[10px] md:text-sm tracking-[0.2em] uppercase">
+                            <p className="text-sky-400 font-black text-[10px] md:text-xs tracking-[0.2em] uppercase">
                                 {activeWeek.title}
                             </p>
-                            <span className="hidden sm:block text-[var(--border-color)]">•</span>
-                            <p className="text-[var(--text-secondary)] text-[10px] md:text-sm font-semibold">Sección {activeWeek.days?.indexOf(activeDay) + 1}</p>
+                            <span className="hidden sm:block text-slate-800">•</span>
+                            <p className="text-slate-500 text-[10px] md:text-xs font-black uppercase tracking-wider">Sección {activeWeek.days?.indexOf(activeDay) + 1}</p>
                         </div>
-                        <h2 className="text-2xl md:text-3xl lg:text-4xl font-black text-[var(--text-primary)] leading-tight">{activeDay.title}</h2>
+                        <h2 className="text-xl md:text-2xl lg:text-3xl font-black text-white tracking-tight leading-tight">{activeDay.title}</h2>
                     </div>
 
                     {/* Section Cover Image */}
                     {activeDay.thumbnail && (
-                        <div className="rounded-3xl overflow-hidden border border-[var(--border-color)] shadow-2xl bg-black/5 aspect-[21/9] sm:aspect-[21/7]">
+                        <div className="rounded-2xl overflow-hidden border border-slate-800 shadow-2xl bg-black/40 aspect-[21/9] sm:aspect-[21/7]">
                             <img 
                                 src={activeDay.thumbnail} 
                                 alt={activeDay.title} 
-                                className="w-full h-full object-cover transition-transform duration-700 hover:scale-[1.02]"
+                                className="w-full h-full object-cover transition-transform duration-700 hover:scale-[1.01]"
                             />
                         </div>
                     )}
@@ -515,22 +515,22 @@ export default function CourseViewerClient({ course, studentId, userRole }: { co
                     {/* Video Player Embed or AI Placeholder */}
                     <div 
                         ref={containerRef}
-                        className="w-full aspect-video rounded-2xl overflow-hidden glass-effect border border-[var(--border-color)] shadow-2xl relative bg-black group"
+                        className="w-full aspect-video rounded-2xl overflow-hidden border border-slate-800 shadow-2xl relative bg-black group"
                     >
                         {!isMounted ? (
-                            <div className="absolute top-0 left-0 w-full h-full bg-black/20 animate-pulse" />
+                            <div className="absolute top-0 left-0 w-full h-full bg-black/40 animate-pulse" />
                         ) : isNotAvailableYet ? (
-                            <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center bg-slate-950/80 backdrop-blur-xl border border-white/10 rounded-2xl">
-                                <div className="w-20 h-20 bg-amber-500/10 rounded-full flex items-center justify-center mb-6 border border-amber-500/20 shadow-[0_0_30px_rgba(245,158,11,0.2)] animate-pulse-subtle">
-                                    <Lock size={40} className="text-amber-500" />
+                            <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center bg-slate-950/90 backdrop-blur-xl border border-slate-800 rounded-2xl">
+                                <div className="w-16 h-16 bg-amber-500/10 rounded-full flex items-center justify-center mb-6 border border-amber-500/20 shadow-[0_0_30px_rgba(245,158,11,0.15)] animate-pulse-subtle">
+                                    <Lock size={32} className="text-amber-500" />
                                 </div>
-                                <h3 className="text-2xl md:text-3xl font-black text-white mb-2 tracking-tight uppercase">Contenido Bloqueado</h3>
-                                <p className="text-slate-400 text-sm md:text-base max-w-md mx-auto leading-relaxed">
+                                <h3 className="text-xl md:text-2xl font-black text-white mb-2 tracking-tight uppercase">Contenido Bloqueado</h3>
+                                <p className="text-slate-400 text-xs md:text-sm max-w-md mx-auto leading-relaxed font-medium">
                                     Esta clase todavía no está disponible para estudiantes. Por favor, regresa en la fecha y hora indicada.
                                 </p>
-                                <div className="mt-8 px-6 py-3 bg-white/5 rounded-2xl border border-white/10">
-                                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Disponible desde:</p>
-                                    <p className="text-sm font-black text-amber-400 font-mono">{formatFullDate(activeDay.availableFrom)}</p>
+                                <div className="mt-6 px-5 py-2.5 bg-white/[0.02] rounded-xl border border-slate-800">
+                                    <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-1">Disponible desde:</p>
+                                    <p className="text-xs font-black text-amber-400 font-mono">{formatFullDate(activeDay.availableFrom)}</p>
                                 </div>
                             </div>
                         ) : activeDay.videoId ? (
@@ -562,11 +562,11 @@ export default function CourseViewerClient({ course, studentId, userRole }: { co
                                             style={{ backgroundColor: "rgba(0, 0, 0, 0)" }}
                                         >
                                             {/* Play/Pause center overlay button */}
-                                            <div className={`p-4 rounded-full bg-black/60 backdrop-blur-md border border-white/10 transition-all duration-300 transform ${isPlaying ? "opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100" : "opacity-100 scale-100"}`}>
+                                            <div className={`p-4 rounded-full bg-black/60 backdrop-blur-md border border-slate-800 transition-all duration-300 transform ${isPlaying ? "opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100" : "opacity-100 scale-100"}`}>
                                                 {isPlaying ? (
-                                                    <Pause size={32} className="text-white fill-white" />
+                                                    <Pause size={24} className="text-white fill-white" />
                                                 ) : (
-                                                    <Play size={32} className="text-white fill-white ml-1" />
+                                                    <Play size={24} className="text-white fill-white ml-0.5" />
                                                 )}
                                             </div>
                                         </div>
@@ -582,9 +582,9 @@ export default function CourseViewerClient({ course, studentId, userRole }: { co
                                                     max={duration || 100}
                                                     value={currentTime}
                                                     onChange={handleSeek}
-                                                    className="flex-grow h-1 rounded-lg appearance-none cursor-pointer bg-white/20 hover:bg-white/30 accent-[var(--color-primary)] transition-all outline-none"
+                                                    className="flex-grow h-1 rounded-lg appearance-none cursor-pointer bg-white/20 hover:bg-white/30 accent-sky-400 transition-all outline-none"
                                                     style={{
-                                                        background: `linear-gradient(to right, var(--color-primary) 0%, var(--color-primary) ${duration > 0 ? (currentTime / duration) * 100 : 0}%, rgba(255,255,255,0.2) ${duration > 0 ? (currentTime / duration) * 100 : 0}%, rgba(255,255,255,0.2) 100%)`
+                                                        background: `linear-gradient(to right, #38bdf8 0%, #38bdf8 ${duration > 0 ? (currentTime / duration) * 100 : 0}%, rgba(255,255,255,0.2) ${duration > 0 ? (currentTime / duration) * 100 : 0}%, rgba(255,255,255,0.2) 100%)`
                                                     }}
                                                 />
                                                 <span className="text-xs text-white/80 font-mono select-none">{formatTime(duration)}</span>
@@ -596,23 +596,23 @@ export default function CourseViewerClient({ course, studentId, userRole }: { co
                                                     {/* Play/Pause button */}
                                                     <button 
                                                         onClick={(e) => togglePlay(e)}
-                                                        className="text-white hover:text-[var(--color-primary)] transition-colors focus:outline-none"
+                                                        className="text-white hover:text-sky-400 transition-colors focus:outline-none"
                                                     >
-                                                        {isPlaying ? <Pause size={20} className="fill-white" /> : <Play size={20} className="fill-white" />}
+                                                        {isPlaying ? <Pause size={18} className="fill-white" /> : <Play size={18} className="fill-white" />}
                                                     </button>
 
                                                     {/* Volume Controls */}
                                                     <div className="flex items-center gap-2 group/volume">
                                                         <button 
                                                             onClick={toggleMute}
-                                                            className="text-white hover:text-[var(--color-primary)] transition-colors focus:outline-none"
+                                                            className="text-white hover:text-sky-400 transition-colors focus:outline-none"
                                                         >
                                                             {isMuted || volume === 0 ? (
-                                                                <VolumeX size={20} />
+                                                                <VolumeX size={18} />
                                                             ) : volume < 50 ? (
-                                                                <Volume1 size={20} />
+                                                                <Volume1 size={18} />
                                                             ) : (
-                                                                <Volume2 size={20} />
+                                                                <Volume2 size={18} />
                                                             )}
                                                         </button>
                                                         <input 
@@ -621,9 +621,9 @@ export default function CourseViewerClient({ course, studentId, userRole }: { co
                                                             max={100}
                                                             value={isMuted ? 0 : volume}
                                                             onChange={handleVolumeChange}
-                                                            className="w-0 overflow-hidden group-hover/volume:w-20 transition-all duration-300 h-1 rounded-lg appearance-none cursor-pointer bg-white/20 accent-[var(--color-primary)] outline-none"
+                                                            className="w-0 overflow-hidden group-hover/volume:w-20 transition-all duration-300 h-1 rounded-lg appearance-none cursor-pointer bg-white/20 accent-sky-400 outline-none"
                                                             style={{
-                                                                background: `linear-gradient(to right, var(--color-primary) 0%, var(--color-primary) ${isMuted ? 0 : volume}%, rgba(255,255,255,0.2) ${isMuted ? 0 : volume}%, rgba(255,255,255,0.2) 100%)`
+                                                                background: `linear-gradient(to right, #38bdf8 0%, #38bdf8 ${isMuted ? 0 : volume}%, rgba(255,255,255,0.2) ${isMuted ? 0 : volume}%, rgba(255,255,255,0.2) 100%)`
                                                             }}
                                                         />
                                                     </div>
@@ -632,9 +632,9 @@ export default function CourseViewerClient({ course, studentId, userRole }: { co
                                                 {/* Fullscreen Button */}
                                                 <button 
                                                     onClick={toggleFullscreen}
-                                                    className="text-white hover:text-[var(--color-primary)] transition-colors focus:outline-none"
+                                                    className="text-white hover:text-sky-400 transition-colors focus:outline-none"
                                                 >
-                                                    {isFullscreen ? <Minimize size={20} /> : <Maximize size={20} />}
+                                                    {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
                                                 </button>
                                             </div>
                                         </div>
@@ -648,25 +648,25 @@ export default function CourseViewerClient({ course, studentId, userRole }: { co
                                     alt="Clase sin video"
                                     className="absolute inset-0 w-full h-full object-cover opacity-60"
                                 />
-                                <div className="absolute inset-0 bg-blue-900/40 backdrop-blur-[4px]"></div>
+                                <div className="absolute inset-0 bg-sky-950/50 backdrop-blur-[4px]"></div>
                                 <div className="relative z-10 flex flex-col items-center gap-4 px-6 text-center">
-                                    <div className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center backdrop-blur-md border border-white/20">
-                                        <PlayCircle size={32} className="text-white opacity-50" />
+                                    <div className="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center backdrop-blur-md border border-white/20">
+                                        <PlayCircle size={28} className="text-white opacity-50" />
                                     </div>
                                     <div className="space-y-1">
-                                        <h3 className="text-xl md:text-2xl font-black text-white">{activeDay.title}</h3>
-                                        <p className="text-sm text-blue-100/60 font-medium">Esta clase no cuenta con video interactivo aún.</p>
+                                        <h3 className="text-lg font-black text-white uppercase tracking-wider">{activeDay.title}</h3>
+                                        <p className="text-xs text-sky-200/60 font-semibold">Esta clase no cuenta con video interactivo aún.</p>
                                     </div>
                                 </div>
                             </div>
                         )}
                     </div>
                     {isNotAvailableYet ? (
-                        <div className="p-10 glass-effect rounded-2xl border border-white/5 bg-black/20 flex flex-col items-center gap-4 text-center">
-                            <Clock size={48} className="text-slate-600" />
+                        <div className="p-8 border border-slate-800 rounded-2xl bg-black/20 flex flex-col items-center gap-4 text-center">
+                            <Clock size={40} className="text-slate-600" />
                             <div className="space-y-1">
-                                <h4 className="text-lg font-bold text-slate-400">Foro Desactivado</h4>
-                                <p className="text-sm text-slate-500 max-w-sm">Los materiales y actividades de esta sección se habilitarán automáticamente en la fecha indicada arriba.</p>
+                                <h4 className="text-sm font-black text-slate-400 uppercase tracking-wider">Foro Desactivado</h4>
+                                <p className="text-xs text-slate-500 max-w-sm">Los materiales y actividades de esta sección se habilitarán automáticamente en la fecha indicada arriba.</p>
                             </div>
                         </div>
                     ) : activeDayData.assignmentType === "FORUM" ? (
@@ -694,8 +694,8 @@ export default function CourseViewerClient({ course, studentId, userRole }: { co
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                         {/* Resources Column */}
                         <div className="lg:col-span-1 flex flex-col gap-4">
-                            <h3 className="text-lg font-bold text-[var(--text-primary)] flex items-center gap-2 pb-2 border-b border-[var(--border-color)]">
-                                <FileText size={18} className="text-[var(--color-primary)]" />
+                            <h3 className="text-xs font-black text-white uppercase tracking-wider flex items-center gap-2 pb-2 border-b border-slate-800">
+                                <FileText size={16} className="text-sky-400" />
                                 Materiales de la Sección
                             </h3>
 
@@ -706,15 +706,15 @@ export default function CourseViewerClient({ course, studentId, userRole }: { co
                                             href={`${activeDay.summaryUrl}${activeDay.summaryUrl.includes('vercel-storage.com') ? '?download=1' : ''}`}
                                             target="_blank"
                                             rel="noreferrer"
-                                            className="glass-effect p-3 rounded-xl flex items-center justify-between group border border-orange-500/20 hover:border-orange-500 transition-all bg-orange-500/5"
+                                            className="p-3 rounded-xl flex items-center justify-between group border border-amber-500/20 hover:border-amber-500 transition-all bg-amber-500/5"
                                         >
                                             <div className="flex items-center gap-3 truncate pr-4">
-                                                <div className="w-8 h-8 rounded-lg bg-orange-500/10 flex items-center justify-center flex-shrink-0 text-orange-400 group-hover:text-orange-300 transition-colors">
+                                                <div className="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center flex-shrink-0 text-amber-400 group-hover:text-amber-300 transition-colors">
                                                     <FileText size={14} />
                                                 </div>
-                                                <span className="text-sm font-bold text-orange-200 truncate">Resumen clase (PDF)</span>
+                                                <span className="text-xs font-black text-amber-200 uppercase tracking-wider truncate">Resumen clase (PDF)</span>
                                             </div>
-                                            <Download size={14} className="text-orange-400/50 group-hover:text-orange-400 transition-colors" />
+                                            <Download size={14} className="text-amber-400/50 group-hover:text-amber-400 transition-colors" />
                                         </a>
                                     )}
 
@@ -723,13 +723,13 @@ export default function CourseViewerClient({ course, studentId, userRole }: { co
                                             href={`${activeDay.materialUrl}${activeDay.materialUrl.includes('vercel-storage.com') ? '?download=1' : ''}`}
                                             target="_blank"
                                             rel="noreferrer"
-                                            className="glass-effect p-3 rounded-xl flex items-center justify-between group border border-[var(--border-color)] hover:border-[var(--color-primary)] transition-all bg-[var(--card-bg)]"
+                                            className="p-3 rounded-xl flex items-center justify-between group border border-slate-800 hover:border-sky-400 transition-all bg-black/40"
                                         >
                                             <div className="flex items-center gap-3 truncate pr-4">
-                                                <div className="w-8 h-8 rounded-lg bg-black/5 flex items-center justify-center flex-shrink-0 text-[var(--text-secondary)] group-hover:text-[var(--color-primary)] transition-colors">
+                                                <div className="w-8 h-8 rounded-lg bg-black/20 flex items-center justify-center flex-shrink-0 text-slate-400 group-hover:text-sky-400 transition-colors">
                                                     <Download size={14} />
                                                 </div>
-                                                <span className="text-sm font-medium text-[var(--text-primary)] truncate">Repositorio / Material</span>
+                                                <span className="text-xs font-black text-slate-300 uppercase tracking-wider truncate">Repositorio / Material</span>
                                             </div>
                                         </a>
                                     )}
@@ -740,26 +740,24 @@ export default function CourseViewerClient({ course, studentId, userRole }: { co
                                             href={res.url}
                                             target="_blank"
                                             rel="noreferrer"
-                                            className="glass-effect p-3 rounded-xl flex items-center justify-between group border border-white/5 hover:border-[var(--color-primary)]/50 transition-all bg-white/[0.02] hover:bg-white/[0.04]"
+                                            className="p-3 rounded-xl flex items-center justify-between group border border-slate-800 hover:border-sky-500/50 transition-all bg-black/20 hover:bg-black/40"
                                         >
                                             <div className="flex items-center gap-3 truncate pr-4">
-                                                <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center flex-shrink-0 text-slate-400 group-hover:text-[var(--color-primary)] transition-colors">
+                                                <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center flex-shrink-0 text-slate-400 group-hover:text-sky-400 transition-colors">
                                                     {res.type === "pdf" ? <FileText size={14} /> : res.type === "link" ? <Link2 size={14} /> : <Download size={14} />}
                                                 </div>
-                                                <span className="text-sm font-medium text-slate-200 truncate group-hover:text-white transition-colors">{res.title}</span>
+                                                <span className="text-xs font-black text-slate-400 truncate group-hover:text-white transition-colors">{res.title}</span>
                                             </div>
-                                            <ExternalLink size={14} className="text-slate-600 group-hover:text-[var(--color-primary)] transition-colors" />
+                                            <ExternalLink size={14} className="text-slate-600 group-hover:text-sky-400 transition-colors" />
                                         </a>
                                     ))}
                                 </div>
                             ) : (
-                                <div className="text-sm text-[var(--text-muted)] italic p-4 text-center border border-dashed border-[var(--border-color)] rounded-xl">
-                                    {isNotAvailableYet ? "Material restringido hasta el desbloqueo." : "No hay recursos adicionales."}
+                                <div className="text-[10px] font-black uppercase tracking-wider text-slate-500 italic p-4 text-center border border-dashed border-slate-800 rounded-xl">
+                                    {isNotAvailableYet ? "Material restringido." : "No hay recursos."}
                                 </div>
                             )}
                         </div>
-
-                        {/* Resources column now spans full grid or just the start */}
                     </div>
                 </div>
             </main>

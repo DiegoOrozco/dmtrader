@@ -162,8 +162,8 @@ export default function BatchAIGradingModal({ isOpen, onClose, dayId }: BatchAIG
                 {/* Header */}
                 <div className="p-6 border-b border-white/5 flex justify-between items-center bg-black/20">
                     <div className="flex items-center gap-4">
-                        <div className="p-2 bg-purple-500/20 rounded-xl">
-                            <Sparkles className="text-purple-400" size={24} />
+                        <div className="p-2 bg-sky-500/20 rounded-xl">
+                            <Sparkles className="text-sky-400" size={24} />
                         </div>
                         <div>
                             <h3 className="text-xl font-black text-white tracking-tight uppercase">Calificación IA en Lote</h3>
@@ -195,12 +195,12 @@ export default function BatchAIGradingModal({ isOpen, onClose, dayId }: BatchAIG
                                     className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" 
                                     onChange={handleFileChange} 
                                 />
-                                <div className="w-20 h-20 bg-purple-500/10 rounded-full flex items-center justify-center mb-6 border border-purple-500/20 group-hover:scale-110 group-hover:bg-purple-500/20 transition-all duration-300">
-                                    <UploadCloud size={40} className="text-purple-400" />
+                                <div className="w-20 h-20 bg-sky-500/10 rounded-full flex items-center justify-center mb-6 border border-sky-500/20 group-hover:scale-110 group-hover:bg-sky-500/20 transition-all duration-300">
+                                    <UploadCloud size={40} className="text-sky-400" />
                                 </div>
                                 <h4 className="text-xl font-bold text-white mb-2">Sube tus archivos</h4>
                                 <p className="text-slate-400 text-sm mb-8 max-w-sm">Selecciona uno o más archivos de entrega para comenzar el proceso de calificación secuencial.</p>
-                                <div className="bg-purple-600 group-hover:bg-purple-500 text-white px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest transition-all shadow-xl shadow-purple-500/20 active:scale-95">
+                                <div className="bg-sky-600 group-hover:bg-sky-500 text-white px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest transition-all shadow-xl shadow-sky-500/20 active:scale-95">
                                     Seleccionar Archivos
                                 </div>
                             </div>
@@ -229,7 +229,7 @@ export default function BatchAIGradingModal({ isOpen, onClose, dayId }: BatchAIG
                                         {files.map((_, i) => (
                                             <div 
                                                 key={i} 
-                                                className={`w-1.5 h-1.5 rounded-full transition-all ${i === currentIndex ? 'bg-purple-500 w-4' : results[i] ? 'bg-emerald-500' : 'bg-white/20'}`}
+                                                className={`w-1.5 h-1.5 rounded-full transition-all ${i === currentIndex ? 'bg-sky-500 w-4' : results[i] ? 'bg-emerald-500' : 'bg-white/20'}`}
                                             />
                                         ))}
                                     </div>
@@ -253,7 +253,7 @@ export default function BatchAIGradingModal({ isOpen, onClose, dayId }: BatchAIG
                                 <div className="space-y-4">
                                     <label className="block text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Identificación del Estudiante</label>
                                     <div className="relative group z-[100]">
-                                        <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                                        <div className="absolute -inset-0.5 bg-gradient-to-r from-sky-500/20 to-sky-500/20 rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
                                         <input
                                             type="text"
                                             value={currentStudentName}
@@ -264,7 +264,7 @@ export default function BatchAIGradingModal({ isOpen, onClose, dayId }: BatchAIG
                                                 }
                                             }}
                                             placeholder="Busca por nombre o correo..."
-                                            className="relative w-full bg-black/60 border border-white/10 rounded-2xl p-5 text-xl font-bold text-white focus:outline-none focus:border-purple-500/50 transition-all"
+                                            className="relative w-full bg-black/60 border border-white/10 rounded-2xl p-5 text-xl font-bold text-white focus:outline-none focus:border-sky-500/50 transition-all"
                                         />
                                         
                                         {/* Search Results Dropdown */}
@@ -274,7 +274,7 @@ export default function BatchAIGradingModal({ isOpen, onClose, dayId }: BatchAIG
                                                     <button
                                                         key={student.id}
                                                         onClick={() => selectStudent(student)}
-                                                        className="w-full p-4 flex flex-col items-start hover:bg-purple-500/20 border-b border-white/5 last:border-0 transition-colors"
+                                                        className="w-full p-4 flex flex-col items-start hover:bg-sky-500/20 border-b border-white/5 last:border-0 transition-colors"
                                                     >
                                                         <span className="text-sm font-bold text-white">{student.name}</span>
                                                         <span className="text-[10px] text-slate-400 font-mono">{student.email}</span>
@@ -285,7 +285,7 @@ export default function BatchAIGradingModal({ isOpen, onClose, dayId }: BatchAIG
 
                                         {isSearching && (
                                             <div className="absolute right-5 top-1/2 -translate-y-1/2">
-                                                <Loader2 size={20} className="animate-spin text-purple-400" />
+                                                <Loader2 size={20} className="animate-spin text-sky-400" />
                                             </div>
                                         )}
 
@@ -304,7 +304,7 @@ export default function BatchAIGradingModal({ isOpen, onClose, dayId }: BatchAIG
                                         value={prompt}
                                         onChange={(e) => setPrompt(e.target.value)}
                                         placeholder="Añade el enunciado del problema, reglas o detalles específicos a revisar (ej. Revisa minuciosamente variables en inglés)..."
-                                        className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white text-sm focus:outline-none focus:border-purple-500 transition-all min-h-[100px] resize-y custom-scrollbar"
+                                        className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white text-sm focus:outline-none focus:border-sky-500 transition-all min-h-[100px] resize-y custom-scrollbar"
                                     />
                                 </div>
 
@@ -314,7 +314,7 @@ export default function BatchAIGradingModal({ isOpen, onClose, dayId }: BatchAIG
                                         <select
                                             value={severity}
                                             onChange={(e) => setSeverity(e.target.value)}
-                                            className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white text-sm focus:outline-none focus:border-purple-500 transition-all cursor-pointer"
+                                            className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white text-sm focus:outline-none focus:border-sky-500 transition-all cursor-pointer"
                                         >
                                             <option value="0">Nv 0: Consejos</option>
                                             <option value="1">Nv 1: Sintaxis y Básicos</option>
@@ -328,7 +328,7 @@ export default function BatchAIGradingModal({ isOpen, onClose, dayId }: BatchAIG
                                         <button
                                             onClick={handleProcessCurrent}
                                             disabled={isPending || !currentStudentName}
-                                            className="w-full h-[54px] flex items-center justify-center gap-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-black text-xs uppercase tracking-[0.15em] transition-all shadow-[0_10px_20px_-10px_rgba(168,85,247,0.5)] disabled:opacity-30 disabled:shadow-none"
+                                            className="w-full h-[54px] flex items-center justify-center gap-3 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-black text-xs uppercase tracking-[0.15em] transition-all shadow-[0_10px_20px_-10px_rgba(56,189,248,0.5)] disabled:opacity-30 disabled:shadow-none"
                                         >
                                             {isPending ? <Loader2 className="animate-spin" size={18} /> : <Sparkles size={18} />}
                                             {isPending ? "Analizando..." : "Ejecutar Análisis IA"}
@@ -395,7 +395,7 @@ export default function BatchAIGradingModal({ isOpen, onClose, dayId }: BatchAIG
                                             <div className="grid grid-cols-2 gap-4">
                                                 <button
                                                     onClick={() => generateDocx(currentResult, currentStudentName)}
-                                                    className="flex items-center justify-center gap-3 px-6 py-4 rounded-2xl bg-blue-600/20 hover:bg-blue-600/30 text-blue-400 border border-blue-600/30 font-black text-[10px] uppercase tracking-widest transition-all"
+                                                    className="flex items-center justify-center gap-3 px-6 py-4 rounded-2xl bg-sky-600/20 hover:bg-sky-600/30 text-sky-400 border border-sky-600/30 font-black text-[10px] uppercase tracking-widest transition-all"
                                                 >
                                                     <FileType size={18} /> Generar Word
                                                 </button>

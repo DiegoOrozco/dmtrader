@@ -29,7 +29,7 @@ export default function NewsSlider({ news }: { news: NewsItem[] }) {
 
     useEffect(() => {
         if (!isHovered) {
-            const interval = setInterval(nextSlide, 5000);
+            const interval = setInterval(nextSlide, 6000);
             return () => clearInterval(interval);
         }
     }, [nextSlide, isHovered]);
@@ -40,7 +40,7 @@ export default function NewsSlider({ news }: { news: NewsItem[] }) {
 
     return (
         <div 
-            className="group relative w-full aspect-[21/9] min-h-[400px] rounded-[50px] overflow-hidden shadow-2xl border border-white/5 transition-all duration-700"
+            className="group relative w-full aspect-[21/9] min-h-[400px] rounded-3xl overflow-hidden shadow-xl border border-slate-200/10 transition-all duration-750"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
@@ -53,45 +53,45 @@ export default function NewsSlider({ news }: { news: NewsItem[] }) {
                     }`}
                 >
                     <Image 
-                        src={`https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1600&sig=${encodeURIComponent(item.image_keyword || item.title || i)}`}
+                        src={`https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&q=80&w=1600&sig=${encodeURIComponent(item.image_keyword || item.title || i)}`}
                         alt={item.title}
                         fill
                         className="object-cover"
                         priority={i === 0}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-r from-black via-black/40 to-transparent opacity-80" />
-                    <div className={`absolute inset-0 bg-gradient-to-br ${item.grad || 'from-blue-600/20 to-transparent'} opacity-30`} />
+                    <div className="absolute inset-0 bg-slate-950/70" />
+                    <div className={`absolute inset-0 bg-gradient-to-tr ${item.grad || 'from-sky-600/30 to-transparent'} opacity-40`} />
                 </div>
             ))}
 
-            {/* Content Box (Udemy/Coursera style) */}
-            <div className="relative h-full flex items-center px-10 sm:px-20 z-10">
+            {/* Content Box (Premium trading/forex broker aesthetic) */}
+            <div className="relative h-full flex items-center px-6 sm:px-16 z-10">
                 <div 
-                    className="bg-white/95 backdrop-blur-xl p-8 sm:p-12 rounded-[32px] max-w-[500px] shadow-[0_20px_50px_rgba(0,0,0,0.3)] transform transition-all duration-700 translate-y-0 group-hover:-translate-y-2 animate-in fade-in slide-in-from-left-10"
+                    className="bg-slate-900/90 dark:bg-slate-950/90 border border-slate-800/80 backdrop-blur-xl p-8 sm:p-10 rounded-2xl max-w-[550px] shadow-2xl transform transition-all duration-500 translate-y-0 group-hover:-translate-y-1 animate-in fade-in slide-in-from-left-6"
                     key={`content-${currentIndex}`}
                 >
-                    <div className="flex items-center gap-3 mb-6">
-                        <span className="bg-[#cde641]/10 text-[#5a6a00] px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border border-[#cde641]/30">
-                            {current.source || 'Breaking News'}
+                    <div className="flex items-center gap-3 mb-4">
+                        <span className="bg-sky-500/10 text-sky-400 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border border-sky-500/20">
+                            {current.source || 'Análisis de Mercado'}
                         </span>
-                        <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{current.date}</span>
+                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{current.date}</span>
                     </div>
                     
-                    <h2 className="text-3xl sm:text-4xl font-black text-gray-900 leading-[1.1] mb-6 tracking-tight">
+                    <h2 className="text-2xl sm:text-3xl font-extrabold text-white leading-snug mb-4 tracking-tight">
                         {current.title}
                     </h2>
                     
-                    <p className="text-gray-600 text-lg leading-relaxed mb-8">
+                    <p className="text-slate-300 text-sm leading-relaxed mb-6">
                         {current.summary}
                     </p>
 
                     <Link 
-                        href={current.search_url?.startsWith('http') ? current.search_url : `https://www.google.com/search?q=${encodeURIComponent(current.title)}+noticias+tech&tbm=nws`}
+                        href={current.search_url?.startsWith('http') ? current.search_url : `https://www.google.com/search?q=${encodeURIComponent(current.title)}+noticias+trading&tbm=nws`}
                         target="_blank"
-                        className="inline-flex items-center gap-2 bg-[#cde641] text-black px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-black hover:text-white transition-all transform active:scale-95 group/btn"
+                        className="inline-flex items-center gap-2 bg-gradient-to-r from-sky-500 to-sky-600 text-white px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider hover:from-sky-400 hover:to-sky-500 hover:shadow-lg hover:shadow-sky-500/20 transition-all group/btn"
                     >
                         Buscar Noticia
-                        <Search className="w-4 h-4 group-hover/btn:scale-110 transition-transform" />
+                        <Search className="w-3.5 h-3.5 group-hover/btn:scale-110 transition-transform" />
                     </Link>
                 </div>
             </div>
@@ -99,25 +99,25 @@ export default function NewsSlider({ news }: { news: NewsItem[] }) {
             {/* Navigation Arrows */}
             <button 
                 onClick={(e) => { e.preventDefault(); prevSlide(); }}
-                className="absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all hover:bg-white/20 active:scale-90 z-20"
+                className="absolute left-6 top-1/2 -translate-y-1/2 w-10 h-10 bg-slate-950/40 backdrop-blur-md rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all hover:bg-sky-500 active:scale-95 z-20 border border-white/5"
             >
-                <ChevronLeft className="w-6 h-6" />
+                <ChevronLeft className="w-5 h-5" />
             </button>
             <button 
                 onClick={(e) => { e.preventDefault(); nextSlide(); }}
-                className="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all hover:bg-white/20 active:scale-90 z-20"
+                className="absolute right-6 top-1/2 -translate-y-1/2 w-10 h-10 bg-slate-950/40 backdrop-blur-md rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all hover:bg-sky-500 active:scale-95 z-20 border border-white/5"
             >
-                <ChevronRight className="w-6 h-6" />
+                <ChevronRight className="w-5 h-5" />
             </button>
 
             {/* Dots */}
-            <div className="absolute bottom-10 right-10 flex gap-3 z-20">
+            <div className="absolute bottom-6 right-6 flex gap-2 z-20">
                 {news.map((_, i) => (
                     <button
                         key={i}
                         onClick={() => setCurrentIndex(i)}
-                        className={`h-1.5 transition-all duration-500 rounded-full ${
-                            i === currentIndex ? "w-10 bg-[#cde641]" : "w-4 bg-white/20 hover:bg-white/40"
+                        className={`h-1 transition-all duration-500 rounded-full ${
+                            i === currentIndex ? "w-8 bg-sky-500" : "w-3 bg-white/20 hover:bg-white/40"
                         }`}
                     />
                 ))}

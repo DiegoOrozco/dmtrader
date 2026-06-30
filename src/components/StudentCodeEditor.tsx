@@ -440,22 +440,22 @@ export default function StudentCodeEditor({
     };
 
     return (
-        <div className={`flex flex-col bg-[#0B0D11] border border-slate-700/30 rounded-2xl overflow-hidden shadow-2xl transition-all ${isFullscreen ? 'fixed inset-0 z-[9999] rounded-none' : 'relative h-[650px]'}`}>
+        <div className={`flex flex-col bg-[#0a0e1a] border border-slate-800 rounded-2xl overflow-hidden shadow-2xl transition-all ${isFullscreen ? 'fixed inset-0 z-[9999] rounded-none' : 'relative h-[650px]'}`}>
             {/* Header */}
-            <div className="flex items-center justify-between px-6 py-4 bg-[#14181E] border-b border-slate-700/50">
+            <div className="flex items-center justify-between px-6 py-4 bg-[#0d1322] border-b border-slate-800">
                 <div className="flex items-center gap-4">
-                    <div className="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center border border-emerald-500/20">
-                        <Code size={18} className="text-emerald-400" />
+                    <div className="w-8 h-8 rounded-lg bg-sky-500/10 flex items-center justify-center border border-sky-500/20">
+                        <Code size={18} className="text-sky-400" />
                     </div>
                     <div>
-                        <h3 className="text-sm font-bold text-white tracking-wide">Python IDE</h3>
+                        <h3 className="text-xs font-black text-white uppercase tracking-wider">Python IDE</h3>
                         <div className="flex items-center gap-2 mt-0.5">
                             {isPyodideLoading ? (
-                                <Loader2 size={10} className="text-blue-400 animate-spin" />
+                                <Loader2 size={10} className="text-sky-400 animate-spin" />
                             ) : (
                                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                             )}
-                            <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">
+                            <p className="text-[9px] text-slate-500 font-black uppercase tracking-wider">
                                 {isPyodideLoading ? "Iniciando Python 3.10..." : "Motor Python Activo • Real Runtime"}
                             </p>
                         </div>
@@ -465,7 +465,7 @@ export default function StudentCodeEditor({
                 {timeLeft !== null && (
                     <div className="flex items-center gap-3 px-4 py-2 bg-rose-500/10 border border-rose-500/20 rounded-xl">
                         <Clock size={16} className={`${timeLeft < 60 ? "text-rose-500 animate-pulse" : "text-rose-400"}`} />
-                        <span className={`text-lg font-black font-mono ${timeLeft < 60 ? "text-rose-500" : "text-white"}`}>
+                        <span className={`text-sm font-black font-mono ${timeLeft < 60 ? "text-rose-500" : "text-white"}`}>
                             {formatTime(timeLeft)}
                         </span>
                     </div>
@@ -478,14 +478,14 @@ export default function StudentCodeEditor({
                     >
                         {isFullscreen ? <Minimize2 size={18} /> : <Maximize2 size={18} />}
                     </button>
-                    <div className="h-6 w-[1px] bg-slate-700/50 mx-1"></div>
+                    <div className="h-6 w-[1px] bg-slate-800 mx-1"></div>
                     <button
                         onClick={() => isExecuting ? stopWorker() : handleExecute(false)}
                         disabled={isSubmitting || isPyodideLoading}
-                        className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all border active:scale-95 disabled:opacity-50 ${
+                        className={`flex items-center gap-2 px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all border active:scale-95 disabled:opacity-50 ${
                             isExecuting 
                             ? "bg-rose-500/10 border-rose-500/30 text-rose-400 hover:bg-rose-500/20" 
-                            : "bg-slate-800 border-slate-700/50 text-white hover:bg-slate-700"
+                            : "bg-slate-800 border-slate-700 text-white hover:bg-slate-700"
                         }`}
                         title={isExecuting ? "Detener ejecución inmediata" : "Ejecuta tu código para ver la salida"}
                     >
@@ -497,7 +497,7 @@ export default function StudentCodeEditor({
                         <button
                             onClick={() => handleExecute(true)}
                             disabled={isExecuting || isSubmitting || isPyodideLoading}
-                            className="flex items-center gap-2 px-4 py-2 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 rounded-xl text-xs font-bold transition-all border border-emerald-500/20 active:scale-95 disabled:opacity-50"
+                            className="flex items-center gap-2 px-4 py-2 bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all border border-sky-500/20 active:scale-95 disabled:opacity-50"
                             title="Prueba tu código con casos configurados"
                         >
                             <Cpu size={14} />
@@ -505,14 +505,14 @@ export default function StudentCodeEditor({
                         </button>
                     )}
 
-                    <div className="h-6 w-[1px] bg-slate-700/50 mx-1"></div>
+                    <div className="h-6 w-[1px] bg-slate-800 mx-1"></div>
                     {!isReadOnly && (
                         <button
                             onClick={handleSubmit}
                             disabled={isExecuting || isSubmitting || isPyodideLoading || isLate}
-                            className={`flex items-center gap-2 px-6 py-2 rounded-xl text-xs font-bold transition-all shadow-lg active:scale-95 ${isLate
+                            className={`flex items-center gap-2 px-6 py-2 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all shadow-lg active:scale-95 ${isLate
                                     ? "bg-slate-800 text-slate-500 cursor-not-allowed"
-                                    : "bg-[var(--color-primary, #0066FF)] hover:brightness-110 text-white"
+                                    : "bg-sky-600 hover:bg-sky-500 text-white shadow-[0_0_20px_rgba(56,189,248,0.3)]"
                                 }`}
                         >
                             {isSubmitting ? "Subiendo..." : isLate ? "Expirado" : "Enviar Lab"}
@@ -524,7 +524,7 @@ export default function StudentCodeEditor({
 
             <div className="flex-1 flex flex-col md:flex-row min-h-0">
                 {/* Editor Area */}
-                <div className="flex-1 flex flex-col min-h-[400px] relative border-r border-slate-700/30 bg-[#0B0D11]">
+                <div className="flex-1 flex flex-col min-h-[400px] relative border-r border-slate-800 bg-[#060810]">
                     <div className="flex-1 relative flex flex-col min-h-0">
                         <Editor
                             height="100%"
@@ -534,7 +534,7 @@ export default function StudentCodeEditor({
                             onChange={(val) => setCode(val || "")}
                             onMount={handleEditorDidMount}
                             options={{
-                                fontSize: 14,
+                                fontSize: 13,
                                 minimap: { enabled: false },
                                 scrollBeyondLastLine: false,
                                 automaticLayout: true,
@@ -544,32 +544,32 @@ export default function StudentCodeEditor({
                                 lineNumbersMinChars: 3,
                                 glyphMargin: false,
                                 folding: true,
-                                lineHeight: 24,
+                                lineHeight: 22,
                                 readOnly: isReadOnly,
                             }}
                         />
                         {enablePlagiarism && (
                             <div className="absolute top-4 right-4 flex items-center gap-2 px-3 py-1.5 bg-amber-500/10 border border-amber-500/20 rounded-full">
                                 <Lock size={12} className="text-amber-500" />
-                                <span className="text-[10px] font-bold text-amber-500 uppercase tracking-widest">No Copy enabled</span>
+                                <span className="text-[9px] font-black text-amber-500 uppercase tracking-widest">No Copy enabled</span>
                             </div>
                         )}
                     </div>
                 </div>
 
                 {/* Console Area */}
-                <div className="w-full md:w-80 flex flex-col bg-[#0B0D11]">
-                    <div className="flex items-center px-1 bg-[#14181E] border-b border-slate-700/50">
+                <div className="w-full md:w-80 flex flex-col bg-[#0d1322]">
+                    <div className="flex items-center px-1 bg-[#0d1322] border-b border-slate-800">
                         <button 
                             onClick={() => setActiveTab('output')}
-                            className={`flex-1 py-3 px-4 flex items-center justify-center gap-2 text-[10px] font-bold uppercase tracking-widest transition-all ${activeTab === 'output' ? 'text-blue-400 bg-blue-500/5 border-b-2 border-blue-500' : 'text-slate-500 hover:text-slate-300'}`}
+                            className={`flex-1 py-3 px-4 flex items-center justify-center gap-2 text-[9px] font-black uppercase tracking-wider transition-all ${activeTab === 'output' ? 'text-sky-400 bg-sky-500/5 border-b-2 border-sky-500' : 'text-slate-500 hover:text-slate-300'}`}
                         >
                             <Cpu size={14} />
                             Salida
                         </button>
                         <button 
                             onClick={() => setActiveTab('input')}
-                            className={`flex-1 py-3 px-4 flex items-center justify-center gap-2 text-[10px] font-bold uppercase tracking-widest transition-all ${activeTab === 'input' ? 'text-amber-400 bg-amber-500/5 border-b-2 border-amber-500' : 'text-slate-500 hover:text-slate-300'}`}
+                            className={`flex-1 py-3 px-4 flex items-center justify-center gap-2 text-[9px] font-black uppercase tracking-wider transition-all ${activeTab === 'input' ? 'text-amber-400 bg-amber-500/5 border-b-2 border-amber-500' : 'text-slate-500 hover:text-slate-300'}`}
                         >
                             <FileText size={14} />
                             Entrada
@@ -579,13 +579,13 @@ export default function StudentCodeEditor({
                         </button>
                     </div>
 
-                    <div className="flex-1 font-mono text-[13px] bg-black/20 flex flex-col min-h-0">
+                    <div className="flex-1 font-mono text-xs bg-black/40 flex flex-col min-h-0">
                         {activeTab === 'output' ? (
                             <div className="flex-1 p-6 overflow-y-auto">
                                 {!output && !result.status && (
                                     <div className="h-full flex flex-col items-center justify-center text-center opacity-30 grayscale">
-                                        <AlertCircle size={32} className="mb-4 text-slate-500" />
-                                        <p className="text-xs text-slate-500 leading-relaxed">
+                                        <AlertCircle size={28} className="mb-4 text-slate-600" />
+                                        <p className="text-[10px] text-slate-500 leading-relaxed uppercase font-black tracking-wider">
                                             Presiona "Correr Código" para ver la<br />salida de tu programa.
                                         </p>
                                     </div>
@@ -593,7 +593,7 @@ export default function StudentCodeEditor({
 
                                 {output && (
                                     <div className="animate-in fade-in duration-300">
-                                        <pre className="text-blue-400 whitespace-pre-wrap">{output}</pre>
+                                        <pre className="text-sky-400 whitespace-pre-wrap leading-relaxed">{output}</pre>
                                     </div>
                                 )}
 
@@ -606,19 +606,19 @@ export default function StudentCodeEditor({
                                             ) : (
                                                 <XCircle size={18} className="text-rose-400" />
                                             )}
-                                            <span className={`text-xs font-bold uppercase tracking-widest ${result.status === 'success' ? 'text-emerald-400' : 'text-rose-400'
+                                            <span className={`text-[10px] font-black uppercase tracking-wider ${result.status === 'success' ? 'text-emerald-400' : 'text-rose-400'
                                                 }`}>
                                                 {result.status === 'success' ? 'Laboratorio Superado' : 'Error en Validación'}
                                             </span>
                                         </div>
-                                        <p className="text-[10px] text-slate-400 leading-relaxed mb-4">
+                                        <p className="text-[9px] text-slate-500 uppercase font-black tracking-wider leading-relaxed mb-4">
                                             {result.status === 'success'
                                                 ? 'Tu código se ejecutó y la salida coincide con lo esperado.'
                                                 : 'La salida de tu programa es diferente a lo esperado por el profesor.'}
                                         </p>
-                                        <div className="flex items-center justify-between pt-4 border-t border-slate-700/50">
-                                            <span className="text-[10px] font-medium text-slate-500">SIMILITUD</span>
-                                            <span className={`text-xl font-black ${result.status === 'success' ? 'text-emerald-400' : 'text-rose-400'}`}>
+                                        <div className="flex items-center justify-between pt-4 border-t border-slate-800">
+                                            <span className="text-[8px] font-black text-slate-500 uppercase tracking-widest">SIMILITUD</span>
+                                            <span className={`text-lg font-black ${result.status === 'success' ? 'text-emerald-400' : 'text-rose-400'}`}>
                                                 {result.score}%
                                             </span>
                                         </div>
@@ -626,46 +626,46 @@ export default function StudentCodeEditor({
                                 )}
 
                                 {result.status === 'ai-pending' && (
-                                    <div className="mt-6 p-6 rounded-2xl bg-blue-500/10 border border-blue-500/20 animate-in zoom-in-95 duration-500">
+                                    <div className="mt-6 p-6 rounded-2xl bg-sky-500/10 border border-sky-500/20 animate-in zoom-in-95 duration-500">
                                         <div className="flex items-center gap-3 mb-4">
-                                            <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center">
-                                                <Send size={18} className="text-blue-400 animate-pulse" />
+                                            <div className="w-10 h-10 rounded-full bg-sky-500/20 flex items-center justify-center">
+                                                <Send size={18} className="text-sky-400 animate-pulse" />
                                             </div>
                                             <div>
-                                                <h4 className="text-sm font-black text-white uppercase tracking-widest">Entrega Recibida</h4>
-                                                <p className="text-[10px] text-blue-400 font-bold uppercase tracking-tighter">Modo: Revisión IA Diferida</p>
+                                                <h4 className="text-xs font-black text-white uppercase tracking-widest">Entrega Recibida</h4>
+                                                <p className="text-[9px] text-sky-400 font-black uppercase tracking-wider mt-0.5">Modo: Revisión IA Diferida</p>
                                             </div>
                                         </div>
-                                        <div className="p-4 bg-black/30 rounded-xl border border-white/5">
-                                            <p className="text-xs text-slate-300 leading-relaxed font-medium">
+                                        <div className="p-4 bg-black/40 rounded-xl border border-slate-800">
+                                            <p className="text-xs text-slate-300 leading-relaxed font-semibold">
                                                 {result.message}
                                             </p>
                                         </div>
-                                        <div className="mt-6 pt-4 border-t border-white/5 flex items-center justify-between text-[10px] font-bold text-slate-500">
-                                            <span className="uppercase tracking-widest">Estado</span>
-                                            <span className="px-2 py-0.5 rounded bg-amber-500/20 text-amber-500 uppercase tracking-tighter">En cola de calificación</span>
+                                        <div className="mt-6 pt-4 border-t border-slate-800 flex items-center justify-between text-[9px] font-black text-slate-500 uppercase tracking-wider">
+                                            <span>Estado</span>
+                                            <span className="px-2 py-0.5 rounded bg-amber-500/20 text-amber-500 uppercase tracking-wider">En cola de calificación</span>
                                         </div>
                                     </div>
                                 )}
                             </div>
                         ) : (
-                            <div className="flex-1 flex flex-col p-4 bg-slate-900/50 divide-y divide-slate-700/30">
+                            <div className="flex-1 flex flex-col p-4 bg-black/20 divide-y divide-slate-800">
                                 <div className="pb-4">
-                                    <div className="flex items-center gap-2 mb-3 text-amber-500/70">
+                                    <div className="flex items-center gap-2 mb-3 text-amber-400/70">
                                         <FileText size={12} />
-                                        <span className="text-[10px] font-bold uppercase tracking-wider">Entrada de Usuario (input())</span>
+                                        <span className="text-[9px] font-black uppercase tracking-wider">Entrada de Usuario (input())</span>
                                     </div>
                                     <textarea
                                         value={userInput}
                                         readOnly={isReadOnly}
                                         onChange={(e) => setUserInput(e.target.value)}
                                         placeholder="Escribe aquí los datos que usará input(). Usa una línea por cada llamada a input()."
-                                        className="w-full h-40 bg-black/40 border border-slate-700/50 rounded-lg p-3 text-slate-300 resize-none focus:outline-none focus:border-amber-500/30 font-mono text-xs leading-5"
+                                        className="w-full h-40 bg-[#05070f] border border-slate-800 rounded-lg p-3 text-slate-300 resize-none focus:outline-none focus:border-amber-500/30 font-mono text-xs leading-5"
                                     />
                                 </div>
                                 <div className="pt-4">
                                     <div className="p-3 bg-amber-500/5 border border-amber-500/10 rounded-lg">
-                                        <p className="text-[10px] text-amber-500/60 leading-relaxed">
+                                        <p className="text-[9px] text-amber-500/60 leading-relaxed font-semibold">
                                             💡 <span className="font-bold">¿Cómo usarlo?</span> Cada línea que escribas aquí simula una entrada de teclado para tu script. Si tu código pide nombre y edad, escribe el nombre en la línea 1 y la edad en la línea 2.
                                         </p>
                                     </div>
@@ -675,14 +675,14 @@ export default function StudentCodeEditor({
                     </div>
 
                     {/* Footer of console */}
-                    <div className="p-4 bg-[#14181E]/50 border-t border-slate-700/30">
-                        <div className="flex items-center justify-between mb-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+                    <div className="p-4 bg-[#0d1322] border-t border-slate-800">
+                        <div className="flex items-center justify-between mb-3 text-[9px] font-black text-slate-500 uppercase tracking-widest">
                             <span>Estado del Motor</span>
-                            <span className={isPyodideLoading ? "text-amber-500" : "text-emerald-500"}>
+                            <span className={isPyodideLoading ? "text-amber-500 animate-pulse" : "text-emerald-500"}>
                                 {isPyodideLoading ? "Cargando..." : "Listo"}
                             </span>
                         </div>
-                        <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                        <div className="w-full h-1.5 bg-slate-900 rounded-full overflow-hidden border border-slate-800">
                             <div
                                 className={`h-full transition-all duration-1000 ${isPyodideLoading ? 'bg-amber-500 w-1/2' : 'bg-emerald-500 w-full'}`}
                             ></div>

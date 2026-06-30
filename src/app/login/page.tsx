@@ -17,33 +17,33 @@ export default async function StudentLoginPage({
     }
 
     return (
-        <div className="min-h-screen bg-[var(--background)] flex flex-col items-center justify-center px-4 pt-32 pb-12 relative overflow-hidden">
-            {/* Background Decorative Elements */}
+        <div className="min-h-screen bg-[var(--background)] flex flex-col items-center justify-center px-4 pt-28 pb-12 relative overflow-hidden">
+            {/* Background Decorative Gradient */}
             <div className="absolute top-0 left-0 w-full h-[500px] overflow-hidden z-0 pointer-events-none">
-                <div className="absolute top-[-20%] left-[20%] w-[50%] h-[100%] bg-[var(--color-primary)] opacity-[0.15] blur-[150px] rounded-full"></div>
+                <div className="absolute top-[-20%] left-[20%] w-[50%] h-[100%] bg-sky-500/10 blur-[120px] rounded-full"></div>
             </div>
 
             <div className="relative z-10 w-full max-w-md">
                 <Link
                     href="/"
-                    className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors mb-8"
+                    className="inline-flex items-center gap-2 text-slate-400 hover:text-sky-500 dark:hover:text-sky-400 transition-colors mb-6 text-sm font-bold uppercase tracking-wider"
                 >
-                    <ArrowLeft size={16} /> Volver al catálogo
+                    <ArrowLeft size={16} /> Volver al inicio
                 </Link>
 
                 <div className="text-center mb-8">
-                    <div className="inline-block p-4 rounded-2xl glass-effect mb-4 shadow-[0_0_15px_rgba(255,255,255,0.05)]">
-                        <Lock className="w-10 h-10 text-[var(--color-primary)] shadow-accent" />
+                    <div className="inline-block p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800 shadow-lg mb-4">
+                        <Lock className="w-10 h-10 text-sky-500" />
                     </div>
-                    <h1 className="text-3xl font-bold tracking-tight text-white mb-2">Ingreso Estudiantes</h1>
-                    <p className="text-slate-400 font-medium tracking-wide">Accede a tus cursos y progreso.</p>
+                    <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-1.5">Ingreso de Alumnos</h1>
+                    <p className="text-slate-500 dark:text-slate-400 text-sm font-medium">Accede a tu panel y cursos premium de trading.</p>
                 </div>
 
-                <div className="glass-effect rounded-2xl p-8 shadow-2xl border border-[var(--color-glass-border)]">
+                <div className="bg-white dark:bg-slate-900/60 border border-slate-200/50 dark:border-slate-800 rounded-2xl p-8 shadow-xl">
                     {/* Google Login */}
                     <a
                         href={`/api/auth/google${returnUrl ? `?returnUrl=${encodeURIComponent(returnUrl)}` : ""}`}
-                        className="w-full bg-white/5 hover:bg-white/10 text-white font-semibold py-3 px-4 rounded-lg border border-white/10 transition-all duration-300 flex items-center justify-center gap-3 mb-6 group"
+                        className="w-full bg-slate-50 hover:bg-slate-100 dark:bg-slate-950 dark:hover:bg-slate-900 text-slate-800 dark:text-white font-bold text-xs uppercase tracking-wider py-3 px-4 rounded-xl border border-slate-200 dark:border-slate-800 transition-all flex items-center justify-center gap-3 mb-6"
                     >
                         <svg className="w-5 h-5" viewBox="0 0 24 24">
                             <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
@@ -56,10 +56,10 @@ export default async function StudentLoginPage({
 
                     <div className="relative mb-6">
                         <div className="absolute inset-0 flex items-center">
-                            <div className="w-full border-t border-white/5"></div>
+                            <div className="w-full border-t border-slate-200 dark:border-slate-800"></div>
                         </div>
-                        <div className="relative flex justify-center text-xs uppercase tracking-widest">
-                            <span className="bg-[#0f172a] px-2 text-slate-500 font-bold">o con correo</span>
+                        <div className="relative flex justify-center text-[10px] uppercase tracking-widest">
+                            <span className="bg-white dark:bg-[#0d1326] px-3 text-slate-400 font-bold">o con correo</span>
                         </div>
                     </div>
 
@@ -71,10 +71,10 @@ export default async function StudentLoginPage({
                         googleLinked={error === "google_linked"}
                     />
 
-                    <div className="mt-6 text-center">
-                        <p className="text-sm text-slate-400">
-                            ¿No tienes cuenta?{" "}
-                            <Link href="/register" className="text-[var(--color-primary)] font-semibold hover:underline">
+                    <div className="mt-6 text-center pt-4 border-t border-slate-100 dark:border-slate-800/80">
+                        <p className="text-xs text-slate-500 dark:text-slate-400">
+                            ¿Aún no tienes cuenta?{" "}
+                            <Link href="/register" className="text-sky-500 font-bold hover:underline">
                                 Regístrate aquí
                             </Link>
                         </p>

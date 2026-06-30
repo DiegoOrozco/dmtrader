@@ -748,7 +748,7 @@ export default function AdminCourseEditorClient({ initialCourse }: { initialCour
                     <button
                         onClick={handleSave}
                         disabled={isSaving}
-                        className={`${isSaving ? "opacity-70 cursor-not-allowed" : ""} bg-[var(--color-primary)] hover:bg-blue-600 text-white font-semibold py-2.5 px-6 rounded-xl transition-all duration-300 glow-accent flex items-center justify-center gap-2`}
+                        className={`${isSaving ? "opacity-70 cursor-not-allowed" : ""} bg-[var(--color-primary)] hover:bg-sky-600 text-white font-semibold py-2.5 px-6 rounded-xl transition-all duration-300 glow-accent flex items-center justify-center gap-2`}
                     >
                         {isSaving ? <Loader2 size={18} className="animate-spin" /> : <Save size={18} />}
                         <span className="text-sm">{isSaving ? "Guardando..." : "Guardar Cambios"}</span>
@@ -919,7 +919,7 @@ export default function AdminCourseEditorClient({ initialCourse }: { initialCour
                                             type="number"
                                             value={course.weightQuiz}
                                             onChange={(e) => setCourse({ ...course, weightQuiz: parseInt(e.target.value) || 0 })}
-                                            className="w-full bg-[rgba(0,0,0,0.3)] border border-slate-700/50 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-blue-500 transition-all"
+                                            className="w-full bg-[rgba(0,0,0,0.3)] border border-slate-700/50 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-sky-500 transition-all"
                                         />
                                     </div>
                                     <div>
@@ -928,7 +928,7 @@ export default function AdminCourseEditorClient({ initialCourse }: { initialCour
                                             type="number"
                                             value={course.weightLab}
                                             onChange={(e) => setCourse({ ...course, weightLab: parseInt(e.target.value) || 0 })}
-                                            className="w-full bg-[rgba(0,0,0,0.3)] border border-slate-700/50 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-blue-500 transition-all"
+                                            className="w-full bg-[rgba(0,0,0,0.3)] border border-slate-700/50 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-sky-500 transition-all"
                                         />
                                     </div>
                                     <div>
@@ -937,7 +937,7 @@ export default function AdminCourseEditorClient({ initialCourse }: { initialCour
                                             type="number"
                                             value={course.weightForum}
                                             onChange={(e) => setCourse({ ...course, weightForum: parseInt(e.target.value) || 0 })}
-                                            className="w-full bg-[rgba(0,0,0,0.3)] border border-slate-700/50 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-blue-500 transition-all"
+                                            className="w-full bg-[rgba(0,0,0,0.3)] border border-slate-700/50 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-sky-500 transition-all"
                                         />
                                     </div>
                                     <div>
@@ -946,7 +946,7 @@ export default function AdminCourseEditorClient({ initialCourse }: { initialCour
                                             type="number"
                                             value={course.weightProject}
                                             onChange={(e) => setCourse({ ...course, weightProject: parseInt(e.target.value) || 0 })}
-                                            className="w-full bg-[rgba(0,0,0,0.3)] border border-slate-700/50 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-blue-500 transition-all"
+                                            className="w-full bg-[rgba(0,0,0,0.3)] border border-slate-700/50 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-sky-500 transition-all"
                                         />
                                     </div>
                                     <div>
@@ -955,7 +955,7 @@ export default function AdminCourseEditorClient({ initialCourse }: { initialCour
                                             type="number"
                                             value={course.weightExam}
                                             onChange={(e) => setCourse({ ...course, weightExam: parseInt(e.target.value) || 0 })}
-                                            className="w-full bg-[rgba(0,0,0,0.3)] border border-slate-700/50 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-blue-500 transition-all"
+                                            className="w-full bg-[rgba(0,0,0,0.3)] border border-slate-700/50 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-sky-500 transition-all"
                                         />
                                     </div>
                                 </div>
@@ -1287,7 +1287,7 @@ export default function AdminCourseEditorClient({ initialCourse }: { initialCour
                                                                                                         disabled={isUploadingFile === `${day.id}-summaryUrl`}
                                                                                                     />
                                                                                                     <div
-                                                                                                        className={`${isUploadingFile === `${day.id}-summaryUrl` ? "opacity-70" : ""} flex items-center gap-1.5 text-[10px] font-bold text-[var(--color-primary)] hover:text-white transition-colors uppercase tracking-widest bg-blue-500/10 px-2 py-1 rounded border border-blue-500/20`}
+                                                                                                        className={`${isUploadingFile === `${day.id}-summaryUrl` ? "opacity-70" : ""} flex items-center gap-1.5 text-[10px] font-bold text-[var(--color-primary)] hover:text-white transition-colors uppercase tracking-widest bg-sky-500/10 px-2 py-1 rounded border border-sky-500/20`}
                                                                                                     >
                                                                                                         {isUploadingFile === `${day.id}-summaryUrl` ? (
                                                                                                             <Loader2 size={12} className="animate-spin" />
@@ -1303,7 +1303,7 @@ export default function AdminCourseEditorClient({ initialCourse }: { initialCour
                                                                                                         target="_blank"
                                                                                                         rel="noopener noreferrer"
                                                                                                         download
-                                                                                                        className="flex items-center gap-1.5 text-[10px] font-bold text-blue-400 hover:text-white transition-colors uppercase tracking-widest bg-blue-500/10 px-2 py-1 rounded border border-blue-500/20"
+                                                                                                        className="flex items-center gap-1.5 text-[10px] font-bold text-sky-400 hover:text-white transition-colors uppercase tracking-widest bg-sky-500/10 px-2 py-1 rounded border border-sky-500/20"
                                                                                                     >
                                                                                                         <Download size={12} /> Descargar
                                                                                                     </a>
@@ -1529,7 +1529,7 @@ export default function AdminCourseEditorClient({ initialCourse }: { initialCour
                                                                                                     <div className="flex items-center gap-2">
                                                                                                         <button 
                                                                                                             onClick={() => setMovingAssignment(assignment)}
-                                                                                                            className="text-blue-400/50 hover:text-blue-400 transition-colors p-2 hover:bg-blue-500/10 rounded-lg"
+                                                                                                            className="text-sky-400/50 hover:text-sky-400 transition-colors p-2 hover:bg-sky-500/10 rounded-lg"
                                                                                                             title="Mover a otra sección"
                                                                                                         >
                                                                                                             <Move size={18} />
@@ -1550,7 +1550,7 @@ export default function AdminCourseEditorClient({ initialCourse }: { initialCour
                                                                                                         <select
                                                                                                             value={assignment.assignmentType || "LAB"}
                                                                                                             onChange={(e) => handleUpdateAssignment(week.id, day.id, assignment.id, "assignmentType", e.target.value)}
-                                                                                                            className="w-full bg-black/40 border border-slate-700/50 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-purple-500 transition-all"
+                                                                                                            className="w-full bg-black/40 border border-slate-700/50 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-sky-500 transition-all"
                                                                                                         >
                                                                                                             <option value="QUIZ">Quiz / Prueba</option>
                                                                                                             <option value="LAB">Laboratorio</option>
@@ -1586,7 +1586,7 @@ export default function AdminCourseEditorClient({ initialCourse }: { initialCour
                                                                                                             type="number"
                                                                                                             value={assignment.timeLimit || ""}
                                                                                                             onChange={(e) => handleUpdateAssignment(week.id, day.id, assignment.id, "timeLimit", parseInt(e.target.value) || null)}
-                                                                                                            className="w-full bg-black/40 border border-slate-700/50 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500"
+                                                                                                            className="w-full bg-black/40 border border-slate-700/50 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-sky-500"
                                                                                                             placeholder="Ilimitado"
                                                                                                         />
                                                                                                     </div>
@@ -1606,7 +1606,7 @@ export default function AdminCourseEditorClient({ initialCourse }: { initialCour
                                                                                                                         if (f) handleAssignmentFileUpload(week.id, day.id, assignment.id, f, "assignmentUrl");
                                                                                                                     }}
                                                                                                                 />
-                                                                                                                <div className="flex items-center gap-1.5 text-[9px] font-bold text-blue-400 uppercase tracking-wider bg-blue-500/10 px-2 py-1 rounded border border-blue-500/20">
+                                                                                                                <div className="flex items-center gap-1.5 text-[9px] font-bold text-sky-400 uppercase tracking-wider bg-sky-500/10 px-2 py-1 rounded border border-sky-500/20">
                                                                                                                     {isUploadingFile === `${assignment.id}-assignmentUrl` ? <Loader2 size={10} className="animate-spin" /> : <Upload size={10} />}
                                                                                                                     Subir PDF
                                                                                                                 </div>
@@ -1620,7 +1620,7 @@ export default function AdminCourseEditorClient({ initialCourse }: { initialCour
                                                                                                         value={assignment.exerciseDescription || ""}
                                                                                                         onChange={(e) => handleUpdateAssignment(week.id, day.id, assignment.id, "exerciseDescription", e.target.value)}
                                                                                                         placeholder="Escribe el problema o instrucciones aquí..."
-                                                                                                        className="w-full h-24 bg-black/20 border border-white/5 rounded-xl px-3 py-2 text-sm text-slate-300 focus:outline-none focus:border-blue-500 transition-all resize-y"
+                                                                                                        className="w-full h-24 bg-black/20 border border-white/5 rounded-xl px-3 py-2 text-sm text-slate-300 focus:outline-none focus:border-sky-500 transition-all resize-y"
                                                                                                     />
                                                                                                 </div>
 
@@ -1701,7 +1701,7 @@ export default function AdminCourseEditorClient({ initialCourse }: { initialCour
                                                                                                                                 handleUpdateAssignment(week.id, day.id, assignment.id, "testCases", newTc);
                                                                                                                             }}
                                                                                                                             placeholder="Input..."
-                                                                                                                            className="w-full h-16 bg-black/20 border border-slate-800 rounded p-2 text-xs text-blue-300 font-mono focus:outline-none"
+                                                                                                                            className="w-full h-16 bg-black/20 border border-slate-800 rounded p-2 text-xs text-sky-300 font-mono focus:outline-none"
                                                                                                                         />
                                                                                                                         <textarea
                                                                                                                             value={tc.output}

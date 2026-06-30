@@ -40,7 +40,7 @@ export default async function VerifyEmailPage({
                             Tu dirección de correo ha sido actualizada con éxito. A partir de ahora podrás iniciar sesión con tu nuevo correo.
                         </p>
                         <div className="pt-4 flex flex-col gap-3">
-                            <Link href="/" className="flex items-center justify-center gap-2 bg-[var(--color-primary)] hover:bg-blue-600 text-white font-black uppercase tracking-widest py-4 rounded-2xl transition-all shadow-xl shadow-blue-500/20">
+                            <Link href="/" className="flex items-center justify-center gap-2 bg-[var(--color-primary)] hover:bg-sky-600 text-white font-black uppercase tracking-widest py-4 rounded-2xl transition-all shadow-xl shadow-sky-500/20">
                                 Ir al Inicio
                                 <ArrowRight size={18} />
                             </Link>

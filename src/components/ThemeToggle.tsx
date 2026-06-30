@@ -37,13 +37,13 @@ export default function ThemeToggle() {
     return (
         <button
             onClick={toggleTheme}
-            className="p-2 md:p-2.5 rounded-xl bg-white/5 border border-white/10 dark:border-white/10 border-black/10 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-white/10 transition-all flex items-center justify-center group"
+            className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200/50 dark:border-slate-700/50 text-slate-500 dark:text-slate-400 hover:text-sky-500 dark:hover:text-sky-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all duration-300 flex items-center justify-center"
             title={theme === "dark" ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
         >
             {theme === "dark" ? (
-                <Sun size={18} className="group-hover:rotate-45 transition-transform duration-500 text-yellow-400" />
+                <Sun size={18} className="animate-pulse text-amber-500" />
             ) : (
-                <Moon size={18} className="group-hover:-rotate-12 transition-transform duration-500 text-indigo-600" />
+                <Moon size={18} className="text-sky-600 dark:text-sky-400" />
             )}
         </button>
     );

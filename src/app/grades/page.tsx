@@ -73,7 +73,7 @@ export default async function GradesPage() {
 
                 <header className="mb-12">
                     <div className="flex items-center gap-4 mb-4">
-                        <div className="w-12 h-12 rounded-2xl bg-[var(--color-primary)]/20 flex items-center justify-center text-[var(--color-primary)] shadow-lg shadow-blue-500/10">
+                        <div className="w-12 h-12 rounded-2xl bg-[var(--color-primary)]/20 flex items-center justify-center text-[var(--color-primary)] shadow-lg shadow-sky-500/10">
                             <GraduationCap size={28} />
                         </div>
                         <div>
@@ -96,7 +96,7 @@ export default async function GradesPage() {
                                             {/* Left: Course Info & Total Score */}
                                             <div className="flex-1 w-full space-y-10">
                                                 <div className="flex items-start gap-6">
-                                                    <div className="w-16 h-16 rounded-[2rem] bg-gradient-to-br from-[var(--color-primary)] to-blue-500 flex items-center justify-center text-white shadow-2xl shadow-blue-500/30 shrink-0">
+                                                    <div className="w-16 h-16 rounded-[2rem] bg-gradient-to-br from-[var(--color-primary)] to-sky-500 flex items-center justify-center text-white shadow-2xl shadow-sky-500/30 shrink-0">
                                                         <BookOpen size={32} />
                                                     </div>
                                                     <div>
@@ -180,7 +180,7 @@ export default async function GradesPage() {
 
                                                 <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 mr-16">
                                                     <div className="flex items-start gap-4">
-                                                        <div className="w-10 h-10 rounded-xl bg-slate-900 flex items-center justify-center text-slate-500 group-hover:text-blue-400 transition-colors">
+                                                        <div className="w-10 h-10 rounded-xl bg-slate-900 flex items-center justify-center text-slate-500 group-hover:text-sky-400 transition-colors">
                                                             <FileText size={20} />
                                                         </div>
                                                         <div>
@@ -218,7 +218,7 @@ export default async function GradesPage() {
                                                     <div className="mt-8 pt-6 border-t border-white/5 space-y-6 animate-in fade-in duration-500">
                                                         {/* Comentario General simplified */}
                                                         {sub.feedback.comentario && (
-                                                            <div className="p-4 bg-indigo-500/5 rounded-2xl border border-indigo-500/10 italic text-slate-400 text-sm leading-relaxed">
+                                                            <div className="p-4 bg-sky-500/5 rounded-2xl border border-sky-500/10 italic text-slate-400 text-sm leading-relaxed">
                                                                 "{sub.feedback.comentario}"
                                                             </div>
                                                         )}
@@ -278,7 +278,7 @@ export default async function GradesPage() {
                         </p>
                         <Link
                             href="/"
-                            className="inline-block mt-8 bg-[var(--color-primary)] hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-2xl transition-all shadow-xl shadow-blue-500/20"
+                            className="inline-block mt-8 bg-[var(--color-primary)] hover:bg-sky-600 text-white font-bold py-3 px-8 rounded-2xl transition-all shadow-xl shadow-sky-500/20"
                         >
                             Explorar Catálogo
                         </Link>

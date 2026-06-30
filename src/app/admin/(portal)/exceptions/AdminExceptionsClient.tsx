@@ -109,7 +109,7 @@ export default function AdminExceptionsClient({
 
                 <button
                     onClick={() => setIsModalOpen(true)}
-                    className="flex items-center gap-2 bg-[var(--color-primary)] hover:brightness-110 text-white font-bold py-3 px-6 rounded-2xl transition-all shadow-xl shadow-blue-500/20 active:scale-95"
+                    className="flex items-center gap-2 bg-[var(--color-primary)] hover:brightness-110 text-white font-bold py-3 px-6 rounded-2xl transition-all shadow-xl shadow-sky-500/20 active:scale-95"
                 >
                     <Plus size={20} />
                     Nueva Excepción

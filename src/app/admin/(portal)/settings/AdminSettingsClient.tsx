@@ -82,15 +82,15 @@ export default function AdminSettingsClient({ initialConfigs }: { initialConfigs
         <div className="space-y-8">
             {/* Tabs */}
             <div className="flex gap-2 p-2 bg-white/5 rounded-2xl border border-white/10 w-fit">
-                <button onClick={() => setActiveTab("home")} className={`px-6 py-2 rounded-xl font-bold text-sm transition-all ${activeTab === 'home' ? 'bg-[#cde641] text-black' : 'text-white/40 hover:text-white'}`}>Inicio</button>
-                <button onClick={() => setActiveTab("about")} className={`px-6 py-2 rounded-xl font-bold text-sm transition-all ${activeTab === 'about' ? 'bg-[#cde641] text-black' : 'text-white/40 hover:text-white'}`}>Sobre Mí</button>
-                <button onClick={() => setActiveTab("system")} className={`px-6 py-2 rounded-xl font-bold text-sm transition-all ${activeTab === 'system' ? 'bg-[#cde641] text-black' : 'text-white/40 hover:text-white'}`}>Sistema & IA</button>
+                <button onClick={() => setActiveTab("home")} className={`px-6 py-2 rounded-xl font-bold text-sm transition-all ${activeTab === 'home' ? 'bg-[#0ea5e9] text-black' : 'text-white/40 hover:text-white'}`}>Inicio</button>
+                <button onClick={() => setActiveTab("about")} className={`px-6 py-2 rounded-xl font-bold text-sm transition-all ${activeTab === 'about' ? 'bg-[#0ea5e9] text-black' : 'text-white/40 hover:text-white'}`}>Sobre Mí</button>
+                <button onClick={() => setActiveTab("system")} className={`px-6 py-2 rounded-xl font-bold text-sm transition-all ${activeTab === 'system' ? 'bg-[#0ea5e9] text-black' : 'text-white/40 hover:text-white'}`}>Sistema & IA</button>
             </div>
 
             {activeTab === "home" && (
                 <div className="glass-effect rounded-3xl border border-white/10 p-8 space-y-8 animate-in fade-in">
                     <div className="flex items-center gap-3 pb-6 border-b border-white/5">
-                        <Home className="text-[#cde641]" />
+                        <Home className="text-[#0ea5e9]" />
                         <h2 className="text-xl font-bold text-white tracking-tight">Configuración de Inicio</h2>
                     </div>
 
@@ -98,7 +98,7 @@ export default function AdminSettingsClient({ initialConfigs }: { initialConfigs
                         <div className="space-y-2">
                             <label className="text-[10px] font-black text-white/30 uppercase tracking-[0.2em]">Título Principal (Hero)</label>
                             <input 
-                                className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white focus:border-[#cde641] transition-all outline-none"
+                                className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white focus:border-[#0ea5e9] transition-all outline-none"
                                 value={home.heroTitle}
                                 onChange={(e) => updateHome({ heroTitle: e.target.value })}
                             />
@@ -106,7 +106,7 @@ export default function AdminSettingsClient({ initialConfigs }: { initialConfigs
                         <div className="space-y-2">
                             <label className="text-[10px] font-black text-white/30 uppercase tracking-[0.2em]">Subtítulo (Hero)</label>
                             <textarea 
-                                className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white min-h-[100px] focus:border-[#cde641] transition-all outline-none"
+                                className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white min-h-[100px] focus:border-[#0ea5e9] transition-all outline-none"
                                 value={home.heroSubtitle}
                                 onChange={(e) => updateHome({ heroSubtitle: e.target.value })}
                             />
@@ -116,7 +116,7 @@ export default function AdminSettingsClient({ initialConfigs }: { initialConfigs
                         <div className="pt-10 border-t border-white/5 space-y-6">
                             <div className="flex items-center justify-between">
                                 <h3 className="text-sm font-black text-white uppercase tracking-widest flex items-center gap-2 italic">
-                                    <Sparkles size={16} className="text-[#cde641]" /> NOTICIAS & INSIGHTS
+                                    <Sparkles size={16} className="text-[#0ea5e9]" /> NOTICIAS & INSIGHTS
                                 </h3>
                                 <div className="flex gap-2">
                                     <button 
@@ -137,7 +137,7 @@ export default function AdminSettingsClient({ initialConfigs }: { initialConfigs
                                             }
                                         }}
                                         disabled={isRefreshingNews}
-                                        className="bg-purple-500/10 hover:bg-purple-500/20 text-purple-400 text-[10px] font-black uppercase tracking-widest px-4 py-2 border border-purple-500/20 rounded-lg flex items-center gap-2 transition-all disabled:opacity-50"
+                                        className="bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 text-[10px] font-black uppercase tracking-widest px-4 py-2 border border-sky-500/20 rounded-lg flex items-center gap-2 transition-all disabled:opacity-50"
                                     >
                                         <Sparkles size={14} className={isRefreshingNews ? "animate-spin" : ""} />
                                         Refrescar con IA
@@ -147,7 +147,7 @@ export default function AdminSettingsClient({ initialConfigs }: { initialConfigs
                                             const next = [...(home.news || []), { title: "Nueva Noticia", date: "HOY", summary: "", search_url: "", source: "DM Trader" }];
                                             updateHome({ news: next });
                                         }}
-                                        className="text-[#cde641] text-[10px] font-black uppercase tracking-widest px-4 py-2 border border-[#cde641]/20 rounded-lg hover:bg-[#cde641]/10"
+                                        className="text-[#0ea5e9] text-[10px] font-black uppercase tracking-widest px-4 py-2 border border-[#0ea5e9]/20 rounded-lg hover:bg-[#0ea5e9]/10"
                                     >
                                         + Añadir Manual
                                     </button>
@@ -156,7 +156,7 @@ export default function AdminSettingsClient({ initialConfigs }: { initialConfigs
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 {(home.news || []).map((n: any, idx: number) => (
-                                    <div key={idx} className="bg-white/[0.02] border border-white/5 rounded-2xl p-6 space-y-4 relative group hover:border-[#cde641]/20 transition-all">
+                                    <div key={idx} className="bg-white/[0.02] border border-white/5 rounded-2xl p-6 space-y-4 relative group hover:border-[#0ea5e9]/20 transition-all">
                                         <button 
                                             onClick={() => {
                                                 const next = home.news.filter((_: any, i: number) => i !== idx);
@@ -170,7 +170,7 @@ export default function AdminSettingsClient({ initialConfigs }: { initialConfigs
                                         <div className="space-y-1">
                                             <label className="text-[9px] font-black text-white/20 uppercase tracking-widest">Título de Noticia</label>
                                             <input 
-                                                className="w-full bg-black/60 border border-white/5 rounded-lg p-2 text-sm text-white focus:border-[#cde641]/40 outline-none"
+                                                className="w-full bg-black/60 border border-white/5 rounded-lg p-2 text-sm text-white focus:border-[#0ea5e9]/40 outline-none"
                                                 value={n.title}
                                                 onChange={(e) => {
                                                     const next = [...home.news];
@@ -183,7 +183,7 @@ export default function AdminSettingsClient({ initialConfigs }: { initialConfigs
                                         <div className="space-y-1">
                                             <label className="text-[9px] font-black text-white/20 uppercase tracking-widest">Resumen / Descripción Corta</label>
                                             <textarea 
-                                                className="w-full bg-black/60 border border-white/5 rounded-lg p-2 text-xs text-white/60 h-20 focus:border-[#cde641]/40 outline-none"
+                                                className="w-full bg-black/60 border border-white/5 rounded-lg p-2 text-xs text-white/60 h-20 focus:border-[#0ea5e9]/40 outline-none"
                                                 value={n.summary || ''}
                                                 onChange={(e) => {
                                                     const next = [...home.news];
@@ -221,9 +221,9 @@ export default function AdminSettingsClient({ initialConfigs }: { initialConfigs
                                         </div>
 
                                         <div className="space-y-1 pt-2">
-                                            <label className="text-[9px] font-black text-[#cde641] uppercase tracking-widest">URL Directa (EL ENLACE REAL)</label>
+                                            <label className="text-[9px] font-black text-[#0ea5e9] uppercase tracking-widest">URL Directa (EL ENLACE REAL)</label>
                                             <input 
-                                                className="w-full bg-[#cde641]/5 border border-[#cde641]/20 rounded-lg p-3 text-[10px] text-[#cde641] font-mono"
+                                                className="w-full bg-[#0ea5e9]/5 border border-[#0ea5e9]/20 rounded-lg p-3 text-[10px] text-[#0ea5e9] font-mono"
                                                 placeholder="https://..."
                                                 value={n.search_url || ''}
                                                 onChange={(e) => {
@@ -244,7 +244,7 @@ export default function AdminSettingsClient({ initialConfigs }: { initialConfigs
                         <button
                             onClick={() => handleSave("home", home)}
                             disabled={isSaving}
-                            className="bg-[#cde641] hover:shadow-[0_0_30px_rgba(205,230,65,0.3)] disabled:opacity-50 text-black font-black py-4 px-10 rounded-2xl transition-all flex items-center gap-3 uppercase italic tracking-tighter"
+                            className="bg-[#0ea5e9] hover:shadow-[0_0_30px_rgba(205,230,65,0.3)] disabled:opacity-50 text-black font-black py-4 px-10 rounded-2xl transition-all flex items-center gap-3 uppercase italic tracking-tighter"
                         >
                             <Save size={18} />
                             {isSaving ? "Guardando..." : "PUBLICAR CAMBIOS"}
@@ -256,7 +256,7 @@ export default function AdminSettingsClient({ initialConfigs }: { initialConfigs
             {activeTab === "about" && (
                 <div className="glass-effect rounded-3xl border border-white/10 p-8 space-y-8 animate-in fade-in">
                     <div className="flex items-center gap-3 pb-6 border-b border-white/5">
-                        <Info className="text-[#cde641]" />
+                        <Info className="text-[#0ea5e9]" />
                         <h2 className="text-xl font-bold text-white tracking-tight">Biografía (Sobre Mí)</h2>
                     </div>
 
@@ -265,7 +265,7 @@ export default function AdminSettingsClient({ initialConfigs }: { initialConfigs
                             <div className="space-y-2">
                                 <label className="text-[10px] font-black text-white/30 uppercase tracking-[0.2em]">Nombre</label>
                                 <input 
-                                    className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white focus:border-[#cde641] transition-all outline-none"
+                                    className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white focus:border-[#0ea5e9] transition-all outline-none"
                                     value={about.name}
                                     onChange={(e) => updateAbout({ name: e.target.value })}
                                 />
@@ -273,7 +273,7 @@ export default function AdminSettingsClient({ initialConfigs }: { initialConfigs
                             <div className="space-y-2">
                                 <label className="text-[10px] font-black text-white/30 uppercase tracking-[0.2em]">Título / Rol</label>
                                 <input 
-                                    className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white focus:border-[#cde641] transition-all outline-none"
+                                    className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white focus:border-[#0ea5e9] transition-all outline-none"
                                     value={about.title}
                                     onChange={(e) => updateAbout({ title: e.target.value })}
                                 />
@@ -283,7 +283,7 @@ export default function AdminSettingsClient({ initialConfigs }: { initialConfigs
                         <div className="space-y-2">
                             <label className="text-[10px] font-black text-white/30 uppercase tracking-[0.2em]">Foto de Perfil (URL o Ruta Local)</label>
                             <input 
-                                className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white focus:border-[#cde641] transition-all outline-none"
+                                className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white focus:border-[#0ea5e9] transition-all outline-none"
                                 value={about.imageUrl || ''}
                                 onChange={(e) => updateAbout({ imageUrl: e.target.value })}
                                 placeholder="/profile-pic.jpg"
@@ -293,7 +293,7 @@ export default function AdminSettingsClient({ initialConfigs }: { initialConfigs
                         <div className="space-y-2">
                             <label className="text-[10px] font-black text-white/30 uppercase tracking-[0.2em]">Biografía (Soporta Markdown)</label>
                             <textarea 
-                                className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white min-h-[200px] focus:border-[#cde641] transition-all outline-none font-mono text-sm"
+                                className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white min-h-[200px] focus:border-[#0ea5e9] transition-all outline-none font-mono text-sm"
                                 value={about.bio || ''}
                                 onChange={(e) => updateAbout({ bio: e.target.value })}
                                 placeholder="Escribe aquí tu biografía en formato Markdown..."
@@ -304,7 +304,7 @@ export default function AdminSettingsClient({ initialConfigs }: { initialConfigs
                             <div className="space-y-2">
                                 <label className="text-[10px] font-black text-white/30 uppercase tracking-[0.2em]">Correo Electrónico de Contacto</label>
                                 <input 
-                                    className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white focus:border-[#cde641] transition-all outline-none"
+                                    className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white focus:border-[#0ea5e9] transition-all outline-none"
                                     value={about.contactEmail}
                                     onChange={(e) => updateAbout({ contactEmail: e.target.value })}
                                 />
@@ -312,7 +312,7 @@ export default function AdminSettingsClient({ initialConfigs }: { initialConfigs
                             <div className="space-y-2">
                                 <label className="text-[10px] font-black text-white/30 uppercase tracking-[0.2em]">WhatsApp Link (ej. https://wa.me/...)</label>
                                 <input 
-                                    className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white focus:border-[#cde641] transition-all outline-none"
+                                    className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white focus:border-[#0ea5e9] transition-all outline-none"
                                     value={about.contactWhatsapp}
                                     onChange={(e) => updateAbout({ contactWhatsapp: e.target.value })}
                                 />
@@ -324,7 +324,7 @@ export default function AdminSettingsClient({ initialConfigs }: { initialConfigs
                         <button
                             onClick={() => handleSave("about", about)}
                             disabled={isSaving}
-                            className="bg-[#cde641] hover:shadow-[0_0_30px_rgba(205,230,65,0.3)] disabled:opacity-50 text-black font-black py-4 px-10 rounded-2xl transition-all flex items-center gap-3 uppercase italic tracking-tighter"
+                            className="bg-[#0ea5e9] hover:shadow-[0_0_30px_rgba(205,230,65,0.3)] disabled:opacity-50 text-black font-black py-4 px-10 rounded-2xl transition-all flex items-center gap-3 uppercase italic tracking-tighter"
                         >
                             <Save size={18} />
                             {isSaving ? "Guardando..." : "PUBLICAR CAMBIOS"}

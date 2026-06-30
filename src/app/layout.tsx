@@ -7,8 +7,8 @@ import { getAuthUser } from "@/lib/auth-utils";
 import { getSiteConfig } from "@/lib/config";
 
 export const metadata: Metadata = {
-  title: "DM Trader",
-  description: "Plataforma de cursos de trading y mercados financieros",
+  title: "DM Trader - Premium Trading Education",
+  description: "Aprende trading y mercados financieros con Dayan Moraga. Cursos profesionales, análisis en vivo y comunidad premium.",
 };
 
 export default async function RootLayout({

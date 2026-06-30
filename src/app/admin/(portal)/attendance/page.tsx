@@ -91,7 +91,7 @@ export default function AttendanceAdminPage() {
                         <button
                             onClick={handleGenerateCode}
                             disabled={isLoading}
-                            className="w-full bg-[var(--color-primary)] hover:bg-blue-600 disabled:opacity-50 text-white font-black py-4 rounded-xl shadow-lg shadow-blue-500/20 transition-all flex items-center justify-center gap-2 overflow-hidden relative group"
+                            className="w-full bg-[var(--color-primary)] hover:bg-sky-600 disabled:opacity-50 text-white font-black py-4 rounded-xl shadow-lg shadow-sky-500/20 transition-all flex items-center justify-center gap-2 overflow-hidden relative group"
                         >
                             <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
                             <span className="relative flex items-center gap-2">
@@ -123,7 +123,7 @@ export default function AttendanceAdminPage() {
                             <div className="flex items-center gap-6">
                                 <div className="flex flex-col items-center">
                                     <div className="text-2xl font-black text-white flex items-center gap-2">
-                                        <Timer className="text-orange-400" size={20} />
+                                        <Timer className="text-amber-400" size={20} />
                                         {formatTime(timeLeft || 0)}
                                     </div>
                                     <p className="text-[10px] text-slate-500 font-bold uppercase tracking-tighter">Tiempo Restante</p>
@@ -149,13 +149,13 @@ export default function AttendanceAdminPage() {
             </div>
 
             {/* Help Card */}
-            <div className="bg-blue-500/5 border border-blue-500/20 rounded-3xl p-6 flex gap-4 items-start">
-                <div className="p-2 rounded-xl bg-blue-500/20">
-                    <Copy size={20} className="text-blue-400" />
+            <div className="bg-sky-500/5 border border-sky-500/20 rounded-3xl p-6 flex gap-4 items-start">
+                <div className="p-2 rounded-xl bg-sky-500/20">
+                    <Copy size={20} className="text-sky-400" />
                 </div>
                 <div>
                     <h4 className="text-white font-bold mb-1">Instrucciones para Estudiantes</h4>
-                    <p className="text-slate-400 text-sm">Indica a tus alumnos que ingresen a <span className="text-blue-400 font-mono">/asistencia</span> desde sus dispositivos personales. Allí aparecerá la lista de nombres para que ellos se seleccionen y pongan la clave que generaste arriba.</p>
+                    <p className="text-slate-400 text-sm">Indica a tus alumnos que ingresen a <span className="text-sky-400 font-mono">/asistencia</span> desde sus dispositivos personales. Allí aparecerá la lista de nombres para que ellos se seleccionen y pongan la clave que generaste arriba.</p>
                 </div>
             </div>
         </div>

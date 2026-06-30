@@ -344,7 +344,7 @@ export default function DaySubmissionsClient({
                 <div className="flex flex-wrap items-center gap-3 w-full lg:w-auto">
                     <button
                         onClick={() => setIsBatchModalOpen(true)}
-                        className="flex-1 lg:flex-none flex items-center justify-center gap-2 bg-purple-500/10 hover:bg-purple-500/20 text-purple-400 border border-purple-500/20 font-bold py-2.5 px-6 rounded-xl transition-all min-w-[200px]"
+                        className="flex-1 lg:flex-none flex items-center justify-center gap-2 bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 border border-sky-500/20 font-bold py-2.5 px-6 rounded-xl transition-all min-w-[200px]"
                     >
                         <Sparkles size={18} />
                         Calificación Lote (IA)
@@ -373,7 +373,7 @@ export default function DaySubmissionsClient({
 
                     <button
                         onClick={handleTestAi}
-                        className="bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-400 border border-indigo-500/20 font-bold py-2.5 px-4 rounded-xl transition-all"
+                        className="bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 border border-sky-500/20 font-bold py-2.5 px-4 rounded-xl transition-all"
                         title="Probar Conexión"
                     >
                         Test IA
@@ -382,7 +382,7 @@ export default function DaySubmissionsClient({
                     <button
                         onClick={downloadAll}
                         disabled={isZipping}
-                        className="flex-1 lg:flex-none flex items-center justify-center gap-2 bg-[var(--color-primary)] hover:bg-blue-600 text-white font-bold py-2.5 px-6 rounded-xl transition-all glow-accent disabled:opacity-50"
+                        className="flex-1 lg:flex-none flex items-center justify-center gap-2 bg-[var(--color-primary)] hover:bg-sky-600 text-white font-bold py-2.5 px-6 rounded-xl transition-all glow-accent disabled:opacity-50"
                     >
                         {isZipping ? (
                             <>
@@ -451,7 +451,7 @@ export default function DaySubmissionsClient({
                                                         href={row.repoUrl} 
                                                         target="_blank" 
                                                         rel="noopener noreferrer"
-                                                        className="inline-flex items-center gap-1 text-[10px] text-blue-400 hover:text-blue-300 transition-colors mt-1"
+                                                        className="inline-flex items-center gap-1 text-[10px] text-sky-400 hover:text-sky-300 transition-colors mt-1"
                                                     >
                                                         <Code size={10} /> Ver Repositorio
                                                     </a>
@@ -544,7 +544,7 @@ export default function DaySubmissionsClient({
                                                     </button>
                                                     <button
                                                         onClick={() => handleDownload(row)}
-                                                        className="inline-flex items-center gap-1.5 text-[10px] font-black uppercase text-[var(--color-primary)] hover:text-white transition-colors bg-blue-500/5 px-3 py-1.5 rounded-lg border border-blue-500/10 hover:border-blue-500/30"
+                                                        className="inline-flex items-center gap-1.5 text-[10px] font-black uppercase text-[var(--color-primary)] hover:text-white transition-colors bg-sky-500/5 px-3 py-1.5 rounded-lg border border-sky-500/10 hover:border-sky-500/30"
                                                     >
                                                         <Download size={14} /> Descargar
                                                     </button>
@@ -569,7 +569,7 @@ export default function DaySubmissionsClient({
                                             <button
                                                 onClick={() => setUploadModalUser({ id: row.studentId, name: row.studentName })}
                                                 title="Subir Archivo & Evaluar IA (Exportar Docx)"
-                                                className="inline-flex items-center gap-1.5 text-[10px] font-black uppercase text-purple-400 hover:text-white transition-colors bg-purple-500/5 px-3 py-1.5 rounded-lg border border-purple-500/10 hover:border-purple-500/30"
+                                                className="inline-flex items-center gap-1.5 text-[10px] font-black uppercase text-sky-400 hover:text-white transition-colors bg-sky-500/5 px-3 py-1.5 rounded-lg border border-sky-500/10 hover:border-sky-500/30"
                                             >
                                                 Subir & IA
                                             </button>

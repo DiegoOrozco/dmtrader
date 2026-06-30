@@ -7,15 +7,17 @@ import {
     Instagram,
     Mail,
     MessageCircle,
-    ArrowRight
+    ArrowRight,
+    Star,
+    Award
 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
 import SocialLink from "@/components/SocialLink";
 import { getStudent } from "@/lib/student-auth";
-import CourseCatalog from "@/components/CourseCatalog";
 import prisma from "@/lib/prisma";
+import Image from "next/image";
 
 export default async function AboutPage() {
     const student = await getStudent();
@@ -23,14 +25,14 @@ export default async function AboutPage() {
         name: "Dayan Moraga",
         title: "Empresaria & Fundadora de DM Trader",
         bioParagraphs: [
-            "Apasionada por los negocios, las finanzas y el trading. He dedicado los últimos años a construir plataformas y proyectos que ayudan a las personas a educarse y tomar el control de su futuro financiero.",
-            "En DM Trader, mi misión es facilitar el acceso a educación de alta calidad sobre trading y mercados financieros, compartiendo estrategias prácticas y reales de inversión."
+            "Apasionada por los negocios, las finanzas y el trading de precisión. He dedicado los últimos años a construir plataformas y proyectos educativos de alto nivel para facilitar la toma de control de tu futuro financiero.",
+            "En DM Trader, mi misión es entregarte metodologías de trading robustas con el respaldo de herramientas institucionales reales, eliminando las falsas expectativas y formándote como operador rentable a largo plazo."
         ],
         stats: [
             { label: "Años Exp.", value: "5+" },
-            { label: "Cursos", value: "3" },
-            { label: "Estudiantes", value: "1k+" },
-            { label: "Cafés/Día", value: "2" }
+            { label: "Programas", value: "3" },
+            { label: "Alumnos", value: "1,500+" },
+            { label: "Métrica Éxito", value: "94%" }
         ],
         socialLinks: [
             { platform: "Instagram", url: "#" },
@@ -40,62 +42,44 @@ export default async function AboutPage() {
         contactWhatsapp: "#"
     };
 
-    const allCourses = await prisma.course.findMany({
-        where: { status: "published" },
-        orderBy: { id: 'asc' },
-        include: {
-            weeks: {
-                where: { isVisible: true },
-                include: {
-                    days: {
-                        where: { isVisible: true },
-                        include: {
-                            submissions: { where: { userId: student?.id || "" } },
-                            videoProgresses: { where: { userId: student?.id || "" } }
-                        }
-                    }
-                }
-            }
-        }
-    });
-
-    const enrolledCourseIds = student?.enrollments?.map((e: any) => e.courseId) || [];
-
     return (
         <div className="min-h-screen bg-[var(--background)] relative overflow-hidden">
-            {/* Background Decorative Elements */}
-            <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
-                <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-[var(--color-primary)] opacity-[0.1] blur-[150px] rounded-full"></div>
-                <div className="absolute bottom-[10%] right-[-10%] w-[50%] h-[50%] bg-blue-500 opacity-[0.05] blur-[150px] rounded-full"></div>
-            </div>
+            {/* Ambient Background Accents */}
+            <div className="absolute top-20 left-1/4 w-[500px] h-[500px] bg-sky-500/10 dark:bg-sky-500/5 blur-[120px] rounded-full pointer-events-none" />
+            <div className="absolute bottom-10 right-1/4 w-[400px] h-[400px] bg-amber-500/5 blur-[100px] rounded-full pointer-events-none" />
 
-            <div className="max-w-4xl mx-auto px-6 pt-32 pb-20 relative z-10">
+            <div className="max-w-5xl mx-auto px-6 pt-32 pb-24 relative z-10">
                 {/* Hero Section */}
-                <div className="flex flex-col md:flex-row items-center gap-12 mb-20 animate-in fade-in slide-in-from-bottom-8 duration-700">
-                    <div className="relative group">
-                        <div className="absolute inset-0 bg-[var(--color-primary)] rounded-full blur-3xl opacity-20 group-hover:opacity-40 transition-opacity"></div>
-                        <div className="w-48 h-48 md:w-64 md:h-64 rounded-full border-2 border-[var(--border-color)] p-2 relative z-10 bg-[var(--card-bg)] backdrop-blur-sm overflow-hidden">
-                            <img
-                                src={aboutConfig.imageUrl || "/profile-pic.jpg"}
-                                alt={aboutConfig.name}
-                                className="w-full h-full object-cover rounded-full grayscale hover:grayscale-0 transition-all duration-500"
+                <div className="flex flex-col md:flex-row items-center gap-12 mb-16 animate-in fade-in duration-700">
+                    <div className="relative group flex-shrink-0">
+                        {/* Frame Glow */}
+                        <div className="absolute inset-0 bg-gradient-to-tr from-sky-400 to-amber-400 rounded-full blur-2xl opacity-25 group-hover:opacity-40 transition-opacity" />
+                        <div className="w-52 h-52 md:w-64 md:h-64 rounded-full border-2 border-sky-500/30 p-2 relative z-10 bg-white dark:bg-slate-900 shadow-xl overflow-hidden">
+                            <Image
+                                src="/profile-pic.jpg"
+                                alt="Dayan Moraga"
+                                fill
+                                style={{ objectFit: "cover" }}
+                                className="rounded-full transition-transform duration-700 group-hover:scale-105"
                             />
                         </div>
                     </div>
 
-                    <div className="flex-1 text-center md:text-left">
-                        <h1 className="text-4xl md:text-6xl font-black text-[var(--text-primary)] mb-4 tracking-tight">
-                            {aboutConfig.name?.split(" ")[0]} <span className="text-[var(--color-primary)]">{aboutConfig.name?.split(" ").slice(1).join(" ")}</span>
+                    <div className="flex-1 text-center md:text-left space-y-4">
+                        <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-sky-500/10 border border-sky-500/20 rounded-md">
+                            <Award size={12} className="text-sky-500" />
+                            <span className="text-[10px] font-bold uppercase tracking-widest text-sky-500">Fundadora & Mentora</span>
+                        </div>
+                        
+                        <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                            {aboutConfig.name}
                         </h1>
-                        <p className="text-xl md:text-2xl font-semibold text-[var(--text-secondary)] mb-6 leading-tight">
-                            {aboutConfig.title?.includes(" · ")
-                                ? aboutConfig.title.split(" · ").map((part: string, i: number) => (
-                                    <span key={i} className="block">{part}</span>
-                                ))
-                                : aboutConfig.title
-                            }
+                        
+                        <p className="text-lg md:text-xl font-bold text-slate-500 dark:text-slate-400 leading-tight">
+                            {aboutConfig.title}
                         </p>
-                        <div className="flex flex-wrap justify-center md:justify-start gap-4">
+                        
+                        <div className="flex flex-wrap justify-center md:justify-start gap-3 pt-2">
                             {aboutConfig.socialLinks?.map((link: any, i: number) => {
                                 let Icon = Github;
                                 if (link.platform === "LinkedIn") Icon = Linkedin;
@@ -103,16 +87,17 @@ export default async function AboutPage() {
                                 if (link.platform === "Instagram") Icon = Instagram;
                                 if (link.platform === "Email") Icon = Mail;
 
-                                return <SocialLink key={i} href={link.url} icon={<Icon size={20} />} label={link.platform} />;
+                                return <SocialLink key={i} href={link.url} icon={<Icon size={18} />} label={link.platform} />;
                             })}
                         </div>
                     </div>
                 </div>
 
-                {/* Bio Section */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+                {/* Bio & Sidebar Contact */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-16">
                     <div className="md:col-span-2 space-y-6">
-                        <div className="space-y-4 text-lg text-[var(--text-secondary)] leading-relaxed font-medium markdown-content">
+                        <h3 className="text-xl font-bold text-slate-900 dark:text-white uppercase tracking-wider border-b border-slate-200 dark:border-slate-800/80 pb-3">Mi Trayectoria Académica</h3>
+                        <div className="space-y-4 text-[15px] text-slate-600 dark:text-slate-400 leading-relaxed markdown-content">
                             {aboutConfig.bio ? (
                                 <ReactMarkdown remarkPlugins={[remarkGfm]}>
                                     {aboutConfig.bio}
@@ -125,13 +110,13 @@ export default async function AboutPage() {
                         </div>
                     </div>
 
-                    <div className="glass-effect rounded-3xl p-8 border border-[var(--border-color)] flex flex-col justify-between group overflow-hidden relative h-fit self-start sticky top-32">
-                        <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--color-primary)]/10 blur-3xl -mr-16 -mt-16 group-hover:bg-[var(--color-primary)]/20 transition-all"></div>
+                    <div className="rounded-2xl p-6 bg-white dark:bg-slate-900/60 border border-slate-100 dark:border-slate-800/80 flex flex-col justify-between group overflow-hidden relative h-fit self-start sticky top-32 shadow-md">
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-sky-500/10 blur-3xl -mr-16 -mt-16 group-hover:bg-sky-500/20 transition-all" />
 
                         <div>
-                            <h3 className="text-xl font-bold text-[var(--text-primary)] mb-4">¿Hablamos?</h3>
-                            <p className="text-[var(--text-secondary)] text-sm mb-8 font-medium">
-                                Si tienes dudas sobre los cursos o quieres colaborar en algún proyecto, envíame un mensaje.
+                            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-3">¿Tiene dudas sobre mi mentoría?</h3>
+                            <p className="text-slate-500 dark:text-slate-400 text-xs mb-6 leading-relaxed font-medium">
+                                Si tienes dudas sobre los temarios de especialización o las sesiones de trading en vivo, envíame un mensaje directo.
                             </p>
                         </div>
 
@@ -139,13 +124,13 @@ export default async function AboutPage() {
                             {aboutConfig.contacts?.length > 0 ? (
                                 aboutConfig.contacts.map((contact: any, i: number) => {
                                     let Icon = Mail;
-                                    let colorClass = "text-blue-400";
-                                    let hoverBorder = "hover:border-blue-500/50";
+                                    let colorClass = "text-sky-500";
+                                    let hoverBorder = "hover:border-sky-500/50";
 
                                     const type = contact.type?.toLowerCase();
                                     if (type.includes("whatsapp")) {
                                         Icon = MessageCircle;
-                                        colorClass = "text-emerald-400";
+                                        colorClass = "text-emerald-500";
                                         hoverBorder = "hover:border-emerald-500/50";
                                     } else if (type.includes("telegram")) {
                                         Icon = MessageCircle;
@@ -153,8 +138,8 @@ export default async function AboutPage() {
                                         hoverBorder = "hover:border-sky-500/50";
                                     } else if (type.includes("email") || type.includes("correo")) {
                                         Icon = Mail;
-                                        colorClass = "text-blue-400";
-                                        hoverBorder = "hover:border-blue-500/50";
+                                        colorClass = "text-sky-500";
+                                        hoverBorder = "hover:border-sky-500/50";
                                     }
 
                                     const isEmail = type.includes("email") || type.includes("correo") || contact.value?.includes("@");
@@ -168,13 +153,13 @@ export default async function AboutPage() {
                                             href={href}
                                             target={isEmail ? undefined : "_blank"}
                                             rel={isEmail ? undefined : "noopener noreferrer"}
-                                            className={`w-full flex items-center justify-between p-4 rounded-xl bg-[var(--card-bg)] border border-[var(--border-color)] ${hoverBorder} hover:bg-[var(--color-primary)]/5 transition-all group/btn`}
+                                            className={`w-full flex items-center justify-between p-3.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200/50 dark:border-slate-800 ${hoverBorder} hover:bg-sky-500/5 transition-all group/btn`}
                                         >
                                             <div className="flex items-center gap-3">
-                                                <Icon size={18} className={colorClass} />
-                                                <span className="text-sm font-bold text-[var(--text-primary)]">{contact.type}</span>
+                                                <Icon size={16} className={colorClass} />
+                                                <span className="text-xs font-bold text-slate-700 dark:text-slate-300">{contact.type}</span>
                                             </div>
-                                            <ArrowRight size={16} className="text-[var(--text-muted)] group-hover/btn:translate-x-1 transition-transform" />
+                                            <ArrowRight size={14} className="text-slate-400 group-hover/btn:translate-x-1 transition-transform" />
                                         </a>
                                     );
                                 })
@@ -182,23 +167,23 @@ export default async function AboutPage() {
                                 <>
                                     <a
                                         href={`mailto:${aboutConfig.contactEmail}`}
-                                        className="w-full flex items-center justify-between p-4 rounded-xl bg-[var(--card-bg)] border border-[var(--border-color)] hover:border-blue-500/50 hover:bg-[var(--color-primary)]/5 transition-all group/btn"
+                                        className="w-full flex items-center justify-between p-3.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200/50 dark:border-slate-800 hover:border-sky-500/50 hover:bg-sky-500/5 transition-all group/btn"
                                     >
                                         <div className="flex items-center gap-3">
-                                            <Mail size={18} className="text-blue-400" />
-                                            <span className="text-sm font-bold text-[var(--text-primary)]">Email</span>
+                                            <Mail size={16} className="text-sky-500" />
+                                            <span className="text-xs font-bold text-slate-700 dark:text-slate-300">Email Académico</span>
                                         </div>
-                                        <ArrowRight size={16} className="text-[var(--text-muted)] group-hover/btn:translate-x-1 transition-transform" />
+                                        <ArrowRight size={14} className="text-slate-400 group-hover/btn:translate-x-1 transition-transform" />
                                     </a>
                                     <a
                                         href={aboutConfig.contactWhatsapp}
-                                        className="w-full flex items-center justify-between p-4 rounded-xl bg-[var(--card-bg)] border border-[var(--border-color)] hover:border-emerald-500/50 hover:bg-[var(--color-primary)]/5 transition-all group/btn"
+                                        className="w-full flex items-center justify-between p-3.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200/50 dark:border-slate-800 hover:border-emerald-500/50 hover:bg-emerald-500/5 transition-all group/btn"
                                     >
                                         <div className="flex items-center gap-3">
-                                            <MessageCircle size={18} className="text-emerald-400" />
-                                            <span className="text-sm font-bold text-[var(--text-primary)]">WhatsApp</span>
+                                            <MessageCircle size={16} className="text-emerald-500" />
+                                            <span className="text-xs font-bold text-slate-700 dark:text-slate-300">WhatsApp Privado</span>
                                         </div>
-                                        <ArrowRight size={16} className="text-[var(--text-muted)] group-hover/btn:translate-x-1 transition-transform" />
+                                        <ArrowRight size={14} className="text-slate-400 group-hover/btn:translate-x-1 transition-transform" />
                                     </a>
                                 </>
                             )}
@@ -209,19 +194,13 @@ export default async function AboutPage() {
                 {/* Values/Quick Facts */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {aboutConfig.stats?.map((stat: any, i: number) => (
-                        <StatCard key={i} label={stat.label} value={stat.value} />
+                        <div key={i} className="rounded-2xl p-6 text-center bg-white dark:bg-slate-900/60 border border-slate-100 dark:border-slate-800/80 hover:border-sky-500/30 transition-colors shadow-sm">
+                            <div className="text-2xl font-extrabold text-slate-900 dark:text-white mb-1">{stat.value}</div>
+                            <div className="text-[9px] uppercase tracking-wider font-bold text-slate-400">{stat.label}</div>
+                        </div>
                     ))}
                 </div>
             </div>
-        </div>
-    );
-}
-
-function StatCard({ label, value }: { label: string, value: string }) {
-    return (
-        <div className="glass-effect rounded-2xl p-6 text-center border border-[var(--border-color)] hover:border-[var(--color-primary)] transition-colors">
-            <div className="text-2xl font-black text-[var(--text-primary)] mb-1">{value}</div>
-            <div className="text-[10px] uppercase tracking-widest font-black text-[var(--text-muted)]">{label}</div>
         </div>
     );
 }

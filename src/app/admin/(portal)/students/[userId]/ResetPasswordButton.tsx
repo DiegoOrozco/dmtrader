@@ -31,7 +31,7 @@ export default function ResetPasswordButton({ userId }: { userId: string }) {
             {!isResetting ? (
                 <button
                     onClick={() => setIsResetting(true)}
-                    className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 hover:bg-indigo-500/20 transition-all text-xs font-bold"
+                    className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-sky-500/10 text-sky-400 border border-sky-500/20 hover:bg-sky-500/20 transition-all text-xs font-bold"
                 >
                     <Key size={14} /> Resetear Contraseña
                 </button>
@@ -44,7 +44,7 @@ export default function ResetPasswordButton({ userId }: { userId: string }) {
                         placeholder="Nueva contraseña"
                         className="bg-transparent text-xs text-white focus:outline-none px-2 w-32"
                     />
-                    <button onClick={handleReset} className="p-1 text-green-400 hover:bg-green-400/10 rounded">
+                    <button onClick={handleReset} className="p-1 text-emerald-400 hover:bg-emerald-400/10 rounded">
                         <Check size={14} />
                     </button>
                     <button onClick={() => setIsResetting(false)} className="p-1 text-red-400 hover:bg-red-400/10 rounded">
@@ -52,7 +52,7 @@ export default function ResetPasswordButton({ userId }: { userId: string }) {
                     </button>
                 </div>
             )}
-            {message && <span className="text-[10px] text-green-400 font-bold ml-2">{message}</span>}
+            {message && <span className="text-[10px] text-emerald-400 font-bold ml-2">{message}</span>}
         </div>
     );
 }

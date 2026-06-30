@@ -92,7 +92,7 @@ export default async function UnlockCoursePage({
 
                             <button
                                 type="submit"
-                                className="w-full bg-[var(--color-primary)] hover:bg-blue-600 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 glow-accent mt-4 flex items-center justify-center gap-2 font-bold"
+                                className="w-full bg-[var(--color-primary)] hover:bg-sky-600 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 glow-accent mt-4 flex items-center justify-center gap-2 font-bold"
                             >
                                 <Lock size={18} />
                                 Desbloquear con Contraseña

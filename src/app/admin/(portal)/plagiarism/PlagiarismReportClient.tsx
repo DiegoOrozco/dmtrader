@@ -152,7 +152,7 @@ export default function PlagiarismReportClient({
                                         <div className="flex items-center gap-2">
                                             <button 
                                                 onClick={() => handleDownload(report.studentA, report.codeA)}
-                                                className="p-1.5 bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 rounded-lg transition-colors"
+                                                className="p-1.5 bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 rounded-lg transition-colors"
                                                 title="Descargar Código"
                                             >
                                                 <Download size={14} />
@@ -177,7 +177,7 @@ export default function PlagiarismReportClient({
                                         <div className="flex items-center gap-2">
                                             <button 
                                                 onClick={() => handleDownload(report.studentB, report.codeB)}
-                                                className="p-1.5 bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 rounded-lg transition-colors"
+                                                className="p-1.5 bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 rounded-lg transition-colors"
                                                 title="Descargar Código"
                                             >
                                                 <Download size={14} />
@@ -200,10 +200,10 @@ export default function PlagiarismReportClient({
                             {report.aiAnalysis ? (
                                 <div className="p-6 bg-[var(--color-primary)]/5 border-t border-slate-700/50">
                                     <div className="flex items-center gap-2 mb-3">
-                                        <div className="w-6 h-6 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center">
+                                        <div className="w-6 h-6 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center">
                                             <Sparkles size={14} />
                                         </div>
-                                        <h4 className="text-xs font-black uppercase tracking-widest text-indigo-400">Análisis Técnico IA</h4>
+                                        <h4 className="text-xs font-black uppercase tracking-widest text-sky-400">Análisis Técnico IA</h4>
                                     </div>
                                     <div className="text-slate-300 text-sm leading-relaxed bg-black/20 p-4 rounded-xl border border-white/5 whitespace-pre-wrap italic">
                                         "{report.aiAnalysis}"
@@ -214,7 +214,7 @@ export default function PlagiarismReportClient({
                                     <button 
                                         onClick={() => handleAiAnalysis(idx, report)}
                                         disabled={analyzingFor === `${report.studentAId}-${report.studentBId}`}
-                                        className="flex items-center gap-2 px-4 py-2 bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-400 rounded-xl transition-all text-xs font-bold uppercase tracking-widest disabled:opacity-50"
+                                        className="flex items-center gap-2 px-4 py-2 bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 rounded-xl transition-all text-xs font-bold uppercase tracking-widest disabled:opacity-50"
                                     >
                                         {analyzingFor === `${report.studentAId}-${report.studentBId}` ? (
                                             <Loader2 size={16} className="animate-spin" />

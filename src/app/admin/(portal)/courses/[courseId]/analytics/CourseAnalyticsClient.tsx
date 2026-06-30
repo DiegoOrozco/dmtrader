@@ -83,10 +83,10 @@ export default function CourseAnalyticsClient({
                 <StatCard
                     title="Promedio General"
                     value={`${data.overallAverage}%`}
-                    icon={<Award className="text-blue-400" />}
+                    icon={<Award className="text-sky-400" />}
                     subtitle="Nota media de entregas"
-                    color="from-blue-500/20 to-blue-600/5"
-                    borderColor="border-blue-500/20"
+                    color="from-sky-500/20 to-sky-600/5"
+                    borderColor="border-sky-500/20"
                 />
                 <StatCard
                     title="Estudiantes"
@@ -99,10 +99,10 @@ export default function CourseAnalyticsClient({
                 <StatCard
                     title="Entregas"
                     value={data.deliveryPerformance.reduce((acc, d) => acc + d.submissions, 0).toString()}
-                    icon={<CheckCircle2 className="text-purple-400" />}
+                    icon={<CheckCircle2 className="text-sky-400" />}
                     subtitle="Total de archivos enviados"
-                    color="from-purple-500/20 to-purple-600/5"
-                    borderColor="border-purple-500/20"
+                    color="from-sky-500/20 to-sky-600/5"
+                    borderColor="border-sky-500/20"
                 />
                 <StatCard
                     title="Secciones de Evaluación"
@@ -119,7 +119,7 @@ export default function CourseAnalyticsClient({
                 <div className="lg:col-span-2 glass-effect p-8 rounded-3xl border border-white/5 bg-[var(--card-bg)] shadow-xl space-y-6">
                     <div className="flex items-center justify-between">
                         <h3 className="text-lg font-black text-white flex items-center gap-2">
-                            <TrendingUp size={20} className="text-blue-400" />
+                            <TrendingUp size={20} className="text-sky-400" />
                             Curva de Rendimiento
                         </h3>
                         <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest bg-white/5 px-2 py-1 rounded">
@@ -165,7 +165,7 @@ export default function CourseAnalyticsClient({
                 <div className="glass-effect p-8 rounded-3xl border border-white/5 bg-[var(--card-bg)] shadow-xl space-y-6">
                     <div className="flex items-center justify-between">
                         <h3 className="text-lg font-black text-white flex items-center gap-2">
-                            <PieChartIcon size={20} className="text-purple-400" />
+                            <PieChartIcon size={20} className="text-sky-400" />
                             Desglose por Rubro
                         </h3>
                     </div>

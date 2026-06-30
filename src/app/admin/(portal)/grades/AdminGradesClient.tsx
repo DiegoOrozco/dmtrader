@@ -7,9 +7,6 @@ import { updateManualGrade } from "../../../../actions/admin-grades";
 import FeedbackModal from "@/components/FeedbackModal";
 import BatchAIGradingModal from "@/components/BatchAIGradingModal";
 
-// ───────────────────────────────────────────────
-// Types
-// ───────────────────────────────────────────────
 interface CourseInfo {
     id: string;
     title: string;
@@ -20,12 +17,9 @@ interface CourseInfo {
     weightExam: number;
 }
 
-// ───────────────────────────────────────────────
-// Inline grade editor
-// ───────────────────────────────────────────────
-function GradeEditor({ initialGrade, userId, dayId }: { initialGrade: number | null, userId: string, dayId: string }) {
+function GradeEditor({ initialGrade, userId, dayId }: { initialGrade: number | null | undefined, userId: string, dayId: string }) {
     const [isEditing, setIsEditing] = useState(false);
-    const [grade, setGrade] = useState(initialGrade !== null ? String(initialGrade) : "");
+    const [grade, setGrade] = useState(initialGrade !== null && initialGrade !== undefined ? String(initialGrade) : "");
     const [isPending, startTransition] = useTransition();
 
     const handleSave = () => {
@@ -46,15 +40,15 @@ function GradeEditor({ initialGrade, userId, dayId }: { initialGrade: number | n
                     min="0" max="100"
                     value={grade}
                     onChange={(e) => setGrade(e.target.value)}
-                    className="w-16 bg-black/40 border border-[var(--color-primary)]/50 rounded-lg px-2 py-1 text-sm font-black text-white focus:outline-none"
+                    className="w-16 bg-[#05070f] border border-sky-500/50 rounded-lg px-2 py-1 text-xs font-black text-white focus:outline-none"
                     autoFocus
                 />
                 <button
                     onClick={handleSave}
                     disabled={isPending}
-                    className="p-1.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg transition-colors disabled:opacity-50"
+                    className="p-1.5 bg-sky-600 hover:bg-sky-500 text-white rounded-lg transition-colors disabled:opacity-50"
                 >
-                    <Check size={14} />
+                    <Check size={12} />
                 </button>
             </div>
         );
@@ -62,92 +56,20 @@ function GradeEditor({ initialGrade, userId, dayId }: { initialGrade: number | n
 
     return (
         <div className="flex items-center gap-2 group/edit">
-            <span className={`text-sm font-black ${initialGrade !== null && initialGrade >= 70 ? 'text-emerald-400' : initialGrade !== null ? 'text-rose-400' : 'text-slate-500'}`}>
-                {initialGrade !== null ? `${initialGrade}/100` : "-/100"}
+            <span className={`text-xs font-black ${initialGrade != null && initialGrade >= 70 ? 'text-emerald-400' : initialGrade != null ? 'text-rose-400' : 'text-slate-500'}`}>
+                {initialGrade != null ? `${initialGrade}/100` : "-/100"}
             </span>
             <button
                 onClick={() => setIsEditing(true)}
-                className="p-1.5 rounded-md text-slate-400 hover:text-white hover:bg-white/10 transition-all opacity-50 hover:opacity-100"
+                className="p-1 rounded-md text-slate-500 hover:text-white hover:bg-white/10 transition-all opacity-50 hover:opacity-100"
             >
-                <Edit2 size={14} />
+                <Edit2 size={11} />
             </button>
         </div>
     );
 }
 
-// ───────────────────────────────────────────────
-// CSV Export helper
-// ───────────────────────────────────────────────
-function buildCSV(rows: any[], course: CourseInfo): string {
-    const { weightQuiz, weightLab, weightForum, weightProject, weightExam } = course;
-
-    // Collect all rubric types that have weight > 0
-    const rubrics: { key: "QUIZ" | "LAB" | "FORUM" | "PROJECT" | "EXAM"; label: string; pct: number }[] = [];
-    if (weightQuiz > 0)   rubrics.push({ key: "QUIZ",    label: `Quiz (${weightQuiz}%)`,    pct: weightQuiz });
-    if (weightLab > 0)    rubrics.push({ key: "LAB",     label: `Lab (${weightLab}%)`,      pct: weightLab });
-    if (weightForum > 0)  rubrics.push({ key: "FORUM",   label: `Foro (${weightForum}%)`,   pct: weightForum });
-    if (weightProject > 0) rubrics.push({ key: "PROJECT", label: `Proyecto (${weightProject}%)`, pct: weightProject });
-    if (weightExam > 0)   rubrics.push({ key: "EXAM",    label: `Examen (${weightExam}%)`,  pct: weightExam });
-
-    // Map displayable avg per rubric key
-    const rubricToAvgKey: Record<string, string> = {
-        QUIZ: "qAvg", LAB: "lAvg", FORUM: "fAvg", PROJECT: "pAvg", EXAM: "eAvg",
-    };
-
-    const header = [
-        "Nombre",
-        "Email",
-        "Curso",
-        ...rubrics.map(r => r.label),
-        "Nota Final",
-        "Entregas Realizadas",
-    ];
-
-    const escape = (v: any) => `"${String(v ?? "").replace(/"/g, '""')}"`;
-
-    const lines = [
-        header.map(escape).join(","),
-        ...rows.map(row => [
-            escape(row.name),
-            escape(row.email),
-            escape(row.courseTitle),
-            ...rubrics.map(r => escape(row.gradeData[rubricToAvgKey[r.key]] ?? 0)),
-            escape(row.gradeData.total ?? 0),
-            escape(row.gradeData.subsCount ?? 0),
-        ].join(","))
-    ];
-
-    return "\uFEFF" + lines.join("\r\n"); // BOM for Excel UTF-8 compatibility
-}
-
-function triggerCSVDownload(csvContent: string, fileName: string) {
-    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = fileName;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-}
-
-// ───────────────────────────────────────────────
-// Main component
-// ───────────────────────────────────────────────
-export default function AdminGradesClient({
-    tableData,
-    courses,
-    totalStudents,
-    avgScore,
-    passRate
-}: {
-    tableData: any[],
-    courses: CourseInfo[],
-    totalStudents: number,
-    avgScore: number,
-    passRate: number
-}) {
+export default function AdminGradesClient({ initialCourses, tableData, courses, totalStudents, avgScore, passRate }: { initialCourses?: any[], tableData: any[], courses: CourseInfo[], totalStudents: number, courseCount?: number, pendingQuestions?: number, avgScore: number, passRate: number }) {
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedCourseId, setSelectedCourseId] = useState<string>("all");
     const [expandedRows, setExpandedRows] = useState<string[]>([]);
@@ -155,7 +77,6 @@ export default function AdminGradesClient({
     const [isZipping, setIsZipping] = useState(false);
     const [isBatchModalOpen, setIsBatchModalOpen] = useState(false);
 
-    // ── Filtered data ──────────────────────────
     const filteredData = tableData.filter(row => {
         const matchesSearch =
             row.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -164,56 +85,64 @@ export default function AdminGradesClient({
         return matchesSearch && matchesCourse;
     });
 
-    // ── CSV export ────────────────────────────
     const handleExportCSV = () => {
         if (filteredData.length === 0) {
             alert("No hay datos para exportar con el filtro actual.");
             return;
         }
 
-        // Determine which course info to use for rubric header
-        let courseInfo: CourseInfo | undefined;
-        if (selectedCourseId !== "all") {
-            courseInfo = courses.find(c => c.id === selectedCourseId);
+        let courseIdToUse = selectedCourseId;
+        if (courseIdToUse === "all") {
+            const uniqueCourses = [...new Set(filteredData.map(r => r.courseId))];
+            if (uniqueCourses.length > 1) {
+                alert("Por favor selecciona un curso específico antes de exportar.");
+                return;
+            }
+            courseIdToUse = uniqueCourses[0];
         }
 
-        if (!courseInfo && selectedCourseId !== "all") {
-            alert("No se encontró información del curso seleccionado.");
+        const courseInfo = courses.find(c => c.id === courseIdToUse);
+        if (!courseInfo) {
+            alert("Información del curso no encontrada.");
             return;
         }
 
-        // When "all" is selected, we generate one CSV but rubric columns come from
-        // the first row's weights (since they might differ per course).
-        // Better UX: ask user to select a specific course.
-        if (selectedCourseId === "all") {
-            const uniqueCourses = [...new Set(filteredData.map(r => r.courseId))];
-            if (uniqueCourses.length > 1) {
-                alert("Por favor selecciona un curso específico antes de exportar el reporte CSV, para que los rubros del encabezado sean correctos.");
-                return;
-            }
-            // Only one course in data — use it
-            courseInfo = courses.find(c => c.id === uniqueCourses[0]);
-            if (!courseInfo) {
-                // Fallback: build weights from the first row
-                const firstRow = filteredData[0];
-                courseInfo = {
-                    id: firstRow.courseId,
-                    title: firstRow.courseTitle,
-                    weightQuiz: firstRow.gradeData.weights?.QUIZ ?? 0,
-                    weightLab: firstRow.gradeData.weights?.LAB ?? 0,
-                    weightForum: firstRow.gradeData.weights?.FORUM ?? 0,
-                    weightProject: firstRow.gradeData.weights?.PROJECT ?? 0,
-                    weightExam: firstRow.gradeData.weights?.EXAM ?? 0,
-                };
-            }
-        }
+        const rubrics: string[] = [];
+        if (courseInfo.weightQuiz > 0) rubrics.push(`Quiz (${courseInfo.weightQuiz}%)`);
+        if (courseInfo.weightLab > 0) rubrics.push(`Lab (${courseInfo.weightLab}%)`);
+        if (courseInfo.weightForum > 0) rubrics.push(`Foro (${courseInfo.weightForum}%)`);
+        if (courseInfo.weightProject > 0) rubrics.push(`Proyecto (${courseInfo.weightProject}%)`);
+        if (courseInfo.weightExam > 0) rubrics.push(`Examen (${courseInfo.weightExam}%)`);
 
-        const csv = buildCSV(filteredData, courseInfo!);
-        const safeName = (courseInfo?.title ?? "reporte").replace(/[^a-zA-Z0-9_\-]/g, "_");
-        triggerCSVDownload(csv, `calificaciones_${safeName}.csv`);
+        const header = ["Nombre", "Email", "Curso", ...rubrics, "Nota Final", "Entregas Realizadas"];
+        const escape = (v: any) => `"${String(v ?? "").replace(/"/g, '""')}"`;
+
+        const lines = [
+            header.map(escape).join(","),
+            ...filteredData.map(row => {
+                const cols = [row.name, row.email, row.courseTitle];
+                if (courseInfo.weightQuiz > 0) cols.push(row.gradeData.qAvg ?? 0);
+                if (courseInfo.weightLab > 0) cols.push(row.gradeData.lAvg ?? 0);
+                if (courseInfo.weightForum > 0) cols.push(row.gradeData.fAvg ?? 0);
+                if (courseInfo.weightProject > 0) cols.push(row.gradeData.pAvg ?? 0);
+                if (courseInfo.weightExam > 0) cols.push(row.gradeData.eAvg ?? 0);
+                cols.push(row.gradeData.total ?? 0, row.gradeData.subsCount ?? 0);
+                return cols.map(escape).join(",");
+            })
+        ];
+
+        const csvContent = "\uFEFF" + lines.join("\r\n");
+        const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `calificaciones_${courseInfo.title.replace(/[^a-zA-Z0-9_\-]/g, "_")}.csv`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
     };
 
-    // ── File download ─────────────────────────
     const handleDownload = (content: string, fileName: string) => {
         if (!content) return;
         if (content.startsWith("http")) {
@@ -276,7 +205,6 @@ export default function AdminGradesClient({
         setExpandedRows(prev => prev.includes(id) ? prev.filter(rId => rId !== id) : [...prev, id]);
     };
 
-    // ── Derived stats for selected filter ─────
     const filteredAvg = filteredData.length > 0
         ? filteredData.reduce((acc, row) => acc + row.gradeData.total, 0) / filteredData.length
         : 0;
@@ -288,38 +216,31 @@ export default function AdminGradesClient({
 
     return (
         <div className="space-y-8 pb-20 animate-in fade-in duration-700">
-            {/* Batch AI Grading Modal */}
             <BatchAIGradingModal 
                 isOpen={isBatchModalOpen} 
                 onClose={() => setIsBatchModalOpen(false)} 
             />
 
-            {/* Background Watermark */}
-            <div className="fixed top-0 right-0 p-10 opacity-[0.03] pointer-events-none select-none z-0">
-                <GraduationCap size={400} />
-            </div>
-
-            {/* Header section with Stats */}
             <div className="relative z-10">
                 <header className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-                    <div className="space-y-3">
+                    <div className="space-y-2">
                         <div className="flex items-center gap-3">
-                            <span className="raw-label bg-[var(--raw-accent)] text-[var(--raw-bg)] px-3 py-1">ADMINISTRACIÓN</span>
-                            <span className="raw-label">/ CONTROL ACADÉMICO</span>
+                            <span className="bg-sky-500/10 text-sky-400 border border-sky-500/20 px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider">ADMINISTRACIÓN</span>
+                            <span className="text-[10px] font-black uppercase text-slate-500 tracking-wider">/ CONTROL ACADÉMICO</span>
                         </div>
-                        <h1 className="font-black tracking-tighter leading-none" style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', color: 'var(--raw-on-surface)' }}>
-                            CENTRO DE <span style={{ color: 'var(--raw-accent)' }}>NOTAS.</span>
+                        <h1 className="text-2xl md:text-3xl font-black text-white uppercase tracking-wider leading-none">
+                            CENTRO DE <span className="text-sky-400">NOTAS.</span>
                         </h1>
                     </div>
 
-                    <div className="flex items-center gap-3 bg-black/40 backdrop-blur-xl border border-white/5 rounded-2xl p-2 h-fit">
-                        <div className="px-6 py-2 border-r border-white/5">
-                            <span className="block text-[9px] font-black uppercase text-slate-500 tracking-widest leading-none mb-1">Pass Rate</span>
+                    <div className="flex items-center gap-3 bg-[#0a0e1a] border border-slate-800 rounded-2xl p-2 h-fit">
+                        <div className="px-6 py-2 border-r border-slate-800">
+                            <span className="block text-[8px] font-black uppercase text-slate-500 tracking-widest leading-none mb-1">Pass Rate</span>
                             <span className="text-xl font-black text-emerald-400">{Math.round(selectedCourseId === "all" ? passRate : filteredPassRate)}%</span>
                         </div>
                         <div className="px-6 py-2">
-                            <span className="block text-[9px] font-black uppercase text-slate-500 tracking-widest leading-none mb-1">Avg Score</span>
-                            <span className="text-xl font-black text-white">{Math.round(selectedCourseId === "all" ? avgScore : filteredAvg)}</span>
+                            <span className="block text-[8px] font-black uppercase text-slate-500 tracking-widest leading-none mb-1">Avg Score</span>
+                            <span className="text-lg font-black text-white">{Math.round(selectedCourseId === "all" ? avgScore : filteredAvg)}</span>
                         </div>
                     </div>
                 </header>
@@ -327,13 +248,13 @@ export default function AdminGradesClient({
                 {/* Search & Actions Strip */}
                 <div className="flex flex-col lg:flex-row gap-4 mb-4">
                     <div className="flex-1 relative group">
-                        <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-slate-500 group-focus-within:text-[var(--raw-accent)] transition-colors">
-                            <Search size={18} />
+                        <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-slate-500 group-focus-within:text-sky-405 transition-colors">
+                            <Search size={16} />
                         </div>
                         <input
                             type="text"
                             placeholder="Buscar por nombre de alumno o curso..."
-                            className="w-full bg-black/40 border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-white text-sm focus:outline-none focus:border-[var(--raw-accent)]/50 transition-all placeholder:text-slate-600"
+                            className="w-full bg-[#0a0e1a] border border-slate-800 rounded-2xl py-4 pl-12 pr-4 text-white text-xs font-semibold placeholder:text-slate-700 focus:outline-none focus:border-sky-500 transition-all"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
@@ -342,10 +263,10 @@ export default function AdminGradesClient({
                     <div className="flex flex-wrap items-center gap-3">
                         <div className="relative">
                             <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-slate-500">
-                                <Filter size={16} />
+                                <Filter size={14} />
                             </div>
                             <select
-                                className="bg-black/40 border border-white/10 rounded-2xl py-4 pl-10 pr-10 text-white text-xs font-bold uppercase tracking-widest appearance-none focus:outline-none focus:border-[var(--raw-accent)]/50 cursor-pointer"
+                                className="bg-[#0a0e1a] border border-slate-800 rounded-2xl py-4 pl-10 pr-10 text-white text-[10px] font-black uppercase tracking-wider appearance-none focus:outline-none focus:border-sky-500 cursor-pointer"
                                 value={selectedCourseId}
                                 onChange={(e) => setSelectedCourseId(e.target.value)}
                             >
@@ -360,108 +281,73 @@ export default function AdminGradesClient({
 
                         <button
                             onClick={() => setIsBatchModalOpen(true)}
-                            className="bg-purple-600/20 hover:bg-purple-600/30 text-purple-400 border border-purple-600/30 px-6 py-4 rounded-2xl font-black text-[10px] uppercase tracking-widest flex items-center gap-2 transition-all shadow-xl shadow-purple-500/5 group"
+                            className="bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 border border-sky-500/20 px-6 py-4 rounded-2xl font-black text-[10px] uppercase tracking-wider flex items-center gap-2 transition-all"
                         >
-                            <Sparkles size={16} className="group-hover:rotate-12 transition-transform" />
+                            <Sparkles size={14} />
                             Calificación IA (Lote)
                         </button>
 
                         <button
                             onClick={handleExportCSV}
-                            className="bg-white/5 hover:bg-white/10 text-white border border-white/10 px-6 py-4 rounded-2xl font-black text-[10px] uppercase tracking-widest flex items-center gap-2 transition-all"
+                            className="bg-white/5 hover:bg-white/10 text-white border border-slate-800 px-6 py-4 rounded-2xl font-black text-[10px] uppercase tracking-wider flex items-center gap-2 transition-all"
                         >
-                            <FileDown size={16} />
+                            <FileDown size={14} />
                             Exportar CSV
                         </button>
                     </div>
                 </div>
             </div>
 
-            {/* Rubric legend if a course is selected */}
+            {/* Rubric legend */}
             {selectedCourse && (
-                <div className="glass-effect rounded-2xl border border-[var(--border-color)] p-4 bg-[var(--card-bg)]">
-                    <p className="text-[10px] font-bold text-[var(--text-secondary)] uppercase tracking-widest mb-3 flex items-center gap-2">
+                <div className="bg-[#0a0e1a] rounded-2xl border border-slate-800 p-4 shadow-xl">
+                    <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-3 flex items-center gap-2">
                         <Filter size={12} /> Rubros del curso &mdash; {selectedCourse.title}
                     </p>
                     <div className="flex flex-wrap gap-2">
                         {selectedCourse.weightQuiz > 0 && (
-                            <span className="text-xs font-bold px-3 py-1 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                            <span className="text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-lg bg-sky-500/10 text-sky-400 border border-sky-500/20">
                                 Quiz {selectedCourse.weightQuiz}%
                             </span>
                         )}
                         {selectedCourse.weightLab > 0 && (
-                            <span className="text-xs font-bold px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                            <span className="text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/20">
                                 Lab {selectedCourse.weightLab}%
                             </span>
                         )}
                         {selectedCourse.weightForum > 0 && (
-                            <span className="text-xs font-bold px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                            <span className="text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
                                 Foro {selectedCourse.weightForum}%
                             </span>
                         )}
                         {selectedCourse.weightProject > 0 && (
-                            <span className="text-xs font-bold px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                            <span className="text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/20">
                                 Proyecto {selectedCourse.weightProject}%
                             </span>
                         )}
                         {selectedCourse.weightExam > 0 && (
-                            <span className="text-xs font-bold px-3 py-1 rounded-full bg-pink-500/10 text-pink-400 border border-pink-500/20">
+                            <span className="text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/20">
                                 Examen {selectedCourse.weightExam}%
                             </span>
                         )}
-                        <span className="text-xs font-bold px-3 py-1 rounded-full bg-white/5 text-slate-400 border border-white/10">
-                            Total: {
-                                (selectedCourse.weightQuiz + selectedCourse.weightLab + selectedCourse.weightForum +
-                                selectedCourse.weightProject + selectedCourse.weightExam)
-                            }%
-                        </span>
                     </div>
                 </div>
             )}
 
             {/* Table */}
-            <div className="glass-effect rounded-3xl border border-[var(--border-color)] overflow-hidden bg-[var(--card-bg)]">
-                <div className="p-6 border-b border-[var(--border-color)] flex flex-col md:flex-row md:items-center justify-between gap-4 bg-black/5">
-                    {/* Search */}
-                    <div className="relative flex-grow max-w-md">
-                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--text-secondary)]" size={18} />
-                        <input
-                            type="text"
-                            placeholder="Buscar por estudiante o curso..."
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full bg-[var(--background)] border border-[var(--border-color)] rounded-xl py-2.5 pl-11 pr-4 text-sm text-[var(--text-primary)] focus:outline-none focus:border-[var(--color-primary)] transition-all"
-                        />
-                    </div>
-
-                    {/* Course filter */}
-                    <div className="relative">
-                        <Filter className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-secondary)] pointer-events-none" size={15} />
-                        <select
-                            value={selectedCourseId}
-                            onChange={(e) => setSelectedCourseId(e.target.value)}
-                            className="appearance-none bg-[var(--background)] border border-[var(--border-color)] rounded-xl py-2.5 pl-9 pr-8 text-sm text-[var(--text-primary)] focus:outline-none focus:border-[var(--color-primary)] transition-all cursor-pointer"
-                        >
-                            <option value="all">Todos los cursos</option>
-                            {courses.map(c => (
-                                <option key={c.id} value={c.id}>{c.title}</option>
-                            ))}
-                        </select>
-                    </div>
-                </div>
-
+            <div className="bg-[#0a0e1a] rounded-2xl border border-slate-800 overflow-hidden shadow-2xl">
                 <div className="overflow-x-auto">
                     <table className="w-full text-left border-collapse">
                         <thead>
-                            <tr className="bg-black/5">
-                                <th className="px-6 py-4 text-[10px] font-bold text-[var(--text-secondary)] uppercase tracking-widest">Estudiante</th>
-                                <th className="px-6 py-4 text-[10px] font-bold text-[var(--text-secondary)] uppercase tracking-widest">Curso</th>
-                                <th className="px-6 py-4 text-[10px] font-bold text-[var(--text-secondary)] uppercase tracking-widest text-center">Desglose (Q/L/F/P/E)</th>
-                                <th className="px-6 py-4 text-[10px] font-bold text-[var(--text-secondary)] uppercase tracking-widest text-center">Nota Final</th>
-                                <th className="px-6 py-4 text-[10px] font-bold text-[var(--text-secondary)] uppercase tracking-widest text-right">Detalle</th>
+                            <tr className="bg-black/20 border-b border-slate-800">
+                                <th className="px-6 py-4 text-[9px] font-black text-slate-500 uppercase tracking-widest">Estudiante</th>
+                                <th className="px-6 py-4 text-[9px] font-black text-slate-500 uppercase tracking-widest">Curso</th>
+                                <th className="px-6 py-4 text-[9px] font-black text-slate-500 uppercase tracking-widest text-center">Desglose (Q/L/F/P/E)</th>
+                                <th className="px-6 py-4 text-[9px] font-black text-slate-500 uppercase tracking-widest text-center">Nota Final</th>
+                                <th className="px-6 py-4 text-[9px] font-black text-slate-500 uppercase tracking-widest text-right">Detalle</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-[var(--border-color)]">
+                        <tbody className="divide-y divide-slate-850">
                             {filteredData.map((row, idx) => {
                                 const rowKey = `${row.studentId}-${row.courseId}-${idx}`;
                                 const isExpanded = expandedRows.includes(rowKey);
@@ -469,82 +355,79 @@ export default function AdminGradesClient({
                                 return (
                                     <React.Fragment key={rowKey}>
                                         <tr
-                                            className="hover:bg-white/[0.02] transition-colors group cursor-pointer"
+                                            className="hover:bg-white/[0.01] transition-colors group cursor-pointer"
                                             onClick={() => toggleRow(rowKey)}
                                         >
                                             <td className="px-6 py-5">
                                                 <div className="flex items-center gap-3">
-                                                    <div className="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 border border-white/5 group-hover:border-[var(--color-primary)]/30 transition-all">
+                                                    <div className="w-9 h-9 rounded-full bg-slate-900 flex items-center justify-center text-slate-500 border border-slate-800 group-hover:border-sky-500/30 transition-all">
                                                         <User size={18} />
                                                     </div>
                                                     <div>
-                                                        <p className="text-sm font-bold text-white leading-none mb-1">{row.name}</p>
-                                                        <p className="text-[10px] text-slate-500 font-medium">{row.email}</p>
+                                                        <p className="text-xs font-black text-white uppercase tracking-wider leading-none mb-1">{row.name}</p>
+                                                        <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">{row.email}</p>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td className="px-6 py-5">
                                                 <div className="flex items-center gap-2 text-slate-300">
-                                                    <BookOpen size={16} className="text-[var(--color-primary)]" />
-                                                    <span className="text-sm font-semibold leading-none">{row.courseTitle}</span>
+                                                    <BookOpen size={16} className="text-sky-400" />
+                                                    <span className="text-xs font-black uppercase tracking-wider leading-none">{row.courseTitle}</span>
                                                 </div>
-                                                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-tighter mt-1">
+                                                <p className="text-[9px] text-slate-500 font-black uppercase tracking-wider mt-1">
                                                     {row.gradeData.subsCount} Entregas Realizadas
                                                 </p>
                                             </td>
                                             <td className="px-6 py-5 text-center">
-                                                <div className="flex items-center justify-center gap-2 text-xs font-mono text-slate-400">
-                                                    {row.gradeData.weights.QUIZ > 0 && <span title="Quices" className={row.gradeData.qAvg > 0 ? "text-purple-400" : ""}>{row.gradeData.qAvg}</span>}
+                                                <div className="flex items-center justify-center gap-2 text-xs font-mono text-slate-500 font-semibold">
+                                                    {row.gradeData.weights.QUIZ > 0 && <span title="Quices" className={row.gradeData.qAvg > 0 ? "text-sky-400" : ""}>{row.gradeData.qAvg}</span>}
                                                     {row.gradeData.weights.QUIZ > 0 && (row.gradeData.weights.LAB > 0 || row.gradeData.weights.FORUM > 0 || row.gradeData.weights.PROJECT > 0 || row.gradeData.weights.EXAM > 0) && "/"}
-                                                    {row.gradeData.weights.LAB > 0 && <span title="Labs" className={row.gradeData.lAvg > 0 ? "text-blue-400" : ""}>{row.gradeData.lAvg}</span>}
+                                                    {row.gradeData.weights.LAB > 0 && <span title="Labs" className={row.gradeData.lAvg > 0 ? "text-amber-400" : ""}>{row.gradeData.lAvg}</span>}
                                                     {row.gradeData.weights.LAB > 0 && (row.gradeData.weights.FORUM > 0 || row.gradeData.weights.PROJECT > 0 || row.gradeData.weights.EXAM > 0) && "/"}
                                                     {row.gradeData.weights.FORUM > 0 && <span title="Foros" className={row.gradeData.fAvg > 0 ? "text-emerald-400" : ""}>{row.gradeData.fAvg}</span>}
                                                     {row.gradeData.weights.FORUM > 0 && (row.gradeData.weights.PROJECT > 0 || row.gradeData.weights.EXAM > 0) && "/"}
                                                     {row.gradeData.weights.PROJECT > 0 && <span title="Proyectos" className={row.gradeData.pAvg > 0 ? "text-amber-400" : ""}>{row.gradeData.pAvg}</span>}
-                                                    {row.gradeData.weights.PROJECT > 0 && row.gradeData.weights.EXAM > 0 && "/"}
-                                                    {row.gradeData.weights.EXAM > 0 && <span title="Exámenes" className={row.gradeData.eAvg > 0 ? "text-pink-400" : ""}>{row.gradeData.eAvg}</span>}
+                                                    {row.gradeData.weights.PROJECT > 0 && row.gradeData.weights.EXAM > 0 && <span>/</span>}
+                                                    {row.gradeData.weights?.EXAM > 0 && <span className="text-amber-400">{row.gradeData.eAvg}</span>}
                                                 </div>
                                             </td>
-                                            <td className="px-6 py-5 text-center">
-                                                <span className={`text-xl font-black ${row.gradeData.total >= 70 ? "text-emerald-400" : "text-rose-400"}`}>
-                                                    {row.gradeData.total || "0"}
-                                                </span>
+                                            <td className="text-center">
+                                                <span className={`text-sm font-black ${row.gradeData.total >= 70 ? "text-emerald-400" : "text-rose-400"}`}>{row.gradeData.total}</span>
                                             </td>
                                             <td className="px-6 py-5 text-right">
-                                                <button className={`text-slate-500 hover:text-[var(--color-primary)] transition-all p-2 rounded-full hover:bg-white/5 ${isExpanded ? "rotate-90 bg-white/5 text-[var(--color-primary)]" : ""}`}>
+                                                <button className={`text-slate-500 hover:text-sky-400 transition-all p-2 rounded-full hover:bg-white/5 ${isExpanded ? "rotate-90 bg-white/5 text-sky-400" : ""}`}>
                                                     <ChevronRight size={18} />
                                                 </button>
                                             </td>
                                         </tr>
 
-                                        {/* Expanded Details Row */}
                                         {isExpanded && (
-                                            <tr className="bg-black/40 border-t-0 shadow-inner">
+                                            <tr className="bg-black/30 border-t-0 shadow-inner">
                                                 <td colSpan={5} className="px-6 py-6 border-b border-slate-800">
                                                     <div className="animate-in slide-in-from-top-2 fade-in duration-300">
-                                                        <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 border-b border-slate-800 pb-2 flex justify-between items-center">
+                                                        <h4 className="text-xs font-black text-slate-400 uppercase tracking-wider mb-4 border-b border-slate-800 pb-2 flex justify-between items-center">
                                                             <span>Detalle de Entregas</span>
                                                             <button
                                                                 onClick={(e) => { e.stopPropagation(); downloadAll(row.submissions, row.name); }}
                                                                 disabled={isZipping}
-                                                                className="flex items-center gap-1.5 text-[var(--color-primary)] hover:text-blue-400 transition-colors bg-blue-500/10 px-3 py-1.5 rounded-lg border border-blue-500/20 disabled:opacity-50"
+                                                                className="flex items-center gap-1.5 text-sky-400 hover:text-sky-300 transition-colors bg-sky-500/10 px-3 py-1.5 rounded-lg border border-sky-500/20 disabled:opacity-50"
                                                             >
                                                                 {isZipping ? <Loader2 size={14} className="animate-spin" /> : <FileDown size={14} />}
-                                                                <span className="text-[10px] font-black uppercase">{isZipping ? "Procesando..." : "Descargar Todo (.ZIP)"}</span>
+                                                                <span className="text-[9px] font-black uppercase tracking-wider">{isZipping ? "Procesando..." : "Descargar Todo (.ZIP)"}</span>
                                                             </button>
                                                         </h4>
                                                         {(row.submissions || []).length > 0 ? (
                                                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                                                                 {row.submissions.map((sub: any, i: number) => (
-                                                                    <div key={i} className="bg-white/5 border border-white/10 rounded-xl p-4 flex flex-col gap-2 relative overflow-hidden group hover:border-[var(--color-primary)]/50 transition-colors">
+                                                                    <div key={i} className="bg-black/40 border border-slate-850 rounded-xl p-4 flex flex-col gap-2 relative overflow-hidden group hover:border-sky-500/40 transition-colors">
                                                                         <div className="flex justify-between items-start mb-1">
-                                                                            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider
-                                                                                ${sub.assignmentType === 'QUIZ' ? 'bg-purple-500/10 text-purple-400 border border-purple-500/20' : ''}
-                                                                                ${sub.assignmentType === 'LAB' ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20' : ''}
+                                                                            <span className={`text-[9px] font-black px-2 py-0.5 rounded uppercase tracking-wider
+                                                                                ${sub.assignmentType === 'QUIZ' ? 'bg-sky-500/10 text-sky-400 border border-sky-500/20' : ''}
+                                                                                ${sub.assignmentType === 'LAB' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' : ''}
                                                                                 ${sub.assignmentType === 'FORUM' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : ''}
                                                                                 ${sub.assignmentType === 'PROJECT' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' : ''}
                                                                                 ${sub.assignmentType === 'PRACTICE' ? 'bg-slate-500/10 text-slate-400 border border-slate-500/20' : ''}
-                                                                                ${sub.assignmentType === 'EXAM' ? 'bg-pink-500/10 text-pink-400 border border-pink-500/20' : ''}
+                                                                                ${sub.assignmentType === 'EXAM' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' : ''}
                                                                             `}>
                                                                                 {sub.assignmentType === 'PRACTICE' ? 'PRÁCTICA' : sub.assignmentType}
                                                                             </span>
@@ -554,9 +437,9 @@ export default function AdminGradesClient({
                                                                                 dayId={sub.dayId}
                                                                             />
                                                                         </div>
-                                                                        <p className="text-sm font-medium text-white line-clamp-1" title={sub.title}>{sub.title}</p>
+                                                                        <p className="text-xs font-black text-white uppercase tracking-wider line-clamp-1" title={sub.title}>{sub.title}</p>
                                                                         <div className="flex justify-between items-center mt-1">
-                                                                            <p className="text-[10px] uppercase font-bold text-slate-500">
+                                                                            <p className="text-[9px] uppercase font-black text-slate-500">
                                                                                 {sub.grade === null ? "Sin Entrega" : "Entregado"}
                                                                             </p>
                                                                             <div className="flex items-center gap-3">
@@ -564,16 +447,16 @@ export default function AdminGradesClient({
                                                                                     <a
                                                                                         href={`/admin/courses/${row.courseId}/submissions/${sub.dayId}`}
                                                                                         target="_blank"
-                                                                                        className="flex items-center gap-1.5 text-[10px] font-black uppercase text-slate-400 hover:text-white transition-colors"
+                                                                                        className="flex items-center gap-1.5 text-[9px] font-black uppercase text-slate-500 hover:text-white transition-colors"
                                                                                     >
                                                                                         <BookOpen size={12} />
-                                                                                        Ver Entregas (Admin)
+                                                                                        Ver Entregas
                                                                                     </a>
                                                                                 )}
                                                                                 {sub.content && (
                                                                                     <button
                                                                                         onClick={() => handleDownload(sub.content, sub.fileName)}
-                                                                                        className="flex items-center gap-1.5 text-[10px] font-black uppercase text-[var(--color-primary)] hover:text-white transition-colors"
+                                                                                        className="flex items-center gap-1.5 text-[9px] font-black uppercase text-sky-400 hover:text-white transition-colors"
                                                                                     >
                                                                                         <Download size={12} />
                                                                                         Descargar
@@ -582,7 +465,7 @@ export default function AdminGradesClient({
                                                                             </div>
                                                                         </div>
                                                                         <div
-                                                                            className="text-[10px] text-slate-400 mt-1 line-clamp-3 cursor-pointer hover:bg-white/5 p-1 rounded transition-colors group/f"
+                                                                            className="text-[10px] text-slate-500 font-semibold mt-1 line-clamp-3 cursor-pointer hover:bg-white/5 p-1 rounded transition-colors group/f"
                                                                             onClick={(e) => { e.stopPropagation(); setSelectedFeedback({ sub, name: row.name }); }}
                                                                             title="Click para ver feedback completo"
                                                                         >
@@ -594,18 +477,17 @@ export default function AdminGradesClient({
                                                                                             {sub.feedback.mejoras && <p><span className="text-amber-400 font-bold">-</span> {Array.isArray(sub.feedback.mejoras) ? sub.feedback.mejoras[0] : sub.feedback.mejoras}</p>}
                                                                                         </>
                                                                                     )}
-                                                                                    <div className="text-[9px] text-[var(--color-primary)] font-bold mt-1 opacity-0 group-hover/f:opacity-100 transition-opacity">VER DETALLE →</div>
                                                                                 </>
                                                                             ) : (
-                                                                                sub.feedback || "Sin feedback asociado a esta entrega."
+                                                                                "Sin comentarios."
                                                                             )}
                                                                         </div>
                                                                     </div>
                                                                 ))}
                                                             </div>
                                                         ) : (
-                                                            <div className="text-sm text-slate-500 italic p-4 text-center border border-dashed border-slate-700/50 rounded-xl bg-black/20">
-                                                                No hay entregas registradas para este curso.
+                                                            <div className="text-sm text-slate-500 italic p-4 text-center border border-dashed border-slate-800 rounded-xl bg-black/20">
+                                                                No hay entregas registradas.
                                                             </div>
                                                         )}
                                                     </div>

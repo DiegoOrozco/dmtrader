@@ -112,7 +112,7 @@ export default function CommunicationsPage() {
                         <button
                             type="submit"
                             disabled={isPending}
-                            className="w-full py-4 rounded-2xl bg-[var(--color-primary)] hover:bg-blue-600 text-white font-black uppercase tracking-widest transition-all shadow-[0_0_20px_rgba(59,130,246,0.3)] flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed group active:scale-95"
+                            className="w-full py-4 rounded-2xl bg-[var(--color-primary)] hover:bg-sky-600 text-white font-black uppercase tracking-widest transition-all shadow-[0_0_20px_rgba(56,189,248,0.3)] flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed group active:scale-95"
                         >
                             {isPending ? (
                                 <>
@@ -128,7 +128,7 @@ export default function CommunicationsPage() {
                         </button>
 
                         {result && (
-                            <div className={`p-5 rounded-2xl border flex items-start gap-4 animate-in fade-in slide-in-from-top-2 duration-300 ${result.success ? "bg-green-500/10 border-green-500/20 text-green-400" : "bg-red-500/10 border-red-500/20 text-red-400"
+                            <div className={`p-5 rounded-2xl border flex items-start gap-4 animate-in fade-in slide-in-from-top-2 duration-300 ${result.success ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-400" : "bg-red-500/10 border-red-500/20 text-red-400"
                                 }`}>
                                 {result.success ? <CheckCircle2 size={24} /> : <AlertCircle size={24} />}
                                 <div>
@@ -168,7 +168,7 @@ export default function CommunicationsPage() {
                     </div>
 
                     <div className="glass-effect rounded-3xl border border-white/10 p-6 space-y-4">
-                        <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-green-400">
+                        <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-emerald-400">
                             <Users size={24} />
                         </div>
                         <h3 className="text-lg font-bold text-white">Prueba de Seguridad</h3>

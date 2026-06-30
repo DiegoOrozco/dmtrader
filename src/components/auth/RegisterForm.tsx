@@ -53,27 +53,16 @@ export default function RegisterForm({ courseId, initialError }: RegisterFormPro
     }
 
     const fieldClass = (hasError: boolean) =>
-        `w-full bg-[rgba(0,0,0,0.3)] border rounded-lg pl-10 pr-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-1 transition-all ${hasError ? 'border-red-500/60 focus:border-red-500 focus:ring-red-500/30' : 'border-[var(--color-glass-border)] focus:border-[var(--color-primary)] focus:ring-[var(--color-primary)]'}`;
+        `w-full bg-[#05070f] border rounded-lg pl-10 pr-4 py-3 text-xs text-white placeholder-slate-700 focus:outline-none focus:border-sky-500 transition-all font-semibold ${errors.email ? 'border-red-500/60' : 'border-slate-800'}`;
 
     return (
         <form onSubmit={handleSubmit} noValidate className="space-y-5">
-            {/* Server-side errors */}
-            {initialError === "exists" && (
-                <div className="bg-orange-500/10 text-orange-400 text-sm p-4 rounded-xl border border-orange-500/20 flex items-start gap-3">
-                    <AlertCircle size={16} className="mt-0.5 shrink-0" />
-                    <p className="font-medium">Este correo ya está registrado. <a href="/login" className="underline font-bold">Inicia sesión aquí.</a></p>
-                </div>
-            )}
-            {initialError === "google_linked" && (
-                <div className="bg-orange-500/10 text-orange-400 text-sm p-4 rounded-xl border border-orange-500/20 flex items-start gap-3">
-                    <AlertCircle size={16} className="mt-0.5 shrink-0" />
-                    <p className="font-medium">Este correo está vinculado a Google. Usa el botón "Comenzar con Google".</p>
-                </div>
-            )}
-            {initialError === "email_failed" && (
-                <div className="bg-red-500/10 text-red-400 text-sm p-4 rounded-xl border border-red-500/20 flex items-start gap-3">
-                    <AlertCircle size={16} className="mt-0.5 shrink-0" />
-                    <p className="font-medium">No se pudo enviar el correo de verificación. Por favor revisa que el correo sea válido e intenta de nuevo.</p>
+            {initialError === "incorrect" && (
+                <div className="bg-red-500/10 text-red-400 text-xs p-4 rounded-xl border border-red-500/20 flex items-start gap-3 uppercase font-black tracking-wider">
+                    <AlertCircle size={14} className="mt-0.5 shrink-0" />
+                    <div>
+                        <p className="font-black mb-0.5">Error en el registro</p>
+                    </div>
                 </div>
             )}
 
@@ -81,10 +70,10 @@ export default function RegisterForm({ courseId, initialError }: RegisterFormPro
 
             {/* Name */}
             <div className="space-y-2">
-                <label className="block text-sm font-semibold text-slate-300">Nombre Completo</label>
+                <label className="block text-xs font-black text-slate-500 uppercase tracking-widest">Nombre Completo</label>
                 <div className="relative">
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500">
-                        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-650">
+                        <svg width="16" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
                     </span>
                     <input
                         type="text"
@@ -95,15 +84,14 @@ export default function RegisterForm({ courseId, initialError }: RegisterFormPro
                         onChange={() => errors.name && setErrors(p => ({ ...p, name: undefined }))}
                     />
                 </div>
-                {errors.name && <p className="text-xs text-red-400 flex items-center gap-1.5 font-medium"><AlertCircle size={12} />{errors.name}</p>}
             </div>
 
             {/* Email */}
             <div className="space-y-2">
-                <label className="block text-sm font-semibold text-slate-300">Correo Electrónico</label>
+                <label className="block text-xs font-black text-slate-500 uppercase tracking-widest">Correo Electrónico</label>
                 <div className="relative">
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500">
-                        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-650">
+                        <svg width="16" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
                     </span>
                     <input
                         type="email"
@@ -114,14 +102,13 @@ export default function RegisterForm({ courseId, initialError }: RegisterFormPro
                         onChange={() => errors.email && setErrors(p => ({ ...p, email: undefined }))}
                     />
                 </div>
-                {errors.email && <p className="text-xs text-red-400 flex items-center gap-1.5 font-medium"><AlertCircle size={12} />{errors.email}</p>}
             </div>
 
             {/* Password */}
             <div className="space-y-2">
-                <label className="block text-sm font-semibold text-slate-300">Contraseña</label>
+                <label className="block text-xs font-black text-slate-500 uppercase tracking-widest">Contraseña</label>
                 <div className="relative">
-                    <Key className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
+                    <Key className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-650" size={16} />
                     <input
                         type={showPassword ? "text" : "password"}
                         name="password"
@@ -134,28 +121,17 @@ export default function RegisterForm({ courseId, initialError }: RegisterFormPro
                             if (errors.password) setErrors(p => ({ ...p, password: undefined }));
                         }}
                     />
-                    <button type="button" onClick={() => setShowPassword(v => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 transition-colors">
-                        {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                    <button type="button" onClick={() => setShowPassword(v => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-600">
+                        {showPassword ? <EyeOff size={14} /> : <Eye size={14} />}
                     </button>
                 </div>
-                {/* Password strength hints */}
-                {password.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mt-1.5">
-                        {passwordRules.map(rule => (
-                            <span key={rule.label} className={`text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 ${rule.ok ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-white/5 text-slate-500 border border-white/5'}`}>
-                                {rule.ok ? '✓' : '○'} {rule.label}
-                            </span>
-                        ))}
-                    </div>
-                )}
-                {errors.password && <p className="text-xs text-red-400 flex items-center gap-1.5 font-medium"><AlertCircle size={12} />{errors.password}</p>}
             </div>
 
             {/* Confirm Password */}
             <div className="space-y-2">
-                <label className="block text-sm font-semibold text-slate-300">Confirmar Contraseña</label>
+                <label className="block text-xs font-black text-slate-500 uppercase tracking-widest">Confirmar Contraseña</label>
                 <div className="relative">
-                    <Key className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
+                    <Key className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-650" size={16} />
                     <input
                         type={showPassword ? "text" : "password"}
                         name="confirm"
@@ -165,21 +141,20 @@ export default function RegisterForm({ courseId, initialError }: RegisterFormPro
                         onChange={() => errors.confirm && setErrors(p => ({ ...p, confirm: undefined }))}
                     />
                 </div>
-                {errors.confirm && <p className="text-xs text-red-400 flex items-center gap-1.5 font-medium"><AlertCircle size={12} />{errors.confirm}</p>}
             </div>
 
             <button
                 type="submit"
                 disabled={isPending}
-                className="w-full bg-emerald-600 hover:bg-emerald-500 disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 mt-4 flex items-center justify-center gap-2 shadow-lg shadow-emerald-900/30"
+                className="w-full bg-sky-600 hover:bg-sky-500 disabled:opacity-60 disabled:cursor-not-allowed text-white font-black text-xs uppercase tracking-wider py-3.5 px-4 rounded-lg transition-all duration-300 mt-4 flex items-center justify-center gap-2 shadow-lg"
             >
                 {isPending ? (
                     <>
-                        <Loader2 size={18} className="animate-spin" />
+                        <Loader2 size={14} className="animate-spin" />
                         Creando cuenta...
                     </>
                 ) : (
-                    "Comenzar Ahora →"
+                    "Comenzar Ahora"
                 )}
             </button>
         </form>

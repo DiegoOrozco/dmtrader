@@ -37,7 +37,7 @@ export default function EnrollmentManager({ enrollment }: { enrollment: any }) {
                 onClick={handleToggle}
                 disabled={loading}
                 className={`flex items-center gap-2 px-2 py-1 rounded-md text-[10px] font-black uppercase tracking-wider transition-all ${status === "ACTIVE"
-                    ? "bg-green-500/10 text-green-400 border border-green-500/20 hover:bg-green-500/20"
+                    ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/20"
                     : "bg-red-500/10 text-red-400 border border-red-500/20 hover:bg-red-500/20"
                     }`}
             >

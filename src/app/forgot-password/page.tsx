@@ -77,7 +77,7 @@ function ForgotPasswordContent() {
                     ) : (
                         <>
                             {status === "error_missing" && (
-                                <div className="mb-4 bg-orange-500/10 text-orange-400 text-sm p-3 rounded-xl border border-orange-500/20 flex items-center gap-2">
+                                <div className="mb-4 bg-amber-500/10 text-amber-400 text-sm p-3 rounded-xl border border-amber-500/20 flex items-center gap-2">
                                     <AlertCircle size={14} className="shrink-0" /> Por favor ingresa tu correo electrónico.
                                 </div>
                             )}
@@ -92,7 +92,7 @@ function ForgotPasswordContent() {
                                 </div>
                             )}
                             {status === "error_google" && (
-                                <div className="mb-4 bg-blue-500/10 text-blue-400 text-sm p-3 rounded-xl border border-blue-500/20 flex items-start gap-2 text-left">
+                                <div className="mb-4 bg-sky-500/10 text-sky-400 text-sm p-3 rounded-xl border border-sky-500/20 flex items-start gap-2 text-left">
                                     <AlertCircle size={16} className="shrink-0 mt-0.5" />
                                     <div>
                                         <strong>Cuenta vinculada a Google.</strong><br />
@@ -101,7 +101,7 @@ function ForgotPasswordContent() {
                                 </div>
                             )}
                             {forceExpired && status === "idle" && (
-                                <div className="mb-4 bg-orange-500/10 text-orange-400 text-sm p-3 rounded-xl border border-orange-500/20 flex items-center gap-2">
+                                <div className="mb-4 bg-amber-500/10 text-amber-400 text-sm p-3 rounded-xl border border-amber-500/20 flex items-center gap-2">
                                     <AlertCircle size={14} className="shrink-0" /> El enlace expiró. Solicita uno nuevo.
                                 </div>
                             )}
@@ -128,7 +128,7 @@ function ForgotPasswordContent() {
                                 <button
                                     type="submit"
                                     disabled={isPending}
-                                    className="w-full bg-[var(--color-primary)] hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                                    className="w-full bg-[var(--color-primary)] hover:bg-sky-600 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
                                     {isPending ? (
                                         <>
@@ -155,8 +155,8 @@ function ForgotPasswordContent() {
                 </div>
 
                 {debug === "true" && (
-                    <div className="mt-8 p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-xl space-y-3">
-                        <p className="text-yellow-500 text-xs font-bold uppercase mb-2 text-center">Herramienta de Diagnóstico</p>
+                    <div className="mt-8 p-4 bg-amber-500/10 border border-amber-500/20 rounded-xl space-y-3">
+                        <p className="text-amber-500 text-xs font-bold uppercase mb-2 text-center">Herramienta de Diagnóstico</p>
 
                         <button
                             type="button"
@@ -164,7 +164,7 @@ function ForgotPasswordContent() {
                                 const res = await testEmailConfig();
                                 alert("Verificación de Configuración Completada. Revisa los logs de Vercel.");
                             }}
-                            className="w-full bg-yellow-600 hover:bg-yellow-700 text-white text-xs font-bold py-2 px-4 rounded-lg transition-all"
+                            className="w-full bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold py-2 px-4 rounded-lg transition-all"
                         >
                             1. Verificar Entorno (Solo Logs)
                         </button>
@@ -176,7 +176,7 @@ function ForgotPasswordContent() {
                                 const res = await diagnosticSendTestEmail();
                                 if (!res.success) alert("Error: " + res.error);
                             }}
-                            className="w-full bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold py-2 px-4 rounded-lg transition-all"
+                            className="w-full bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold py-2 px-4 rounded-lg transition-all"
                         >
                             2. Enviar Email de Prueba (Full Flow)
                         </button>

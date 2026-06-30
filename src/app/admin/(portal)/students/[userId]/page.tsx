@@ -94,7 +94,7 @@ export default async function AdminStudentDetailPage({ params }: { params: Promi
             {student.enrollments.map((e: any) => (
               <div key={e.id} className="flex items-center justify-between p-3 bg-white/3 border border-white/5 rounded-xl hover:border-white/10 transition-all">
                 <div className="flex items-center gap-3">
-                  <div className={`w-2 h-2 rounded-full ${e.status === 'ACTIVE' ? 'bg-green-500' : 'bg-red-500'}`}></div>
+                  <div className={`w-2 h-2 rounded-full ${e.status === 'ACTIVE' ? 'bg-emerald-500' : 'bg-red-500'}`}></div>
                   <div>
                     <Link href={`/admin/courses/${e.course.id}`} className="hover:underline text-sm font-bold text-white">
                       {e.course.title}

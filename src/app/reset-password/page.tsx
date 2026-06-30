@@ -106,7 +106,7 @@ export default async function ResetPasswordPage({
 
                         <button
                             type="submit"
-                            className="w-full bg-[var(--color-primary)] hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-blue-900/30"
+                            className="w-full bg-[var(--color-primary)] hover:bg-sky-600 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-sky-900/30"
                         >
                             Actualizar Contraseña
                         </button>

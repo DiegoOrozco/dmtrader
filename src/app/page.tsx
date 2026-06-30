@@ -1,12 +1,12 @@
 import { Suspense } from "react";
 import { getSiteConfig } from "@/lib/config";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, TrendingUp, Award, Shield, Users, ArrowUpRight } from "lucide-react";
 import prisma from "@/lib/prisma";
 import { getStudent } from "@/lib/student-auth";
 import { unstable_cache } from "next/cache";
-import { calculateCourseGrade } from "@/lib/grades-utils";
 import CourseCatalog from "@/components/CourseCatalog";
+import Image from "next/image";
 
 const getCachedHomeConfig = unstable_cache(
     async () => await getSiteConfig("home"),
@@ -18,9 +18,9 @@ export default async function DashboardPage() {
     const student = await getStudent();
 
     const homeConfig = await getCachedHomeConfig() || {
-        heroTitle: "Aprende Trading con DM Trader",
-        heroSubtitle: "Accede a videos exclusivos de trading, análisis técnico y estrategias de mercado.",
-        heroButtonText: "Empezar Ahora",
+        heroTitle: "Aprende Trading Profesional",
+        heroSubtitle: "Domina Forex, Criptomonedas e Índices Sintéticos con metodologías avanzadas de Dayan Moraga.",
+        heroButtonText: "Comenzar Ahora",
         heroButtonLink: "/register",
         news: []
     };
@@ -47,98 +47,132 @@ export default async function DashboardPage() {
     const enrolledCourseIds = student?.enrollments.map((e: any) => e.courseId) || [];
     
     const stats = [
-        { label: "ENFOQUE", n: "100%", sub: "CÓDIGO Y PROYECTOS" },
-        { label: "NIVEL", n: "TECH", sub: "HERRAMIENTAS MODERNAS" },
-        { label: "OBJETIVO", n: "PRO", sub: "IMPULSA TU CARRERA" }
+        { label: "ESTUDIANTES ACTIVADOS", n: "1,500+", icon: <Users size={16} className="text-sky-500" /> },
+        { label: "MÉTRICA DE APROBACIÓN", n: "94.6%", icon: <Award size={16} className="text-amber-500" /> },
+        { label: "SEGURIDAD DE APRENDIZAJE", n: "PRO", icon: <Shield size={16} className="text-sky-400" /> }
     ];
 
     return (
-        <div className="min-h-screen relative" style={{ background: 'var(--background)' }}>
-            {/* Background Watermarks */}
-            <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden select-none" style={{ opacity: 0.1 }}>
-                <span className="raw-watermark top-[10%] left-[5%]">APRENDE</span>
-                <span className="raw-watermark top-[40%] right-[10%]">PROGRAMA</span>
-                <span className="raw-watermark bottom-[10%] left-[15%]">INNOVA</span>
-            </div>
+        <div className="min-h-screen relative overflow-x-hidden" style={{ background: 'var(--background)' }}>
+            {/* Ambient Background Glows */}
+            <div className="absolute top-20 left-1/4 w-[500px] h-[500px] bg-sky-500/10 dark:bg-sky-500/5 blur-[120px] rounded-full pointer-events-none -z-10" />
+            <div className="absolute top-40 right-1/4 w-[400px] h-[400px] bg-amber-500/5 blur-[100px] rounded-full pointer-events-none -z-10" />
 
-            <main className="relative z-10 pt-32 pb-40">
-                {/* ── HERO SECTION ── */}
-                <section className="max-w-[1400px] mx-auto px-6 lg:px-10 mb-24 group">
-                    <div className="space-y-6">
-                        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-[var(--text-primary)] leading-[0.9] tracking-tighter mb-8">
-                            {homeConfig.heroTitle.toUpperCase()}
-                        </h1>
-                        <p className="text-lg sm:text-xl font-bold text-[var(--text-secondary)] max-w-xl leading-tight uppercase tracking-tight italic">
-                            {homeConfig.heroSubtitle}
-                        </p>
-                    </div>
+            <main className="relative z-10 pt-28 md:pt-36 pb-32">
+                {/* ── HERO SECTION WITH DAYAN MORAGA ── */}
+                <section className="max-w-[1400px] mx-auto px-6 lg:px-10 mb-20">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                        {/* Text and Actions */}
+                        <div className="lg:col-span-7 space-y-6">
+                            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-sky-50 dark:bg-sky-500/10 border border-sky-100 dark:border-sky-500/20">
+                                <TrendingUp size={14} className="text-sky-500 dark:text-sky-400" />
+                                <span className="text-[11px] font-bold uppercase tracking-wider text-sky-600 dark:text-sky-400">
+                                    Educación Financiera Premium
+                                </span>
+                            </div>
+                            
+                            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-slate-900 dark:text-white leading-[1.05] tracking-tight">
+                                {homeConfig.heroTitle}
+                            </h1>
+                            
+                            <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed">
+                                {homeConfig.heroSubtitle} Aprende estrategias de precisión para el mercado de Forex, Criptomonedas e Índices Sintéticos con Dayan Moraga.
+                            </p>
 
-                    <div className="mt-16 flex flex-wrap gap-8 items-center">
-                        <Link 
-                            href={homeConfig.heroButtonLink || "/#catalog"} 
-                            className="raw-btn bg-[#cde641] text-black h-20 px-12 text-lg font-black uppercase italic tracking-tighter flex items-center gap-4 hover:bg-white hover:text-black transition-all group shadow-[0_0_50px_rgba(205,230,65,0.2)]"
-                        >
-                            {homeConfig.heroButtonText || "Explorar Catálogo"}
-                            <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
-                        </Link>
-                        
-                        <div className="flex gap-16 ml-auto hidden lg:flex">
-                            {stats.map((stat, i) => (
-                                <div key={i} className="text-right group cursor-crosshair">
-                                    <div className="flex items-center justify-end gap-2 mb-2">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-[#cde641] opacity-0 group-hover:opacity-100 transition-opacity" />
-                                        <span className="text-[10px] font-black uppercase tracking-widest text-[var(--text-secondary)] opacity-50">{stat.label}</span>
+                            <div className="pt-4 flex flex-wrap gap-4 items-center">
+                                <Link 
+                                    href={homeConfig.heroButtonLink || "/#catalog"} 
+                                    className="raw-btn-primary group h-14 px-8 text-sm font-bold flex items-center gap-3 transition-all"
+                                >
+                                    {homeConfig.heroButtonText || "Explorar Catálogo"}
+                                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                </Link>
+                                
+                                <Link 
+                                    href="/about" 
+                                    className="raw-secondary-btn h-14 px-8 text-sm font-bold flex items-center gap-2"
+                                >
+                                    Sobre Dayan Moraga
+                                </Link>
+                            </div>
+                        </div>
+
+                        {/* Dayan Moraga Hero Image Frame */}
+                        <div className="lg:col-span-5 flex justify-center relative">
+                            <div className="relative w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96">
+                                {/* Elegant geometric glow behind picture */}
+                                <div className="absolute inset-0 bg-gradient-to-tr from-sky-400 to-amber-400 rounded-3xl rotate-6 opacity-20 blur-lg" />
+                                <div className="absolute inset-0 bg-gradient-to-tr from-sky-500 to-sky-600 rounded-3xl -rotate-3 opacity-15" />
+                                
+                                <div className="absolute inset-0 rounded-3xl border border-slate-200 dark:border-slate-800/80 overflow-hidden shadow-2xl">
+                                    <Image 
+                                        src="/profile-pic.jpg" 
+                                        alt="Dayan Moraga - Instructora Líder" 
+                                        fill
+                                        style={{ objectFit: "cover" }}
+                                        priority
+                                    />
+                                    {/* Glass gradient overlay at bottom of image */}
+                                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950/80 via-slate-950/40 to-transparent p-6 flex flex-col justify-end">
+                                        <span className="text-white font-extrabold text-lg">Dayan Moraga</span>
+                                        <span className="text-sky-400 text-xs font-bold uppercase tracking-widest">Instructora de Trading Principal</span>
                                     </div>
-                                    <span className="text-6xl font-black text-[var(--text-primary)] tracking-tighter block mb-2">{stat.n}</span>
-                                    <p className="text-xs font-bold text-[var(--text-secondary)] opacity-30 uppercase tracking-widest">{stat.sub}</p>
                                 </div>
-                            ))}
+                            </div>
                         </div>
                     </div>
                 </section>
 
-                {/* ── PARTNERS / COMMUNITY SECTION ── */}
-                <section className="max-w-[1400px] mx-auto px-6 lg:px-10 mt-16 mb-24">
-                    <div className="flex items-center gap-4 mb-12">
-                        <span className="raw-label" style={{ color: 'var(--raw-outline)', whiteSpace: 'nowrap' }}>+ COMUNIDAD_Y_TRADING</span>
-                        <div className="h-px flex-1" style={{ background: 'var(--raw-outline-dim)' }} />
+                {/* Stats Bar */}
+                <section className="max-w-[1400px] mx-auto px-6 lg:px-10 mb-28">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 py-8 px-6 rounded-2xl bg-white dark:bg-slate-900/60 border border-slate-100 dark:border-slate-800/80 shadow-md">
+                        {stats.map((stat, i) => (
+                            <div key={i} className="flex items-center gap-4 px-4 py-2 border-b last:border-b-0 md:border-b-0 md:border-r last:border-r-0 border-slate-100 dark:border-slate-800">
+                                <div className="w-10 h-10 rounded-xl bg-slate-50 dark:bg-slate-800/80 flex items-center justify-center">
+                                    {stat.icon}
+                                </div>
+                                <div>
+                                    <span className="text-2xl font-extrabold text-slate-900 dark:text-white block">{stat.n}</span>
+                                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">{stat.label}</span>
+                                </div>
+                            </div>
+                        ))}
                     </div>
+                </section>
 
-                    <div className="mb-12">
-                        <h2 className="text-3xl sm:text-4xl font-black text-[var(--text-primary)] tracking-tighter uppercase mb-4">
-                            ¡Hagamos Trading Juntos!
-                        </h2>
-                        <p className="text-base text-[var(--text-secondary)] max-w-2xl leading-relaxed">
-                            Regístrate en nuestros brokers y plataformas recomendadas para unirte a nuestras sesiones en vivo, canal de alertas de mercado y operar con las mejores condiciones.
-                        </p>
+                {/* ── PARTNERS / BROKERS SECTION ── */}
+                <section className="max-w-[1400px] mx-auto px-6 lg:px-10 mb-28">
+                    <div className="flex items-center gap-4 mb-10">
+                        <span className="text-[11px] font-extrabold uppercase tracking-widest text-sky-500">
+                            Brokers Premium & Asociaciones Recomendas
+                        </span>
+                        <div className="h-px flex-1 bg-slate-200 dark:bg-slate-800/80" />
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {/* Deriv */}
                         {/* Deriv */}
                         <a 
                             href="https://deriv.partners/rx?sidc=55B279DC-01C5-41F3-8331-2B291B5DD053&utm_campaign=dynamicworks&utm_medium=affiliate&utm_source=CU50197" 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="raw-card p-6 flex flex-col justify-between min-h-[220px] group transition-all duration-300 relative overflow-hidden"
+                            className="raw-card p-6 flex flex-col justify-between min-h-[220px] group border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900/40"
                         >
-                            <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-25 transition-opacity">
-                                <span className="text-xs font-mono text-[var(--raw-accent)]">01</span>
+                            <div className="flex justify-between items-start mb-6">
+                                <div className="flex items-center gap-1.5">
+                                    <div className="w-5 h-5 rounded bg-red-500 flex items-center justify-center">
+                                        <ArrowUpRight size={12} className="text-white" />
+                                    </div>
+                                    <span className="font-extrabold text-slate-900 dark:text-white text-sm tracking-tight">DERIV</span>
+                                </div>
+                                <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500">01</span>
                             </div>
                             <div>
-                                <div className="mb-6 flex items-center">
-                                    <svg viewBox="0 0 100 30" className="h-6 w-auto" fill="currentColor">
-                                        <path d="M5 22 L18 8 L31 22 Z" fill="#ff444f"/>
-                                        <path d="M18 22 L31 8 L44 22 Z" fill="#ff444f" opacity="0.8"/>
-                                        <text x="52" y="20" fontFamily="Space Grotesk, sans-serif" fontWeight="900" fontSize="13" fill="currentColor" className="text-[var(--text-primary)]">DERIV</text>
-                                    </svg>
-                                </div>
-                                <h3 className="text-lg font-bold text-[var(--text-primary)] mb-2 uppercase tracking-tight">Índices Sintéticos</h3>
-                                <p className="text-xs text-[var(--text-secondary)] mb-4">Opera CFDs, forex y mercados sintéticos con spreads competitivos y apalancamiento.</p>
+                                <h3 className="text-base font-bold text-slate-800 dark:text-slate-200 mb-1.5 uppercase tracking-tight">Índices Sintéticos</h3>
+                                <p className="text-xs text-slate-500 dark:text-slate-400 mb-4 leading-relaxed">Opera CFDs, forex y mercados sintéticos patentados con spreads ultra competitivos y excelente apalancamiento.</p>
                             </div>
-                            <div className="flex items-center gap-2 text-[var(--raw-accent)] font-black text-xs uppercase tracking-wider group-hover:text-[var(--text-primary)] transition-colors mt-auto">
+                            <div className="flex items-center gap-2 text-sky-500 dark:text-sky-400 font-bold text-xs uppercase tracking-wider group-hover:text-sky-600 dark:group-hover:text-sky-300 transition-colors">
                                 Registrarse
-                                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                             </div>
                         </a>
 
@@ -147,25 +181,24 @@ export default async function DashboardPage() {
                             href="https://www.bitunix.com/register?vipCode=fq2H" 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="raw-card p-6 flex flex-col justify-between min-h-[220px] group transition-all duration-300 relative overflow-hidden"
+                            className="raw-card p-6 flex flex-col justify-between min-h-[220px] group border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900/40"
                         >
-                            <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-25 transition-opacity">
-                                <span className="text-xs font-mono text-[var(--raw-accent)]">02</span>
+                            <div className="flex justify-between items-start mb-6">
+                                <div className="flex items-center gap-1.5">
+                                    <div className="w-5 h-5 rounded bg-[#00e5ff] flex items-center justify-center">
+                                        <ArrowUpRight size={12} className="text-black" />
+                                    </div>
+                                    <span className="font-extrabold text-slate-900 dark:text-white text-sm tracking-tight">BITUNIX</span>
+                                </div>
+                                <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500">02</span>
                             </div>
                             <div>
-                                <div className="mb-6 flex items-center">
-                                    <svg viewBox="0 0 120 30" className="h-6 w-auto" fill="currentColor">
-                                        <rect x="5" y="4" width="20" height="20" rx="3" fill="#00e5ff"/>
-                                        <path d="M10 8 h10 v3 h-10 z M10 14 h10 v3 h-10 z" fill="#000000"/>
-                                        <text x="35" y="20" fontFamily="Space Grotesk, sans-serif" fontWeight="900" fontSize="13" fill="currentColor" className="text-[var(--text-primary)]">BITUNIX</text>
-                                    </svg>
-                                </div>
-                                <h3 className="text-lg font-bold text-[var(--text-primary)] mb-2 uppercase tracking-tight">Cripto Exchange</h3>
-                                <p className="text-xs text-[var(--text-secondary)] mb-4">Compra, vende y opera contratos perpetuos de criptomonedas sin restricciones y alta liquidez.</p>
+                                <h3 className="text-base font-bold text-slate-800 dark:text-slate-200 mb-1.5 uppercase tracking-tight">Cripto Exchange</h3>
+                                <p className="text-xs text-slate-500 dark:text-slate-400 mb-4 leading-relaxed">Compra, vende y opera contratos perpetuos de criptomonedas sin restricciones de liquidez.</p>
                             </div>
-                            <div className="flex items-center gap-2 text-[var(--raw-accent)] font-black text-xs uppercase tracking-wider group-hover:text-[var(--text-primary)] transition-colors mt-auto">
+                            <div className="flex items-center gap-2 text-sky-500 dark:text-sky-400 font-bold text-xs uppercase tracking-wider group-hover:text-sky-600 dark:group-hover:text-sky-300 transition-colors">
                                 Registrarse
-                                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                             </div>
                         </a>
 
@@ -174,24 +207,24 @@ export default async function DashboardPage() {
                             href="https://nexo.ibportal.io/auth/register?e=Pv53ERsz4qiVgd2HvuptUkqRsXcK9CnfEJBkTBAjSrw&a=2" 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="raw-card p-6 flex flex-col justify-between min-h-[220px] group transition-all duration-300 relative overflow-hidden"
+                            className="raw-card p-6 flex flex-col justify-between min-h-[220px] group border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900/40"
                         >
-                            <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-25 transition-opacity">
-                                <span className="text-xs font-mono text-[var(--raw-accent)]">03</span>
+                            <div className="flex justify-between items-start mb-6">
+                                <div className="flex items-center gap-1.5">
+                                    <div className="w-5 h-5 rounded bg-sky-600 flex items-center justify-center">
+                                        <ArrowUpRight size={12} className="text-white" />
+                                    </div>
+                                    <span className="font-extrabold text-slate-900 dark:text-white text-sm tracking-tight">NEXO</span>
+                                </div>
+                                <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500">03</span>
                             </div>
                             <div>
-                                <div className="mb-6 flex items-center">
-                                    <svg viewBox="0 0 100 30" className="h-6 w-auto" fill="currentColor">
-                                        <polygon points="5,4 14,4 23,16 23,4 30,4 30,22 21,22 12,10 12,22 5,22" fill="#3b82f6"/>
-                                        <text x="38" y="20" fontFamily="Space Grotesk, sans-serif" fontWeight="900" fontSize="13" fill="currentColor" className="text-[var(--text-primary)]">NEXO</text>
-                                    </svg>
-                                </div>
-                                <h3 className="text-lg font-bold text-[var(--text-primary)] mb-2 uppercase tracking-tight">Crypto Banking</h3>
-                                <p className="text-xs text-[var(--text-secondary)] mb-4">Genera intereses pasivos diarios en cripto y stablecoins con máxima seguridad garantizada.</p>
+                                <h3 className="text-base font-bold text-slate-800 dark:text-slate-200 mb-1.5 uppercase tracking-tight">Crypto Banking</h3>
+                                <p className="text-xs text-slate-500 dark:text-slate-400 mb-4 leading-relaxed">Genera intereses pasivos diarios en criptomonedas y stablecoins con la máxima seguridad garantizada.</p>
                             </div>
-                            <div className="flex items-center gap-2 text-[var(--raw-accent)] font-black text-xs uppercase tracking-wider group-hover:text-[var(--text-primary)] transition-colors mt-auto">
+                            <div className="flex items-center gap-2 text-sky-500 dark:text-sky-400 font-bold text-xs uppercase tracking-wider group-hover:text-sky-600 dark:group-hover:text-sky-300 transition-colors">
                                 Registrarse
-                                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                             </div>
                         </a>
 
@@ -200,39 +233,40 @@ export default async function DashboardPage() {
                             href="https://trading.bridgemarkets.global/register?ref=4920d2e8-f6e2-48&branchUuid=de19e466-a9cd-4493-936b-1" 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="raw-card p-6 flex flex-col justify-between min-h-[220px] group transition-all duration-300 relative overflow-hidden"
+                            className="raw-card p-6 flex flex-col justify-between min-h-[220px] group border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900/40"
                         >
-                            <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-25 transition-opacity">
-                                <span className="text-xs font-mono text-[var(--raw-accent)]">04</span>
+                            <div className="flex justify-between items-start mb-6">
+                                <div className="flex items-center gap-1.5">
+                                    <div className="w-5 h-5 rounded bg-sky-500 flex items-center justify-center">
+                                        <ArrowUpRight size={12} className="text-white" />
+                                    </div>
+                                    <span className="font-extrabold text-slate-900 dark:text-white text-sm tracking-tight">BRIDGE</span>
+                                </div>
+                                <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500">04</span>
                             </div>
                             <div>
-                                <div className="mb-6 flex items-center">
-                                    <svg viewBox="0 0 140 30" className="h-6 w-auto" fill="currentColor">
-                                        <path d="M5 22 L15 4 L25 22 Z" fill="var(--raw-accent)"/>
-                                        <path d="M18 4 L28 22 L38 4 Z" fill="currentColor" className="text-[var(--text-primary)]" opacity="0.7"/>
-                                        <text x="46" y="20" fontFamily="Space Grotesk, sans-serif" fontWeight="900" fontSize="13" fill="currentColor" className="text-[var(--text-primary)]">BRIDGE</text>
-                                    </svg>
-                                </div>
-                                <h3 className="text-lg font-bold text-[var(--text-primary)] mb-2 uppercase tracking-tight">Multi-Asset Broker</h3>
-                                <p className="text-xs text-[var(--text-secondary)] mb-4">Accede a mercados globales, forex tradicional y materias primas con ejecución institucional ultra rápida.</p>
+                                <h3 className="text-base font-bold text-slate-800 dark:text-slate-200 mb-1.5 uppercase tracking-tight">Multi-Asset Broker</h3>
+                                <p className="text-xs text-slate-500 dark:text-slate-400 mb-4 leading-relaxed">Accede a mercados globales, forex tradicional y materias primas con ejecución institucional ultra rápida.</p>
                             </div>
-                            <div className="flex items-center gap-2 text-[var(--raw-accent)] font-black text-xs uppercase tracking-wider group-hover:text-[var(--text-primary)] transition-colors mt-auto">
+                            <div className="flex items-center gap-2 text-sky-500 dark:text-sky-400 font-bold text-xs uppercase tracking-wider group-hover:text-sky-600 dark:group-hover:text-sky-300 transition-colors">
                                 Registrarse
-                                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                             </div>
                         </a>
                     </div>
                 </section>
 
-                {/* Technical divider */}
-                <div className="max-w-[1400px] mx-auto px-6 lg:px-10 flex items-center gap-4 mt-32 mb-12">
-                    <span className="raw-label" style={{ color: 'var(--raw-outline)', whiteSpace: 'nowrap' }}>+ CATÁLOGO_ACADÉMICO</span>
-                    <div className="h-px flex-1" style={{ background: 'var(--raw-outline-dim)' }} />
+                {/* Academic Catalog Divider */}
+                <div className="max-w-[1400px] mx-auto px-6 lg:px-10 flex items-center gap-4 mb-10">
+                    <span className="text-[11px] font-extrabold uppercase tracking-widest text-sky-500">
+                        Catálogo de Especialización Académica
+                    </span>
+                    <div className="h-px flex-1 bg-slate-200 dark:bg-slate-800/80" />
                 </div>
 
                 {/* Course catalog */}
-                <div id="catalog" className="max-w-[1400px] mx-auto px-6 lg:px-10 pb-32">
-                    <Suspense fallback={<div className="py-20 text-center font-display text-[var(--text-secondary)]">Cargando catálogo...</div>}>
+                <div id="catalog" className="max-w-[1400px] mx-auto px-6 lg:px-10 pb-12">
+                    <Suspense fallback={<div className="py-20 text-center font-bold text-slate-400">Cargando catálogo...</div>}>
                         <CourseCatalog
                             allCourses={allCourses.map(c => ({
                                 id: c.id,
@@ -240,7 +274,7 @@ export default async function DashboardPage() {
                                 description: c.description,
                                 thumbnail: c.thumbnail,
                                 status: c.status,
-                                category: (c as any).category || "Programación",
+                                category: (c as any).category || "Trading",
                                 progressPct: 0,
                                 weeks: c.weeks
                             }))}
@@ -252,16 +286,16 @@ export default async function DashboardPage() {
             </main>
 
             {/* Bottom ticker banner strip */}
-            <div className="fixed bottom-0 left-0 right-0 h-10 bg-[var(--raw-accent)] z-[40] flex items-center overflow-hidden select-none border-t border-black/10">
+            <div className="fixed bottom-0 left-0 right-0 h-10 bg-slate-900 border-t border-slate-800 z-[40] flex items-center overflow-hidden select-none">
                 <div className="flex whitespace-nowrap animate-marquee items-center gap-10">
                     {[1, 2, 3, 4, 5, 6].map((i) => (
                         <div key={i} className="flex items-center gap-10">
-                            <span className="text-[10px] font-black text-black">DM_TRADER_PLATFORM_V1.0</span>
-                            <span className="text-[10px] font-black text-black opacity-30">//</span>
-                            <span className="text-[10px] font-black text-black">APRENDIZAJE_ALTO_RENDIMIENTO</span>
-                            <span className="text-[10px] font-black text-black opacity-30">//</span>
-                            <span className="text-[10px] font-black text-black">IA_DRIVEN_CONTENT</span>
-                            <span className="text-[10px] font-black text-black opacity-30">//</span>
+                            <span className="text-[10px] font-bold text-slate-200">DM_TRADER_PREMIUM_PLATFORM</span>
+                            <span className="text-[10px] font-bold text-sky-400">//</span>
+                            <span className="text-[10px] font-bold text-slate-200">INTEGRIDAD_EDUCATIVA_Y_FOREX</span>
+                            <span className="text-[10px] font-bold text-sky-400">//</span>
+                            <span className="text-[10px] font-bold text-slate-200">DAYAN_MORAGA_DIRECT_MENTORSHIP</span>
+                            <span className="text-[10px] font-bold text-sky-400">//</span>
                         </div>
                     ))}
                 </div>
