@@ -87,7 +87,6 @@ export default function CoursePieChart({ data, weights, size = 160 }: CoursePieC
                         const x1 = 50 + 42 * Math.cos((currentAngle * Math.PI) / 180);
                         const y1 = 50 + 42 * Math.sin((currentAngle * Math.PI) / 180);
 
-                        const startAngle = currentAngle;
                         currentAngle += angle;
 
                         const x2 = 50 + 42 * Math.cos((currentAngle * Math.PI) / 180);
