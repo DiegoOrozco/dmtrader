@@ -160,7 +160,7 @@ export default function FeedbackModal({
                     >
                         Cerrar Vista
                     </button>
-                </div>v>
+                </div>
             </div>
         </div>
     );

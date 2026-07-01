@@ -327,7 +327,7 @@ export default function DayForum({ day, studentId, courseId, userRole, onPostCre
                     <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 max-w-lg font-medium">
                         Participa en la discusión. Tu post debe contener al menos 50 caracteres para ser válido.
                     </p>
-                </div>     </div>
+                </div>
                 {day.dueDate && (
                     <div className="flex items-center gap-2 bg-rose-500/10 text-rose-400 px-3 py-1.5 rounded-lg border border-rose-500/20 whitespace-nowrap text-xs font-black uppercase tracking-wider">
                         <Clock size={14} />
