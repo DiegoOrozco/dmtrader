@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react";
 import { updateSiteConfig, refreshTechNewsAI } from "@/actions/admin-settings";
-import { Save, User, Home, Cpu, Loader2, Sparkles, X, Info, TrendingUp } from "lucide-react";
+import { Save, User, Home, Cpu, Loader2, Sparkles, X, Info, TrendingUp, Award } from "lucide-react";
 import { processAllPendingSubmissions } from "@/actions/admin-grading";
 
 export default function AdminSettingsClient({ initialConfigs }: { initialConfigs: any }) {

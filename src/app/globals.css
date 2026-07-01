@@ -16,16 +16,16 @@
   --color-slate-950: #020617;
 
   /* Restore sky palette */
-  --color-sky-50: #f0f9ff;
-  --color-sky-100: #e0f2fe;
-  --color-sky-200: #bae6fd;
-  --color-sky-300: #7dd3fc;
-  --color-sky-400: #38bdf8;
-  --color-sky-500: #0ea5e9;
-  --color-sky-600: #0284c7;
-  --color-sky-700: #0369a1;
-  --color-sky-800: #075985;
-  --color-sky-900: #0c4a6e;
+  --color-sky-50: #faf5ff;
+  --color-sky-100: #f3e8ff;
+  --color-sky-200: #e9d5ff;
+  --color-sky-300: #d8b4fe;
+  --color-sky-400: #c084fc;
+  --color-sky-500: #a855f7;
+  --color-sky-600: #9333ea;
+  --color-sky-700: #7e22ce;
+  --color-sky-800: #6b21a8;
+  --color-sky-900: #581c87;
 
   /* Restore amber palette */
   --color-amber-50: #fffbeb;
@@ -68,7 +68,7 @@
   --color-black: #000000;
 
   /* Custom theme tokens */
-  --color-primary: #0ea5e9;
+  --color-primary: #a855f7;
   --color-secondary: #64748b;
   --font-display: "Space Grotesk", "Inter", sans-serif;
 
@@ -79,8 +79,8 @@
   --raw-surface-highest: #cbd5e1;
   --raw-surface-lowest: #ffffff;
   --raw-black: #0f172a;
-  --raw-accent: #0ea5e9;
-  --raw-accent-dim: #0284c7;
+  --raw-accent: #a855f7;
+  --raw-accent-dim: #9333ea;
   --raw-on-surface: #0f172a;
   --raw-slate: #64748b;
   --raw-outline: #e2e8f0;
@@ -116,8 +116,8 @@ html {
   --raw-surface-highest: #cbd5e1;
   --raw-surface-lowest: #ffffff;
   --raw-black: #0f172a;
-  --raw-accent: #0ea5e9;
-  --raw-accent-dim: #0284c7;
+  --raw-accent: #a855f7;
+  --raw-accent-dim: #9333ea;
   --raw-on-surface: #0f172a;
   --raw-slate: #64748b;
   --raw-outline: #e2e8f0;
@@ -148,8 +148,8 @@ html {
   --raw-surface-highest: #1e2e5c;
   --raw-surface-lowest: #060912;
   --raw-black: #f8fafc;
-  --raw-accent: #38bdf8;
-  --raw-accent-dim: #0ea5e9;
+  --raw-accent: #c084fc;
+  --raw-accent-dim: #a855f7;
   --raw-on-surface: #f8fafc;
   --raw-slate: #94a3b8;
   --raw-outline: #1e2e5c;
