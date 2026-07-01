@@ -64,14 +64,14 @@ export default async function DashboardPage() {
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                         {/* Text and Actions */}
                         <div className="lg:col-span-7 space-y-6">
-                            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-sky-50 dark:bg-sky-500/10 border border-sky-100 dark:border-sky-500/20">
+                             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-sky-50/40 dark:bg-sky-500/10 border border-sky-200/50 dark:border-sky-500/20 backdrop-blur-md">
                                 <TrendingUp size={14} className="text-sky-500 dark:text-sky-400" />
                                 <span className="text-[11px] font-bold uppercase tracking-wider text-sky-600 dark:text-sky-400">
                                     Educación Financiera Premium
                                 </span>
                             </div>
                             
-                            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-[1.05] tracking-tight text-[#0f172a] dark:text-white">
+                             <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-[1.05] tracking-tight text-[#0f172a] dark:text-white relative z-10">
                                 {homeConfig.heroTitle}
                             </h1>
                             
@@ -167,7 +167,7 @@ export default async function DashboardPage() {
                                 <span className="text-[10px] font-bold text-[#94a3b8]">01</span>
                             </div>
                             <div>
-                                <h3 className="text-base font-bold text-[#1e293b] dark:text-[#e2e8f0] mb-1.5 uppercase tracking-tight">Índices Sintéticos</h3>
+                                <h3 className="text-base font-bold text-[#0f172a] dark:text-[#94a3b8] mb-1.5 uppercase tracking-tight">Índices Sintéticos</h3>
                                 <p className="text-xs text-[#64748b] mb-4 leading-relaxed">Opera CFDs, forex y mercados sintéticos patentados con spreads ultra competitivos y excelente apalancamiento.</p>
                             </div>
                             <div className="flex items-center gap-2 text-[#0ea5e9] font-bold text-xs uppercase tracking-wider group-hover:text-[#0284c7] transition-colors">
@@ -193,7 +193,7 @@ export default async function DashboardPage() {
                                 <span className="text-[10px] font-bold text-[#94a3b8]">02</span>
                             </div>
                             <div>
-                                <h3 className="text-base font-bold text-[#1e293b] dark:text-[#e2e8f0] mb-1.5 uppercase tracking-tight">Cripto Exchange</h3>
+                                <h3 className="text-base font-bold text-[#0f172a] dark:text-[#94a3b8] mb-1.5 uppercase tracking-tight">Cripto Exchange</h3>
                                 <p className="text-xs text-[#64748b] mb-4 leading-relaxed">Compra, vende y opera contratos perpetuos de criptomonedas sin restricciones de liquidez.</p>
                             </div>
                             <div className="flex items-center gap-2 text-[#0ea5e9] font-bold text-xs uppercase tracking-wider group-hover:text-[#0284c7] transition-colors">
@@ -219,7 +219,7 @@ export default async function DashboardPage() {
                                 <span className="text-[10px] font-bold text-[#94a3b8]">03</span>
                             </div>
                             <div>
-                                <h3 className="text-base font-bold text-[#1e293b] dark:text-[#e2e8f0] mb-1.5 uppercase tracking-tight">Crypto Banking</h3>
+                                <h3 className="text-base font-bold text-[#0f172a] dark:text-[#94a3b8] mb-1.5 uppercase tracking-tight">Crypto Banking</h3>
                                 <p className="text-xs text-[#64748b] mb-4 leading-relaxed">Genera intereses pasivos diarios en criptomonedas y stablecoins con la máxima seguridad garantizada.</p>
                             </div>
                             <div className="flex items-center gap-2 text-[#0ea5e9] font-bold text-xs uppercase tracking-wider group-hover:text-[#0284c7] transition-colors">

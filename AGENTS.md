@@ -30,5 +30,12 @@ We employ three specialized subagents during major operations:
 
 ## Deployment & Sync
 - Major development branch is `dev`.
-- Deployment command chain: `git add . && git commit -m "<msg>" && git push origin dev && git push origin dev:main --force`.
+- Use `agent-workspace-main` agent with subagent_type "execute" for tasks that require verification, linting, and commits.
+- Mandatory commit discipline: When any Agent makes changes, they MUST:
+  1. Run `npm run lint && npm run build` to verify changes.
+  2. Stage all changes with `git add .`
+  3. Commit with a clear message in the format `feat: <description>` or `fix: <description>`
+  4. Push changes (the agent tool automatically handles the branch promotion where appropriate)
 - Vercel automatically deploys the code whenever a change is pushed to the `main` branch.
+- Always commit all changes — never leave files unstaged.
+- CRITICAL: Every editing session MUST complete ALL 4 commit steps (lint, build, stage, commit, push) before finishing — this is required for workflow completion and deployment.
