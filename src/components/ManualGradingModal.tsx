@@ -89,18 +89,18 @@ export default function ManualGradingModal({
     const modalContent = (
         <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200" onClick={onClose}>
             <div
-                className="relative w-full max-w-2xl bg-[#0a0e1a] rounded-3xl border border-slate-800 shadow-[0_0_50px_rgba(0,0,0,0.5)] overflow-hidden animate-in zoom-in-95 duration-200"
+                className="relative w-full max-w-2xl bg-white dark:bg-[#0a0e1a] rounded-3xl border border-slate-200 dark:border-slate-800 shadow-[0_0_50px_rgba(0,0,0,0.5)] text-slate-900 dark:text-slate-100 overflow-hidden animate-in zoom-in-95 duration-200"
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* Header */}
-                <div className="p-6 border-b border-slate-800 flex justify-between items-center bg-black/20">
+                <div className="p-6 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-black/20">
                     <div>
-                        <h3 className="text-md font-black text-white uppercase tracking-wider">Revisión Manual: {studentName}</h3>
+                        <h3 className="text-md font-black text-slate-900 dark:text-white uppercase tracking-wider">Revisión Manual: {studentName}</h3>
                         <p className="text-slate-500 text-[10px] font-black uppercase tracking-widest mt-1">{dayTitle}</p>
                     </div>
                     <button
                         onClick={onClose}
-                        className="text-slate-400 hover:text-white transition-colors p-2 bg-white/5 rounded-xl border border-slate-800"
+                        className="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors p-2 bg-slate-100 dark:bg-white/5 rounded-xl border border-slate-200 dark:border-slate-800 cursor-pointer"
                     >
                         <X size={16} />
                     </button>
@@ -110,19 +110,19 @@ export default function ManualGradingModal({
                 <div className="p-8 max-h-[75vh] overflow-y-auto space-y-10 custom-scrollbar">
                     {/* Grade Input Section */}
                     <div className="relative group/grade">
-                        <div className="relative flex flex-col md:flex-row items-center gap-8 p-6 bg-white/[0.01] rounded-2xl border border-slate-800 shadow-2xl">
+                        <div className="relative flex flex-col md:flex-row items-center gap-8 p-6 bg-slate-50/50 dark:bg-white/[0.01] border border-slate-200 dark:border-slate-800 shadow-2xl">
                             <div className="flex-1 w-full">
                                 <h4 className="text-[9px] font-black uppercase tracking-[0.2em] text-slate-500 mb-3">Nota Definida</h4>
                                 <input
                                     type="number"
                                     value={grade}
                                     onChange={(e) => setGrade(e.target.value)}
-                                    className="w-full bg-[#05070f] border border-slate-800 rounded-xl px-4 py-4 text-xl font-black text-white focus:outline-none focus:border-sky-500 transition-all placeholder:text-white/10"
+                                    className="w-full bg-slate-50 dark:bg-[#05070f] border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-4 text-xl font-black text-slate-900 dark:text-white focus:outline-none focus:border-sky-500 transition-all placeholder:text-slate-400 dark:placeholder:text-white/10"
                                     placeholder="85"
                                 />
                             </div>
-                            <div className="flex flex-col items-center justify-center p-6 bg-black/40 rounded-2xl border border-slate-850 min-w-[140px]">
-                                <div className={`text-4xl font-black ${Number(grade) >= 70 ? 'text-emerald-400' : Number(grade) > 0 ? 'text-rose-400' : 'text-slate-600'} transition-colors duration-500`}>
+                            <div className="flex flex-col items-center justify-center p-6 bg-slate-100 dark:bg-black/40 rounded-2xl border border-slate-200 dark:border-slate-850 min-w-[140px]">
+                                <div className={`text-4xl font-black ${Number(grade) >= 70 ? 'text-emerald-500 dark:text-emerald-400' : Number(grade) > 0 ? 'text-rose-500 dark:text-rose-400' : 'text-slate-500 dark:text-slate-600'} transition-colors duration-500`}>
                                     {grade || "0"}
                                 </div>
                                 <div className="text-[8px] font-black text-slate-500 uppercase tracking-widest mt-1">/100 Ptos</div>
@@ -133,27 +133,27 @@ export default function ManualGradingModal({
                     {/* General Comment */}
                     <div className="space-y-4">
                         <div className="flex items-center gap-3">
-                            <div className="p-2 bg-sky-500/10 rounded-lg text-sky-400">
+                            <div className="p-2 bg-sky-500/10 rounded-lg text-sky-500 dark:text-sky-400">
                                 <MessageSquare size={16} />
                             </div>
-                            <h4 className="text-[10px] font-black uppercase tracking-widest text-white/90">Resumen de la Calificación</h4>
+                            <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-950 dark:text-white/90">Resumen de la Calificación</h4>
                         </div>
                         <textarea
                             value={comment}
                             onChange={(e) => setComment(e.target.value)}
-                            className="w-full h-32 bg-[#05070f] rounded-2xl border border-slate-800 p-6 text-slate-300 text-xs leading-relaxed italic focus:outline-none focus:border-sky-500 transition-all font-semibold"
+                            className="w-full h-32 bg-slate-50 dark:bg-[#05070f] rounded-2xl border border-slate-200 dark:border-slate-800 p-6 text-slate-700 dark:text-slate-300 text-xs leading-relaxed italic focus:outline-none focus:border-sky-500 transition-all font-semibold placeholder:text-slate-400 dark:placeholder:text-slate-650"
                             placeholder="Describe el desempeño general del estudiante..."
                         />
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4 border-t border-slate-800">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4 border-t border-slate-200 dark:border-slate-800">
                         {/* Positives */}
                         <div className="space-y-6">
                             <div className="flex items-center gap-3">
-                                <div className="p-2 bg-emerald-500/10 rounded-lg text-emerald-400">
+                                <div className="p-2 bg-emerald-500/10 rounded-lg text-emerald-600 dark:text-emerald-400">
                                     <CheckCircle2 size={16} />
                                 </div>
-                                <h4 className="text-[10px] font-black uppercase tracking-widest text-emerald-400">Puntos Fuertes</h4>
+                                <h4 className="text-[10px] font-black uppercase tracking-widest text-emerald-600 dark:text-emerald-400">Puntos Fuertes</h4>
                             </div>
                             <div className="space-y-4">
                                 {positives.map((p, i) => (
@@ -166,7 +166,7 @@ export default function ManualGradingModal({
                                                 setPositives(newP);
                                             }}
                                             rows={2}
-                                            className="flex-1 bg-[#05070f] rounded-xl border border-slate-800 p-4 text-emerald-100/90 text-xs font-semibold focus:outline-none focus:border-emerald-500 transition-all resize-none"
+                                            className="flex-1 bg-slate-50 dark:bg-[#05070f] rounded-xl border border-slate-200 dark:border-slate-800 p-4 text-emerald-800 dark:text-emerald-100/90 text-xs font-semibold focus:outline-none focus:border-emerald-500 transition-all resize-none"
                                             placeholder="Logró implementar..."
                                         />
                                         {positives.length > 1 && (
@@ -181,7 +181,7 @@ export default function ManualGradingModal({
                                 ))}
                                 <button
                                     onClick={() => setPositives([...positives, ""])}
-                                    className="flex items-center gap-2 px-4 py-2 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 text-[9px] font-black uppercase tracking-widest transition-all w-fit"
+                                    className="flex items-center gap-2 px-4 py-2 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-[9px] font-black uppercase tracking-widest transition-all w-fit cursor-pointer"
                                 >
                                     + Añadir Fortaleza
                                 </button>
@@ -190,11 +190,11 @@ export default function ManualGradingModal({
 
                         {/* Improvements */}
                         <div className="space-y-6">
-                            <div className="flex items-center gap-3 text-amber-400">
+                            <div className="flex items-center gap-3 text-amber-600 dark:text-amber-400">
                                 <div className="p-2 bg-amber-500/10 rounded-lg">
                                     <AlertCircle size={16} />
                                 </div>
-                                <h4 className="text-[10px] font-black uppercase tracking-widest text-amber-400">Para Mejorar</h4>
+                                <h4 className="text-[10px] font-black uppercase tracking-widest text-amber-600 dark:text-amber-400">Para Mejorar</h4>
                             </div>
                             <div className="space-y-4">
                                 {improvements.map((p, i) => (
@@ -207,7 +207,7 @@ export default function ManualGradingModal({
                                                 setImprovements(newI);
                                             }}
                                             rows={2}
-                                            className="flex-1 bg-[#05070f] rounded-xl border border-slate-800 p-4 text-amber-100/90 text-xs font-semibold focus:outline-none focus:border-amber-500 transition-all resize-none"
+                                            className="flex-1 bg-slate-50 dark:bg-[#05070f] rounded-xl border border-slate-200 dark:border-slate-800 p-4 text-amber-800 dark:text-amber-100/90 text-xs font-semibold focus:outline-none focus:border-amber-500 transition-all resize-none"
                                             placeholder="Faltó validar..."
                                         />
                                         {improvements.length > 1 && (
@@ -222,7 +222,7 @@ export default function ManualGradingModal({
                                 ))}
                                 <button
                                     onClick={() => setImprovements([...improvements, ""])}
-                                    className="flex items-center gap-2 px-4 py-2 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 text-[9px] font-black uppercase tracking-widest transition-all w-fit"
+                                    className="flex items-center gap-2 px-4 py-2 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 text-amber-600 dark:text-amber-400 text-[9px] font-black uppercase tracking-widest transition-all w-fit cursor-pointer"
                                 >
                                     + Añadir Mejora
                                 </button>
@@ -232,21 +232,21 @@ export default function ManualGradingModal({
                 </div>
 
                 {/* Footer */}
-                <div className="p-8 bg-black/20 border-t border-slate-800 flex items-center justify-between">
+                <div className="p-8 bg-slate-50 dark:bg-black/20 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
                     <p className="text-[9px] text-slate-500 font-bold uppercase tracking-widest leading-relaxed max-w-[280px]">
                         Revisa los campos antes de confirmar. Esta acción actualizará la nota y enviará el feedback al estudiante.
                     </p>
                     <div className="flex gap-4">
                         <button
                             onClick={onClose}
-                            className="px-8 py-4 rounded-xl font-black text-slate-400 hover:text-white hover:bg-white/5 transition-all text-[10px] uppercase tracking-widest"
+                            className="px-8 py-4 rounded-xl font-black text-slate-550 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5 transition-all text-[10px] uppercase tracking-widest cursor-pointer"
                         >
                             Cancelar
                         </button>
                         <button
                             onClick={handleSave}
                             disabled={isPending}
-                            className="flex items-center gap-3 px-10 py-4 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-[10px] font-black uppercase tracking-widest transition-all shadow-[0_0_20px_rgba(56,189,248,0.3)]"
+                            className="flex items-center gap-3 px-10 py-4 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-[10px] font-black uppercase tracking-widest transition-all shadow-[0_0_20px_rgba(56,189,248,0.3)] cursor-pointer"
                         >
                             {isPending ? <Loader2 size={14} className="animate-spin" /> : <Save size={14} />}
                             Confirmar Nota

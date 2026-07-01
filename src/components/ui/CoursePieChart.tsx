@@ -37,7 +37,7 @@ export default function CoursePieChart({ data, weights, size = 160 }: CoursePieC
     const allZero = categories.every(c => c.value === 0);
 
     if (totalWeight === 0) return (
-        <div className="flex items-center justify-center p-4 text-slate-500 text-[10px] font-black uppercase tracking-widest border border-slate-800 rounded-2xl bg-[#0a0e1a]/80">
+        <div className="flex items-center justify-center p-4 text-slate-500 text-[10px] font-black uppercase tracking-widest border border-slate-200 dark:border-slate-800 rounded-2xl bg-white/80 dark:bg-[#0a0e1a]/80">
             Sin ponderación configurada
         </div>
     );
@@ -46,29 +46,29 @@ export default function CoursePieChart({ data, weights, size = 160 }: CoursePieC
         <div className="flex flex-col sm:flex-row items-center gap-8">
             <div className="relative shrink-0" style={{ width: size, height: size }}>
                 <svg viewBox="0 0 100 100" className="w-full h-full opacity-20">
-                    <circle cx="50" cy="50" r="42" fill="none" stroke="white" strokeWidth="1" strokeDasharray="4 4" />
+                    <circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" className="text-slate-500 dark:text-white" strokeWidth="1" strokeDasharray="4 4" />
                 </svg>
                 <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
                     <span className="text-xl mb-1">📊</span>
-                    <span className="text-[9px] font-black text-slate-500 uppercase tracking-wider leading-tight">Sin<br />entregas</span>
+                    <span className="text-[9px] font-black text-slate-550 dark:text-slate-500 uppercase tracking-wider leading-tight">Sin<br />entregas</span>
                 </div>
             </div>
             <div className="grid grid-cols-1 gap-3 flex-grow min-w-[180px]">
                 {categories.filter(c => c.weight > 0).map(cat => (
-                    <div key={cat.id} className="flex items-center justify-between p-2 rounded-xl bg-white/[0.01] border border-slate-850 opacity-50">
+                    <div key={cat.id} className="flex items-center justify-between p-2 rounded-xl bg-slate-50 dark:bg-white/[0.01] border border-slate-200 dark:border-slate-850 opacity-50">
                         <div className="flex items-center gap-3">
                             <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: cat.color }}></div>
-                            <span className="text-[9px] font-black text-slate-500 uppercase tracking-widest">{cat.label}</span>
+                            <span className="text-[9px] font-black text-slate-550 dark:text-slate-500 uppercase tracking-widest">{cat.label}</span>
                         </div>
                         <div className="flex items-center gap-1">
-                            <span className="text-xs font-black text-slate-600">—</span>
-                            <div className="ml-2 px-1.5 py-0.5 rounded bg-black/40 border border-slate-800 text-[9px] font-black text-slate-500">
+                            <span className="text-xs font-black text-slate-650">—</span>
+                            <div className="ml-2 px-1.5 py-0.5 rounded bg-slate-100 dark:bg-black/40 border border-slate-200 dark:border-slate-800 text-[9px] font-black text-slate-500">
                                 {cat.weight}%
                             </div>
                         </div>
                     </div>
                 ))}
-                <p className="text-[9px] text-slate-600 font-black uppercase tracking-widest text-center mt-1">Aún no hay entregas calificadas</p>
+                <p className="text-[9px] text-slate-550 dark:text-slate-600 font-black uppercase tracking-widest text-center mt-1">Aún no hay entregas calificadas</p>
             </div>
         </div>
     );
@@ -118,11 +118,11 @@ export default function CoursePieChart({ data, weights, size = 160 }: CoursePieC
                 </svg>
 
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <div className="w-16 h-16 bg-[#0a0e1a] rounded-full border border-slate-800 flex flex-col items-center justify-center shadow-2xl backdrop-blur-sm">
+                    <div className="w-16 h-16 bg-white dark:bg-[#0a0e1a] rounded-full border border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center shadow-2xl backdrop-blur-sm">
                         {hoveredCat ? (
                             <>
                                 <span className="text-[8px] font-black text-slate-500 uppercase tracking-widest">{hoveredCat.label}</span>
-                                <span className="text-xs font-black text-white">{Math.round(hoveredCat.value)}</span>
+                                <span className="text-xs font-black text-slate-900 dark:text-white">{Math.round(hoveredCat.value)}</span>
                             </>
                         ) : (
                             <span className="text-[8px] font-black text-slate-500 uppercase tracking-widest">RUBROS</span>

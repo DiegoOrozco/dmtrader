@@ -352,27 +352,27 @@ export default function CourseViewerClient({ course, studentId, userRole }: { co
     }, [activeDay.id, activeDay.videoId]);
 
     return (
-        <div className="min-h-screen bg-[#0a0e1a] text-slate-100 flex flex-col">
+        <div className="min-h-screen bg-slate-50 dark:bg-[#0a0e1a] text-slate-900 dark:text-slate-100 flex flex-col">
             {/* Top Navbar */}
-            <header className="sticky top-0 z-50 w-full border-b border-slate-800 bg-[#0a0e1a]/80 backdrop-blur-md px-4 sm:px-6 py-4">
+            <header className="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-[#0a0e1a]/80 backdrop-blur-md px-4 sm:px-6 py-4">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
                     <div className="flex items-center gap-3 sm:gap-4 overflow-hidden">
                         <Link
                             href="/"
-                            className="text-slate-400 hover:text-sky-400 transition-colors flex items-center gap-2 flex-shrink-0 text-xs font-black uppercase tracking-wider"
+                            className="text-slate-500 dark:text-slate-400 hover:text-sky-500 dark:hover:text-sky-400 transition-colors flex items-center gap-2 flex-shrink-0 text-xs font-black uppercase tracking-wider"
                         >
                             <ChevronLeft size={18} />
                             <span className="hidden xs:block">Catálogo</span>
                         </Link>
-                        <div className="h-4 w-px bg-slate-800 mx-1 sm:mx-2 flex-shrink-0"></div>
-                        <h1 className="text-xs sm:text-sm font-black text-white uppercase tracking-wider truncate">{course.title}</h1>
+                        <div className="h-4 w-px bg-slate-200 dark:bg-slate-800 mx-1 sm:mx-2 flex-shrink-0"></div>
+                        <h1 className="text-xs sm:text-sm font-black text-slate-900 dark:text-white uppercase tracking-wider truncate">{course.title}</h1>
                     </div>
 
                     {/* Mobile Toggle Button */}
                     <div className="flex items-center gap-2">
                         <Link
                             href="/asistencia"
-                            className="flex items-center gap-2 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 px-3 py-1.5 rounded-lg border border-emerald-500/20 transition-all text-[10px] font-black uppercase tracking-wider"
+                            className="flex items-center gap-2 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 px-3 py-1.5 rounded-lg border border-emerald-500/20 transition-all text-[10px] font-black uppercase tracking-wider"
                         >
                             <User size={14} />
                             <span>Asistencia</span>
@@ -380,7 +380,7 @@ export default function CourseViewerClient({ course, studentId, userRole }: { co
 
                         <button
                             onClick={() => setIsSidebarOpen(true)}
-                            className="lg:hidden flex items-center gap-2 bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 px-3 py-1.5 rounded-lg border border-sky-500/20 transition-all text-[10px] font-black uppercase tracking-wider"
+                            className="lg:hidden flex items-center gap-2 bg-sky-500/10 hover:bg-sky-500/20 text-sky-600 dark:text-sky-400 px-3 py-1.5 rounded-lg border border-sky-500/20 transition-all text-[10px] font-black uppercase tracking-wider"
                         >
                             <BookOpen size={14} />
                             <span className="hidden sm:inline">Ver Contenido</span>
@@ -400,25 +400,25 @@ export default function CourseViewerClient({ course, studentId, userRole }: { co
                 )}
 
                 {/* Left Sidebar (Navigation) - Becomes a Drawer on Mobile */}
-                <div className={`fixed inset-y-0 left-0 w-[280px] sm:w-80 bg-[#0a0e1a] z-[70] lg:relative lg:z-10 lg:w-80 flex-shrink-0 flex flex-col gap-4 transform transition-transform duration-300 ease-in-out lg:translate-x-0 ${isSidebarOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full"
+                <div className={`fixed inset-y-0 left-0 w-[280px] sm:w-80 bg-white dark:bg-[#0a0e1a] border-r border-slate-200 dark:border-transparent z-[70] lg:relative lg:z-10 lg:w-80 flex-shrink-0 flex flex-col gap-4 transform transition-transform duration-300 ease-in-out lg:translate-x-0 ${isSidebarOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full"
                     }`}>
-                    <div className="lg:hidden p-4 border-b border-slate-800 flex items-center justify-between bg-black/40">
-                        <span className="font-black text-white uppercase tracking-widest text-xs">Contenido del Curso</span>
-                        <button onClick={() => setIsSidebarOpen(false)} className="text-slate-400 hover:text-white">
+                    <div className="lg:hidden p-4 border-b border-slate-250 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-black/40">
+                        <span className="font-black text-slate-900 dark:text-white uppercase tracking-widest text-xs">Contenido del Curso</span>
+                        <button onClick={() => setIsSidebarOpen(false)} className="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">
                             <X size={20} />
                         </button>
                     </div>
 
-                    <div className="rounded-xl lg:rounded-2xl overflow-hidden shadow-2xl border border-slate-800 h-full lg:h-auto flex flex-col bg-[#0a0e1a]">
-                        <div className="p-4 border-b border-slate-800 bg-black/20">
-                            <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Contenido del Curso</h3>
+                    <div className="rounded-xl lg:rounded-2xl overflow-hidden shadow-2xl border border-slate-200 dark:border-slate-800 h-full lg:h-auto flex flex-col bg-white dark:bg-[#0a0e1a]">
+                        <div className="p-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-black/20">
+                            <h3 className="text-[10px] font-black text-slate-550 dark:text-slate-400 uppercase tracking-[0.2em]">Contenido del Curso</h3>
                         </div>
 
                         <div className="flex flex-col overflow-y-auto custom-scrollbar flex-grow max-h-[calc(100vh-250px)] lg:max-h-[600px]">
                             {course.weeks?.map((week: any, wIdx: number) => {
                                 const isCurrentWeek = activeWeek.id === week.id;
                                 return (
-                                    <div key={week.id} className="border-b border-slate-800 last:border-b-0">
+                                    <div key={week.id} className="border-b border-slate-200 dark:border-slate-800 last:border-b-0">
                                         {/* Week Header / Toggle */}
                                         <button
                                             onClick={() => {
@@ -428,39 +428,39 @@ export default function CourseViewerClient({ course, studentId, userRole }: { co
                                                     setActiveDay(week.days?.[0] || initialDay);
                                                 }
                                             }}
-                                            className={`w-full flex items-center justify-between p-4 text-left transition-all hover:bg-white/[0.02] ${isCurrentWeek ? "bg-sky-500/[0.03]" : ""
+                                            className={`w-full flex items-center justify-between p-4 text-left transition-all hover:bg-slate-50 dark:hover:bg-white/[0.02] ${isCurrentWeek ? "bg-sky-500/[0.03]" : ""
                                                 }`}
                                         >
                                             <div className="flex flex-col gap-0.5">
-                                                <span className={`text-[10px] font-black uppercase tracking-wider ${isCurrentWeek ? "text-sky-400" : "text-slate-500"
+                                                <span className={`text-[10px] font-black uppercase tracking-wider ${isCurrentWeek ? "text-sky-500 dark:text-sky-400" : "text-slate-500"
                                                     }`}>
                                                     Semana {wIdx + 1}
                                                 </span>
-                                                <span className={`font-black text-sm leading-tight ${isCurrentWeek ? "text-sky-400" : "text-slate-200"
+                                                <span className={`font-black text-sm leading-tight ${isCurrentWeek ? "text-sky-500 dark:text-sky-400" : "text-slate-800 dark:text-slate-200"
                                                     }`}>
                                                     {week.title}
                                                 </span>
                                             </div>
-                                            <div className={`${isCurrentWeek ? "text-sky-400" : "text-slate-500"}`}>
+                                            <div className={`${isCurrentWeek ? "text-sky-500 dark:text-sky-400" : "text-slate-500"}`}>
                                                 {isCurrentWeek ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
                                             </div>
                                         </button>
 
                                         {/* Days List (Collapsible) */}
                                         {isCurrentWeek && (
-                                            <div className="bg-black/30 p-2 space-y-1 animate-in fade-in slide-in-from-top-2 duration-300">
+                                            <div className="bg-slate-50/50 dark:bg-black/30 p-2 space-y-1 animate-in fade-in slide-in-from-top-2 duration-300">
                                                 {week.days?.map((day: any, dIdx: number) => {
                                                     const isActive = activeDay.id === day.id;
                                                     return (
                                                         <button
                                                             key={day.id}
                                                             onClick={() => {
+                                                                setIsSidebarOpen(false);
                                                                 setActiveDay(day);
-                                                                if (window.innerWidth < 1024) setIsSidebarOpen(false);
                                                             }}
-                                                            className={`w-full flex items-start text-left gap-3 p-3 rounded-xl transition-all ${isActive
-                                                                ? "bg-sky-500/10 border border-sky-500/20 text-white shadow-[0_0_15px_rgba(56,189,248,0.1)]"
-                                                                : "text-slate-400 hover:bg-white/[0.02] hover:text-white"
+                                                            className={`w-full text-left p-3 rounded-lg flex items-center gap-3 transition-all ${isActive
+                                                                ? "bg-sky-500/10 border border-sky-500/20 text-sky-600 dark:text-white shadow-[0_0_15px_rgba(56,189,248,0.1)]"
+                                                                : "text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/[0.02] hover:text-slate-900 dark:hover:text-white"
                                                                 }`}
                                                         >
                                                             <div className={`mt-0.5 ${isActive ? "text-sky-400" : "text-slate-600"}`}>
@@ -492,18 +492,18 @@ export default function CourseViewerClient({ course, studentId, userRole }: { co
                     {/* Main Content Header */}
                     <div className="mb-2">
                         <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-3 mb-1">
-                            <p className="text-sky-400 font-black text-[10px] md:text-xs tracking-[0.2em] uppercase">
+                            <p className="text-sky-500 dark:text-sky-400 font-black text-[10px] md:text-xs tracking-[0.2em] uppercase">
                                 {activeWeek.title}
                             </p>
-                            <span className="hidden sm:block text-slate-800">•</span>
+                            <span className="hidden sm:block text-slate-300 dark:text-slate-800">•</span>
                             <p className="text-slate-500 text-[10px] md:text-xs font-black uppercase tracking-wider">Sección {activeWeek.days?.indexOf(activeDay) + 1}</p>
                         </div>
-                        <h2 className="text-xl md:text-2xl lg:text-3xl font-black text-white tracking-tight leading-tight">{activeDay.title}</h2>
+                        <h2 className="text-xl md:text-2xl lg:text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">{activeDay.title}</h2>
                     </div>
 
                     {/* Section Cover Image */}
                     {activeDay.thumbnail && (
-                        <div className="rounded-2xl overflow-hidden border border-slate-800 shadow-2xl bg-black/40 aspect-[21/9] sm:aspect-[21/7]">
+                        <div className="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-2xl bg-slate-100/50 dark:bg-black/40 aspect-[21/9] sm:aspect-[21/7]">
                             <img 
                                 src={activeDay.thumbnail} 
                                 alt={activeDay.title} 
@@ -515,22 +515,22 @@ export default function CourseViewerClient({ course, studentId, userRole }: { co
                     {/* Video Player Embed or AI Placeholder */}
                     <div 
                         ref={containerRef}
-                        className="w-full aspect-video rounded-2xl overflow-hidden border border-slate-800 shadow-2xl relative bg-black group"
+                        className="w-full aspect-video rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-2xl relative bg-black group"
                     >
                         {!isMounted ? (
                             <div className="absolute top-0 left-0 w-full h-full bg-black/40 animate-pulse" />
                         ) : isNotAvailableYet ? (
-                            <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center bg-slate-950/90 backdrop-blur-xl border border-slate-800 rounded-2xl">
+                            <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center bg-white/95 dark:bg-slate-950/90 backdrop-blur-xl border border-slate-200 dark:border-slate-800 rounded-2xl">
                                 <div className="w-16 h-16 bg-amber-500/10 rounded-full flex items-center justify-center mb-6 border border-amber-500/20 shadow-[0_0_30px_rgba(245,158,11,0.15)] animate-pulse-subtle">
                                     <Lock size={32} className="text-amber-500" />
                                 </div>
-                                <h3 className="text-xl md:text-2xl font-black text-white mb-2 tracking-tight uppercase">Contenido Bloqueado</h3>
-                                <p className="text-slate-400 text-xs md:text-sm max-w-md mx-auto leading-relaxed font-medium">
+                                <h3 className="text-xl md:text-2xl font-black text-slate-900 dark:text-white mb-2 tracking-tight uppercase">Contenido Bloqueado</h3>
+                                <p className="text-slate-600 dark:text-slate-400 text-xs md:text-sm max-w-md mx-auto leading-relaxed font-medium">
                                     Esta clase todavía no está disponible para estudiantes. Por favor, regresa en la fecha y hora indicada.
                                 </p>
-                                <div className="mt-6 px-5 py-2.5 bg-white/[0.02] rounded-xl border border-slate-800">
+                                <div className="mt-6 px-5 py-2.5 bg-slate-50 dark:bg-white/[0.02] rounded-xl border border-slate-200 dark:border-slate-800">
                                     <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-1">Disponible desde:</p>
-                                    <p className="text-xs font-black text-amber-400 font-mono">{formatFullDate(activeDay.availableFrom)}</p>
+                                    <p className="text-xs font-black text-amber-500 dark:text-amber-400 font-mono">{formatFullDate(activeDay.availableFrom)}</p>
                                 </div>
                             </div>
                         ) : activeDay.videoId ? (
@@ -662,10 +662,10 @@ export default function CourseViewerClient({ course, studentId, userRole }: { co
                         )}
                     </div>
                     {isNotAvailableYet ? (
-                        <div className="p-8 border border-slate-800 rounded-2xl bg-black/20 flex flex-col items-center gap-4 text-center">
-                            <Clock size={40} className="text-slate-600" />
+                        <div className="p-8 border border-slate-200 dark:border-slate-800 rounded-2xl bg-slate-50 dark:bg-black/20 flex flex-col items-center gap-4 text-center">
+                            <Clock size={40} className="text-slate-400 dark:text-slate-600" />
                             <div className="space-y-1">
-                                <h4 className="text-sm font-black text-slate-400 uppercase tracking-wider">Foro Desactivado</h4>
+                                <h4 className="text-sm font-black text-slate-600 dark:text-slate-400 uppercase tracking-wider">Foro Desactivado</h4>
                                 <p className="text-xs text-slate-500 max-w-sm">Los materiales y actividades de esta sección se habilitarán automáticamente en la fecha indicada arriba.</p>
                             </div>
                         </div>
@@ -694,8 +694,8 @@ export default function CourseViewerClient({ course, studentId, userRole }: { co
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                         {/* Resources Column */}
                         <div className="lg:col-span-1 flex flex-col gap-4">
-                            <h3 className="text-xs font-black text-white uppercase tracking-wider flex items-center gap-2 pb-2 border-b border-slate-800">
-                                <FileText size={16} className="text-sky-400" />
+                            <h3 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2 pb-2 border-b border-slate-200 dark:border-slate-800">
+                                <FileText size={16} className="text-sky-500 dark:text-sky-400" />
                                 Materiales de la Sección
                             </h3>
 
@@ -706,15 +706,15 @@ export default function CourseViewerClient({ course, studentId, userRole }: { co
                                             href={`${activeDay.summaryUrl}${activeDay.summaryUrl.includes('vercel-storage.com') ? '?download=1' : ''}`}
                                             target="_blank"
                                             rel="noreferrer"
-                                            className="p-3 rounded-xl flex items-center justify-between group border border-amber-500/20 hover:border-amber-500 transition-all bg-amber-500/5"
+                                            className="p-3 rounded-xl flex items-center justify-between group border border-amber-500/20 hover:border-amber-500 transition-all bg-amber-500/5 cursor-pointer"
                                         >
                                             <div className="flex items-center gap-3 truncate pr-4">
-                                                <div className="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center flex-shrink-0 text-amber-400 group-hover:text-amber-300 transition-colors">
+                                                <div className="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center flex-shrink-0 text-amber-500 group-hover:text-amber-400 transition-colors">
                                                     <FileText size={14} />
                                                 </div>
-                                                <span className="text-xs font-black text-amber-200 uppercase tracking-wider truncate">Resumen clase (PDF)</span>
+                                                <span className="text-xs font-black text-amber-700 dark:text-amber-200 uppercase tracking-wider truncate">Resumen clase (PDF)</span>
                                             </div>
-                                            <Download size={14} className="text-amber-400/50 group-hover:text-amber-400 transition-colors" />
+                                            <Download size={14} className="text-amber-500/50 group-hover:text-amber-500 transition-colors" />
                                         </a>
                                     )}
 
@@ -723,13 +723,13 @@ export default function CourseViewerClient({ course, studentId, userRole }: { co
                                             href={`${activeDay.materialUrl}${activeDay.materialUrl.includes('vercel-storage.com') ? '?download=1' : ''}`}
                                             target="_blank"
                                             rel="noreferrer"
-                                            className="p-3 rounded-xl flex items-center justify-between group border border-slate-800 hover:border-sky-400 transition-all bg-black/40"
+                                            className="p-3 rounded-xl flex items-center justify-between group border border-slate-200 dark:border-slate-800 hover:border-sky-500/50 dark:hover:border-sky-400 transition-all bg-slate-50 dark:bg-black/40 text-slate-800 dark:text-slate-300 cursor-pointer"
                                         >
                                             <div className="flex items-center gap-3 truncate pr-4">
-                                                <div className="w-8 h-8 rounded-lg bg-black/20 flex items-center justify-center flex-shrink-0 text-slate-400 group-hover:text-sky-400 transition-colors">
+                                                <div className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-black/20 flex items-center justify-center flex-shrink-0 text-slate-500 dark:text-slate-400 group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors">
                                                     <Download size={14} />
                                                 </div>
-                                                <span className="text-xs font-black text-slate-300 uppercase tracking-wider truncate">Repositorio / Material</span>
+                                                <span className="text-xs font-black text-slate-700 dark:text-slate-300 uppercase tracking-wider truncate">Repositorio / Material</span>
                                             </div>
                                         </a>
                                     )}
@@ -740,20 +740,20 @@ export default function CourseViewerClient({ course, studentId, userRole }: { co
                                             href={res.url}
                                             target="_blank"
                                             rel="noreferrer"
-                                            className="p-3 rounded-xl flex items-center justify-between group border border-slate-800 hover:border-sky-500/50 transition-all bg-black/20 hover:bg-black/40"
+                                            className="p-3 rounded-xl flex items-center justify-between group border border-slate-200 dark:border-slate-800 hover:border-sky-500/50 transition-all bg-slate-50 hover:bg-slate-100 dark:bg-black/20 dark:hover:bg-black/40 text-slate-800 dark:text-slate-350 cursor-pointer"
                                         >
                                             <div className="flex items-center gap-3 truncate pr-4">
-                                                <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center flex-shrink-0 text-slate-400 group-hover:text-sky-400 transition-colors">
+                                                <div className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-white/5 flex items-center justify-center flex-shrink-0 text-slate-500 dark:text-slate-400 group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors">
                                                     {res.type === "pdf" ? <FileText size={14} /> : res.type === "link" ? <Link2 size={14} /> : <Download size={14} />}
                                                 </div>
-                                                <span className="text-xs font-black text-slate-400 truncate group-hover:text-white transition-colors">{res.title}</span>
+                                                <span className="text-xs font-black text-slate-700 dark:text-slate-300 truncate group-hover:text-sky-600 dark:group-hover:text-white transition-colors">{res.title}</span>
                                             </div>
-                                            <ExternalLink size={14} className="text-slate-600 group-hover:text-sky-400 transition-colors" />
+                                            <ExternalLink size={14} className="text-slate-400 dark:text-slate-600 group-hover:text-sky-500 dark:group-hover:text-sky-400 transition-colors" />
                                         </a>
                                     ))}
                                 </div>
                             ) : (
-                                <div className="text-[10px] font-black uppercase tracking-wider text-slate-500 italic p-4 text-center border border-dashed border-slate-800 rounded-xl">
+                                <div className="text-[10px] font-black uppercase tracking-wider text-slate-500 italic p-4 text-center border border-dashed border-slate-200 dark:border-slate-800 rounded-xl">
                                     {isNotAvailableYet ? "Material restringido." : "No hay recursos."}
                                 </div>
                             )}

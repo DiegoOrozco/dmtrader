@@ -55,8 +55,8 @@ export default function AdminCoursesClient({ initialCourses }: { initialCourses:
         <div className="flex flex-col gap-8">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
-                    <h1 className="text-xl md:text-2xl font-black text-white uppercase tracking-widest mb-2">Mis Cursos</h1>
-                    <p className="text-xs text-slate-400 font-semibold uppercase tracking-wider">Gestiona el contenido, lecciones y visibilidad de tus cursos.</p>
+                    <h1 className="text-xl md:text-2xl font-black text-slate-900 dark:text-white uppercase tracking-widest mb-2">Mis Cursos</h1>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 font-semibold uppercase tracking-wider">Gestiona el contenido, lecciones y visibilidad de tus cursos.</p>
                 </div>
                 <button
                     onClick={handleCreateCourse}
@@ -69,22 +69,22 @@ export default function AdminCoursesClient({ initialCourses }: { initialCourses:
             </div>
 
             {/* Toolbar */}
-            <div className="bg-[#0a0e1a] p-4 rounded-xl flex flex-col sm:flex-row gap-4 border border-slate-800 shadow-lg">
+            <div className="bg-white dark:bg-[#0a0e1a] p-4 rounded-xl flex flex-col sm:flex-row gap-4 border border-slate-200 dark:border-slate-800 shadow-lg">
                 <div className="relative flex-grow">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={16} />
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500" size={16} />
                     <input
                         type="text"
                         placeholder="Buscar cursos..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="w-full bg-[#05070f] border border-slate-800 rounded-lg pl-10 pr-4 py-2.5 text-xs text-white placeholder-slate-700 focus:outline-none focus:border-sky-500 transition-all font-semibold"
+                        className="w-full bg-slate-50 dark:bg-[#05070f] border border-slate-200 dark:border-slate-800 rounded-lg pl-10 pr-4 py-2.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-700 focus:outline-none focus:border-sky-500 transition-all font-semibold"
                     />
                 </div>
                 <div className="flex gap-2">
                     <select
                         value={statusFilter}
                         onChange={(e) => setStatusFilter(e.target.value)}
-                        className="bg-[#05070f] border border-slate-800 rounded-lg px-4 py-2.5 text-xs font-black uppercase tracking-wider text-slate-400 focus:outline-none focus:border-sky-500 transition-all"
+                        className="bg-slate-50 dark:bg-[#05070f] border border-slate-200 dark:border-slate-800 rounded-lg px-4 py-2.5 text-xs font-black uppercase tracking-wider text-slate-600 dark:text-slate-400 focus:outline-none focus:border-sky-500 transition-all cursor-pointer"
                     >
                         <option value="all">Todos los estados</option>
                         <option value="published">Publicados</option>
@@ -96,7 +96,7 @@ export default function AdminCoursesClient({ initialCourses }: { initialCourses:
             {/* Course Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
                 {filteredCourses.map((course) => (
-                    <div key={course.id} className="bg-[#0a0e1a] border border-slate-800 rounded-2xl overflow-hidden group flex flex-col shadow-xl">
+                    <div key={course.id} className="bg-white dark:bg-[#0a0e1a] border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden group flex flex-col shadow-xl">
 
                         <div className="h-40 relative overflow-hidden bg-slate-900">
                             <img
@@ -117,21 +117,21 @@ export default function AdminCoursesClient({ initialCourses }: { initialCourses:
                             </div>
                         </div>
 
-                        <div className="p-5 flex flex-col flex-grow bg-gradient-to-b from-transparent to-black/30">
-                            <h3 className="text-xs font-black text-white uppercase tracking-wider mb-2 leading-tight line-clamp-2">{course.title}</h3>
+                        <div className="p-5 flex flex-col flex-grow bg-gradient-to-b from-transparent to-black/5 dark:to-black/30">
+                            <h3 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider mb-2 leading-tight line-clamp-2">{course.title}</h3>
                             <p className="text-[10px] text-slate-500 font-black uppercase tracking-wider mb-4">{course.enrollments.length} estudiantes inscritos</p>
 
-                            <div className="mt-auto flex gap-3 pt-4 border-t border-slate-850">
+                            <div className="mt-auto flex gap-3 pt-4 border-t border-slate-100 dark:border-slate-850">
                                 <Link
                                     href={`/admin/courses/${course.id}`}
-                                    className="flex-1 bg-white/5 hover:bg-white/10 text-white text-[10px] font-black uppercase tracking-wider py-2.5 rounded-xl transition-all flex items-center justify-center gap-2 border border-slate-800"
+                                    className="flex-1 bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 text-slate-800 dark:text-white text-[10px] font-black uppercase tracking-wider py-2.5 rounded-xl transition-all flex items-center justify-center gap-2 border border-slate-200 dark:border-slate-800"
                                 >
                                     <Edit3 size={14} />
                                     Editar
                                 </Link>
                                 <button
                                     onClick={() => handleDeleteCourse(course.id, course.title)}
-                                    className="px-3 bg-rose-500/10 hover:bg-rose-500/20 text-rose-450 border border-rose-500/20 rounded-xl transition-all flex items-center justify-center"
+                                    className="px-3 bg-rose-500/10 hover:bg-rose-500/20 text-rose-500 dark:text-rose-400 border border-rose-500/20 rounded-xl transition-all flex items-center justify-center"
                                     title="Eliminar Curso"
                                 >
                                     <Trash2 size={14} />

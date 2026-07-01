@@ -225,22 +225,22 @@ export default function AdminGradesClient({ initialCourses, tableData, courses, 
                 <header className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
                     <div className="space-y-2">
                         <div className="flex items-center gap-3">
-                            <span className="bg-sky-500/10 text-sky-400 border border-sky-500/20 px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider">ADMINISTRACIÓN</span>
+                            <span className="bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20 px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider">ADMINISTRACIÓN</span>
                             <span className="text-[10px] font-black uppercase text-slate-500 tracking-wider">/ CONTROL ACADÉMICO</span>
                         </div>
-                        <h1 className="text-2xl md:text-3xl font-black text-white uppercase tracking-wider leading-none">
-                            CENTRO DE <span className="text-sky-400">NOTAS.</span>
+                        <h1 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white uppercase tracking-wider leading-none">
+                            CENTRO DE <span className="text-sky-500 dark:text-sky-400">NOTAS.</span>
                         </h1>
                     </div>
 
-                    <div className="flex items-center gap-3 bg-[#0a0e1a] border border-slate-800 rounded-2xl p-2 h-fit">
-                        <div className="px-6 py-2 border-r border-slate-800">
+                    <div className="flex items-center gap-3 bg-white dark:bg-[#0a0e1a] border border-slate-200 dark:border-slate-800 rounded-2xl p-2 h-fit">
+                        <div className="px-6 py-2 border-r border-slate-205 dark:border-slate-800">
                             <span className="block text-[8px] font-black uppercase text-slate-500 tracking-widest leading-none mb-1">Pass Rate</span>
-                            <span className="text-xl font-black text-emerald-400">{Math.round(selectedCourseId === "all" ? passRate : filteredPassRate)}%</span>
+                            <span className="text-xl font-black text-emerald-600 dark:text-emerald-400">{Math.round(selectedCourseId === "all" ? passRate : filteredPassRate)}%</span>
                         </div>
                         <div className="px-6 py-2">
                             <span className="block text-[8px] font-black uppercase text-slate-500 tracking-widest leading-none mb-1">Avg Score</span>
-                            <span className="text-lg font-black text-white">{Math.round(selectedCourseId === "all" ? avgScore : filteredAvg)}</span>
+                            <span className="text-lg font-black text-slate-900 dark:text-white">{Math.round(selectedCourseId === "all" ? avgScore : filteredAvg)}</span>
                         </div>
                     </div>
                 </header>
@@ -248,13 +248,13 @@ export default function AdminGradesClient({ initialCourses, tableData, courses, 
                 {/* Search & Actions Strip */}
                 <div className="flex flex-col lg:flex-row gap-4 mb-4">
                     <div className="flex-1 relative group">
-                        <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-slate-500 group-focus-within:text-sky-405 transition-colors">
+                        <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-slate-400 dark:text-slate-500 group-focus-within:text-sky-500 transition-colors">
                             <Search size={16} />
                         </div>
                         <input
                             type="text"
                             placeholder="Buscar por nombre de alumno o curso..."
-                            className="w-full bg-[#0a0e1a] border border-slate-800 rounded-2xl py-4 pl-12 pr-4 text-white text-xs font-semibold placeholder:text-slate-700 focus:outline-none focus:border-sky-500 transition-all"
+                            className="w-full bg-white dark:bg-[#0a0e1a] border border-slate-200 dark:border-slate-800 rounded-2xl py-4 pl-12 pr-4 text-slate-900 dark:text-white text-xs font-semibold placeholder:text-slate-400 dark:placeholder:text-slate-700 focus:outline-none focus:border-sky-500 transition-all"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
@@ -262,11 +262,11 @@ export default function AdminGradesClient({ initialCourses, tableData, courses, 
                     
                     <div className="flex flex-wrap items-center gap-3">
                         <div className="relative">
-                            <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-slate-500">
+                            <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-slate-400 dark:text-slate-500">
                                 <Filter size={14} />
                             </div>
                             <select
-                                className="bg-[#0a0e1a] border border-slate-800 rounded-2xl py-4 pl-10 pr-10 text-white text-[10px] font-black uppercase tracking-wider appearance-none focus:outline-none focus:border-sky-500 cursor-pointer"
+                                className="bg-white dark:bg-[#0a0e1a] border border-slate-200 dark:border-slate-800 rounded-2xl py-4 pl-10 pr-10 text-slate-900 dark:text-white text-[10px] font-black uppercase tracking-wider appearance-none focus:outline-none focus:border-sky-500 cursor-pointer"
                                 value={selectedCourseId}
                                 onChange={(e) => setSelectedCourseId(e.target.value)}
                             >
@@ -281,7 +281,7 @@ export default function AdminGradesClient({ initialCourses, tableData, courses, 
 
                         <button
                             onClick={() => setIsBatchModalOpen(true)}
-                            className="bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 border border-sky-500/20 px-6 py-4 rounded-2xl font-black text-[10px] uppercase tracking-wider flex items-center gap-2 transition-all"
+                            className="bg-sky-500/10 hover:bg-sky-500/20 text-sky-600 dark:text-sky-400 border border-sky-500/20 px-6 py-4 rounded-2xl font-black text-[10px] uppercase tracking-wider flex items-center gap-2 transition-all cursor-pointer"
                         >
                             <Sparkles size={14} />
                             Calificación IA (Lote)
@@ -289,7 +289,7 @@ export default function AdminGradesClient({ initialCourses, tableData, courses, 
 
                         <button
                             onClick={handleExportCSV}
-                            className="bg-white/5 hover:bg-white/10 text-white border border-slate-800 px-6 py-4 rounded-2xl font-black text-[10px] uppercase tracking-wider flex items-center gap-2 transition-all"
+                            className="bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 text-slate-800 dark:text-white border border-slate-200 dark:border-slate-800 px-6 py-4 rounded-2xl font-black text-[10px] uppercase tracking-wider flex items-center gap-2 transition-all cursor-pointer"
                         >
                             <FileDown size={14} />
                             Exportar CSV
@@ -300,33 +300,33 @@ export default function AdminGradesClient({ initialCourses, tableData, courses, 
 
             {/* Rubric legend */}
             {selectedCourse && (
-                <div className="bg-[#0a0e1a] rounded-2xl border border-slate-800 p-4 shadow-xl">
+                <div className="bg-white dark:bg-[#0a0e1a] rounded-2xl border border-slate-200 dark:border-slate-800 p-4 shadow-xl">
                     <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-3 flex items-center gap-2">
                         <Filter size={12} /> Rubros del curso &mdash; {selectedCourse.title}
                     </p>
                     <div className="flex flex-wrap gap-2">
                         {selectedCourse.weightQuiz > 0 && (
-                            <span className="text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-lg bg-sky-500/10 text-sky-400 border border-sky-500/20">
+                            <span className="text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-lg bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20">
                                 Quiz {selectedCourse.weightQuiz}%
                             </span>
                         )}
                         {selectedCourse.weightLab > 0 && (
-                            <span className="text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                            <span className="text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
                                 Lab {selectedCourse.weightLab}%
                             </span>
                         )}
                         {selectedCourse.weightForum > 0 && (
-                            <span className="text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                            <span className="text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
                                 Foro {selectedCourse.weightForum}%
                             </span>
                         )}
                         {selectedCourse.weightProject > 0 && (
-                            <span className="text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                            <span className="text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
                                 Proyecto {selectedCourse.weightProject}%
                             </span>
                         )}
                         {selectedCourse.weightExam > 0 && (
-                            <span className="text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                            <span className="text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
                                 Examen {selectedCourse.weightExam}%
                             </span>
                         )}
@@ -335,11 +335,11 @@ export default function AdminGradesClient({ initialCourses, tableData, courses, 
             )}
 
             {/* Table */}
-            <div className="bg-[#0a0e1a] rounded-2xl border border-slate-800 overflow-hidden shadow-2xl">
+            <div className="bg-white dark:bg-[#0a0e1a] rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-2xl">
                 <div className="overflow-x-auto">
                     <table className="w-full text-left border-collapse">
                         <thead>
-                            <tr className="bg-black/20 border-b border-slate-800">
+                            <tr className="bg-slate-50 dark:bg-black/20 border-b border-slate-200 dark:border-slate-800">
                                 <th className="px-6 py-4 text-[9px] font-black text-slate-500 uppercase tracking-widest">Estudiante</th>
                                 <th className="px-6 py-4 text-[9px] font-black text-slate-500 uppercase tracking-widest">Curso</th>
                                 <th className="px-6 py-4 text-[9px] font-black text-slate-500 uppercase tracking-widest text-center">Desglose (Q/L/F/P/E)</th>
@@ -347,7 +347,7 @@ export default function AdminGradesClient({ initialCourses, tableData, courses, 
                                 <th className="px-6 py-4 text-[9px] font-black text-slate-500 uppercase tracking-widest text-right">Detalle</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-slate-850">
+                        <tbody className="divide-y divide-slate-100 dark:divide-slate-855">
                             {filteredData.map((row, idx) => {
                                 const rowKey = `${row.studentId}-${row.courseId}-${idx}`;
                                 const isExpanded = expandedRows.includes(rowKey);
