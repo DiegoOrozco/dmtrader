@@ -63,42 +63,7 @@ export default async function AdminDashboardPage() {
                 </div>
             </div>
 
-            {/* Recent Activity */}
-            <div className="bg-white dark:bg-[#0a0e1a] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-xl">
-                <h2 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-widest mb-6">Actividad Reciente</h2>
 
-                <div className="space-y-6">
-                    <div className="flex items-start gap-4">
-                        <div className="w-1.5 h-1.5 rounded-full bg-sky-500 dark:bg-sky-400 mt-2 shadow-[0_0_8px_rgba(56,189,248,0.6)]"></div>
-                        <div>
-                            <p className="text-xs text-slate-600 dark:text-slate-300 font-semibold leading-relaxed">
-                                <span className="font-black text-slate-900 dark:text-white">María Pérez</span> publicó una duda en <span className="font-black text-sky-600 dark:text-sky-400">01 - Fundamentos de programación</span>.
-                            </p>
-                            <p className="text-[10px] text-slate-400 dark:text-slate-500 font-black uppercase tracking-wider mt-1">Hace 1 hora</p>
-                        </div>
-                    </div>
-
-                    <div className="flex items-start gap-4">
-                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400 mt-2 shadow-[0_0_8px_rgba(16,185,129,0.5)]"></div>
-                        <div>
-                            <p className="text-xs text-slate-600 dark:text-slate-300 font-semibold leading-relaxed">
-                                <span className="font-black text-slate-900 dark:text-white">Carlos López</span> completó <span className="font-black text-emerald-600 dark:text-emerald-400">03 - Bases de datos</span>.
-                            </p>
-                            <p className="text-[10px] text-slate-400 dark:text-slate-500 font-black uppercase tracking-wider mt-1">Hace 3 horas</p>
-                        </div>
-                    </div>
-
-                    <div className="flex items-start gap-4">
-                        <div className="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-600 mt-2"></div>
-                        <div>
-                            <p className="text-xs text-slate-600 dark:text-slate-300 font-semibold leading-relaxed">
-                                Nueva inscripción: <span className="font-black text-slate-900 dark:text-white">Laura Gómez</span> se unió a DM Trader.
-                            </p>
-                            <p className="text-[10px] text-slate-400 dark:text-slate-500 font-black uppercase tracking-wider mt-1">Hace 5 horas</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
         </div>
     );

@@ -63,7 +63,6 @@ export default function Navbar({ user }: NavbarProps) {
 
     if (user?.role === "STUDENT") {
         navLinks.splice(1, 0, { name: "Mis Cursos", href: "/#my-courses", icon: <BookOpen size={18} /> });
-        navLinks.splice(2, 0, { name: "Calificaciones", href: "/grades", icon: <GraduationCap size={18} /> });
     } else if (user?.role === "ADMIN") {
         navLinks.push({ name: "Panel Admin", href: "/admin", icon: <Shield size={18} /> });
     }

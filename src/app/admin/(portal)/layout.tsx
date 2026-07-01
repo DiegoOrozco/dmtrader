@@ -13,14 +13,10 @@ export default function AdminPortalLayout({ children }: { children: React.ReactN
     const navLinks = [
         { name: "Dashboard", href: "/admin", icon: <LayoutDashboard size={16} /> },
         { name: "Mis Cursos", href: "/admin/courses", icon: <BookOpen size={16} /> },
-        { name: "Libro de Calificaciones", href: "/admin/grades", icon: <GraduationCap size={16} /> },
-        { name: "Excepciones de Fecha", href: "/admin/exceptions", icon: <MessageSquare size={16} /> },
         { name: "Estudiantes", href: "/admin/students", icon: <Users size={16} /> },
         { name: "Comunicados", href: "/admin/communications", icon: <Mail size={16} /> },
         { name: "Ajustes del Sitio", href: "/admin/settings", icon: <Settings size={16} /> },
-        { name: "Reporte de Plagio", href: "/admin/plagiarism", icon: <ShieldAlert size={16} /> },
         { name: "Q&A Inbox", href: "/admin/qa", icon: <MessageSquare size={16} /> },
-        { name: "Pase de Lista", href: "/admin/attendance", icon: <CheckCircle size={16} /> },
         { name: "Ver sitio alumnos", href: "/", icon: <BookOpen size={16} />, special: true },
     ];
 
