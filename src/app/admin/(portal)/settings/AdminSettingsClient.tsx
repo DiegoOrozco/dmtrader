@@ -119,29 +119,7 @@ export default function AdminSettingsClient({ initialConfigs }: { initialConfigs
                                     <Sparkles size={16} className="text-[#0ea5e9]" /> NOTICIAS & INSIGHTS
                                 </h3>
                                 <div className="flex gap-2">
-                                    <button 
-                                        onClick={async () => {
-                                            setIsRefreshingNews(true);
-                                            try {
-                                                const res = await refreshTechNewsAI();
-                                                if (res.success) {
-                                                    updateHome({ news: res.news });
-                                                    alert("¡IA Generó nuevas noticias!");
-                                                } else {
-                                                    alert("Error de IA: " + res.error);
-                                                }
-                                            } catch (e: any) {
-                                                alert("Error de conexión: " + e.message);
-                                            } finally {
-                                                setIsRefreshingNews(false);
-                                            }
-                                        }}
-                                        disabled={isRefreshingNews}
-                                        className="bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 text-[10px] font-black uppercase tracking-widest px-4 py-2 border border-sky-500/20 rounded-lg flex items-center gap-2 transition-all disabled:opacity-50"
-                                    >
-                                        <Sparkles size={14} className={isRefreshingNews ? "animate-spin" : ""} />
-                                        Refrescar con IA
-                                    </button>
+
                                     <button 
                                         onClick={() => {
                                             const next = [...(home.news || []), { title: "Nueva Noticia", date: "HOY", summary: "", search_url: "", source: "DM Trader" }];
