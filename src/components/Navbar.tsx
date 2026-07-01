@@ -104,9 +104,6 @@ export default function Navbar({ user }: NavbarProps) {
                         >
                             DM <span className="text-sky-500 dark:text-sky-400">TRADER</span>
                         </span>
-                        <span className="text-[9px] uppercase tracking-widest text-slate-400 dark:text-slate-500 font-bold mt-0.5">
-                            DO ACADEMY
-                        </span>
                     </div>
                 </Link>
 

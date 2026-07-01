@@ -70,7 +70,7 @@ export default function Footer({ user, aboutConfig }: { user?: any, aboutConfig?
 
                 <div className="pt-8 border-t border-slate-200/10 dark:border-slate-800/80 flex flex-col md:flex-row justify-between items-center gap-6">
                     <p className="text-slate-500 text-xs font-semibold">
-                        © {new Date().getFullYear()} DM Trader · DO Academy. Todos los derechos reservados.
+                        © {new Date().getFullYear()} DM Trader. Todos los derechos reservados.
                     </p>
                     <div className="flex gap-6 text-[10px] font-bold uppercase tracking-widest text-slate-400">
                         <span>Aprende</span>

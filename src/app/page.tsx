@@ -149,26 +149,26 @@ export default async function DashboardPage() {
                         <div className="h-px flex-1 bg-[#e2e8f0] dark:bg-[#1e2e5c]" />
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {/* Deriv */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+                        {/* Vexprofx */}
                         <a 
-                            href="https://deriv.partners/rx?sidc=55B279DC-01C5-41F3-8331-2B291B5DD053&utm_campaign=dynamicworks&utm_medium=affiliate&utm_source=CU50197" 
+                            href="https://my.vexprofx.com/register/DM8156" 
                             target="_blank" 
                             rel="noopener noreferrer"
                             className="raw-card p-6 flex flex-col justify-between min-h-[220px] group border border-[#e2e8f0] dark:border-[#1e2e5c] bg-white dark:bg-[#0d1326]/40"
                         >
                             <div className="flex justify-between items-start mb-6">
                                 <div className="flex items-center gap-1.5">
-                                    <div className="w-5 h-5 rounded bg-red-500 flex items-center justify-center">
+                                    <div className="w-5 h-5 rounded bg-emerald-500 flex items-center justify-center">
                                         <ArrowUpRight size={12} className="text-white" />
                                     </div>
-                                    <span className="font-extrabold text-[#0f172a] dark:text-white text-sm tracking-tight">DERIV</span>
+                                    <span className="font-extrabold text-[#0f172a] dark:text-white text-sm tracking-tight">VEXPROFX</span>
                                 </div>
                                 <span className="text-[10px] font-bold text-[#94a3b8]">01</span>
                             </div>
                             <div>
-                                <h3 className="text-base font-bold text-[#0f172a] dark:text-[#94a3b8] mb-1.5 uppercase tracking-tight">Índices Sintéticos</h3>
-                                <p className="text-xs text-[#64748b] mb-4 leading-relaxed">Opera CFDs, forex y mercados sintéticos patentados con spreads ultra competitivos y excelente apalancamiento.</p>
+                                <h3 className="text-base font-bold text-[#0f172a] dark:text-[#94a3b8] mb-1.5 uppercase tracking-tight">Broker Regulado</h3>
+                                <p className="text-xs text-[#64748b] mb-4 leading-relaxed">Opera CFDs, divisas y commodities con las mejores condiciones de mercado y spreads competitivos.</p>
                             </div>
                             <div className="flex items-center gap-2 text-[#0ea5e9] font-bold text-xs uppercase tracking-wider group-hover:text-[#0284c7] transition-colors">
                                 Registrarse
@@ -250,6 +250,32 @@ export default async function DashboardPage() {
                             </div>
                             <div className="flex items-center gap-2 text-[#0ea5e9] font-bold text-xs uppercase tracking-wider group-hover:text-[#0284c7] transition-colors">
                                 Registrarse
+                                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                            </div>
+                        </a>
+
+                        {/* Crypto Card */}
+                        <a 
+                            href="https://url.hk/i/es/1zyvf" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="raw-card p-6 flex flex-col justify-between min-h-[220px] group border border-[#e2e8f0] dark:border-[#1e2e5c] bg-white dark:bg-[#0d1326]/40"
+                        >
+                            <div className="flex justify-between items-start mb-6">
+                                <div className="flex items-center gap-1.5">
+                                    <div className="w-5 h-5 rounded bg-[#f59e0b] flex items-center justify-center">
+                                        <ArrowUpRight size={12} className="text-white" />
+                                    </div>
+                                    <span className="font-extrabold text-[#0f172a] dark:text-white text-sm tracking-tight">TARJETA CRIPTO</span>
+                                </div>
+                                <span className="text-[10px] font-bold text-[#94a3b8]">05</span>
+                            </div>
+                            <div>
+                                <h3 className="text-base font-bold text-[#0f172a] dark:text-[#94a3b8] mb-1.5 uppercase tracking-tight">Crypto Card</h3>
+                                <p className="text-xs text-[#64748b] mb-4 leading-relaxed">Solicita tu tarjeta de débito cripto para realizar compras y retiros directamente con tus fondos digitales.</p>
+                            </div>
+                            <div className="flex items-center gap-2 text-[#0ea5e9] font-bold text-xs uppercase tracking-wider group-hover:text-[#0284c7] transition-colors">
+                                Obtener Tarjeta
                                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                             </div>
                         </a>
