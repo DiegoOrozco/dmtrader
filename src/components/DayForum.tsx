@@ -184,6 +184,8 @@ export default function DayForum({ day, studentId, courseId, userRole, onPostCre
         } else {
             ungroupedPosts.push(post);
         }
+    });
+
      // Render a single post with its replies
     const renderPost = (post: any, isNested = false) => (
         <div key={post.id} className={`${isNested ? "ml-4 sm:ml-8 border-l border-slate-200 dark:border-slate-800 pl-4" : ""} flex flex-col gap-2`}>
