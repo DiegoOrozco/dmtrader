@@ -8,6 +8,30 @@ import { unstable_cache } from "next/cache";
 import CourseCatalog from "@/components/CourseCatalog";
 import Image from "next/image";
 
+import { HelpCircle } from "lucide-react";
+
+const getStatIcon = (iconName: string) => {
+    switch ((iconName || "").toLowerCase()) {
+        case "users": return <Users size={16} className="text-sky-500" />;
+        case "award": return <Award size={16} className="text-amber-500" />;
+        case "shield": return <Shield size={16} className="text-sky-400" />;
+        default: return <HelpCircle size={16} className="text-slate-450" />;
+    }
+};
+
+const getPartnerColorClass = (colorName: string) => {
+    switch ((colorName || "").toLowerCase()) {
+        case "red": return "bg-red-500";
+        case "emerald": return "bg-emerald-500";
+        case "cyan": return "bg-[#00e5ff]";
+        case "blue": return "bg-[#0284c7]";
+        case "sky": return "bg-[#0ea5e9]";
+        case "amber": return "bg-[#f59e0b]";
+        default: return "bg-slate-500";
+    }
+};
+
+
 const getCachedHomeConfig = unstable_cache(
     async () => await getSiteConfig("home"),
     ['home-config'],
@@ -17,13 +41,32 @@ const getCachedHomeConfig = unstable_cache(
 export default async function DashboardPage() {
     const student = await getStudent();
 
+    const defaultStats = [
+        { label: "ESTUDIANTES ACTIVADOS", n: "1,500+", icon: "users" },
+        { label: "MÉTRICA DE APROBACIÓN", n: "94.6%", icon: "award" },
+        { label: "SEGURIDAD DE APRENDIZAJE", n: "PRO", icon: "shield" }
+    ];
+
+    const defaultPartners = [
+        { name: "VEXPROFX", title: "Broker Regulado", desc: "Opera CFDs, divisas y commodities con las mejores condiciones de mercado y spreads competitivos.", url: "https://my.vexprofx.com/register/DM8156", color: "emerald" },
+        { name: "BITUNIX", title: "Cripto Exchange", desc: "Compra, vende y opera contratos perpetuos de criptomonedas sin restricciones de liquidez.", url: "https://www.bitunix.com/register?vipCode=fq2H", color: "cyan" },
+        { name: "NEXO", title: "Crypto Banking", desc: "Genera intereses pasivos diarios en criptomonedas y stablecoins con la máxima seguridad garantizada.", url: "https://nexo.ibportal.io/auth/register?e=Pv53ERsz4qiVgd2HvuptUkqRsXcK9CnfEJBkTBAjSrw&a=2", color: "blue" },
+        { name: "BRIDGE", title: "Multi-Asset Broker", desc: "Accede a mercados globales, forex tradicional y materias primas con ejecución institucional ultra rápida.", url: "https://trading.bridgemarkets.global/register?ref=4920d2e8-f6e2-48&branchUuid=de19e466-a9cd-4493-936b-1", color: "sky" },
+        { name: "TARJETA CRIPTO", title: "Crypto Card", desc: "Solicita tu tarjeta de débito cripto para realizar compras y retiros directamente con tus fondos digitales.", url: "https://url.hk/i/es/1zyvf", color: "amber" }
+    ];
+
     const homeConfig = await getCachedHomeConfig() || {
         heroTitle: "Aprende Trading Profesional",
         heroSubtitle: "Domina Forex, Criptomonedas e Índices Sintéticos con metodologías avanzadas de Dayan Moraga.",
         heroButtonText: "Comenzar Ahora",
         heroButtonLink: "/register",
-        news: []
+        news: [],
+        stats: defaultStats,
+        partners: defaultPartners
     };
+
+    const displayStats = homeConfig.stats || defaultStats;
+    const displayPartners = homeConfig.partners || defaultPartners;
 
     const allCourses = await prisma.course.findMany({
         where: { status: "published" },
@@ -46,11 +89,7 @@ export default async function DashboardPage() {
 
     const enrolledCourseIds = student?.enrollments.map((e: any) => e.courseId) || [];
     
-    const stats = [
-        { label: "ESTUDIANTES ACTIVADOS", n: "1,500+", icon: <Users size={16} className="text-sky-500" /> },
-        { label: "MÉTRICA DE APROBACIÓN", n: "94.6%", icon: <Award size={16} className="text-amber-500" /> },
-        { label: "SEGURIDAD DE APRENDIZAJE", n: "PRO", icon: <Shield size={16} className="text-sky-400" /> }
-    ];
+
 
     return (
         <div className="min-h-screen relative overflow-x-hidden" style={{ background: 'var(--background)' }}>
@@ -126,10 +165,10 @@ export default async function DashboardPage() {
                 {/* Stats Bar */}
                 <section className="max-w-[1400px] mx-auto px-6 lg:px-10 mb-28">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 py-8 px-6 rounded-2xl bg-white dark:bg-[#0d1326] border border-[#e2e8f0] dark:border-[#1e2e5c] shadow-md">
-                        {stats.map((stat, i) => (
+                        {displayStats.map((stat: any, i: number) => (
                             <div key={i} className="flex items-center gap-4 px-4 py-2 border-b last:border-b-0 md:border-b-0 md:border-r last:border-r-0 border-[#e2e8f0] dark:border-[#1e2e5c]">
                                 <div className="w-10 h-10 rounded-xl bg-[#f1f5f9] dark:bg-[#1e2e5c] flex items-center justify-center">
-                                    {stat.icon}
+                                    {getStatIcon(stat.icon)}
                                 </div>
                                 <div>
                                     <span className="text-2xl font-extrabold text-[#0f172a] dark:text-white block">{stat.n}</span>
@@ -150,135 +189,33 @@ export default async function DashboardPage() {
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-                        {/* Vexprofx */}
-                        <a 
-                            href="https://my.vexprofx.com/register/DM8156" 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="raw-card p-6 flex flex-col justify-between min-h-[220px] group border border-[#e2e8f0] dark:border-[#1e2e5c] bg-white dark:bg-[#0d1326]/40"
-                        >
-                            <div className="flex justify-between items-start mb-6">
-                                <div className="flex items-center gap-1.5">
-                                    <div className="w-5 h-5 rounded bg-emerald-500 flex items-center justify-center">
-                                        <ArrowUpRight size={12} className="text-white" />
+                        {displayPartners.map((partner: any, idx: number) => (
+                            <a 
+                                key={idx}
+                                href={partner.url} 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="raw-card p-6 flex flex-col justify-between min-h-[220px] group border border-[#e2e8f0] dark:border-[#1e2e5c] bg-white dark:bg-[#0d1326]/40"
+                            >
+                                <div className="flex justify-between items-start mb-6">
+                                    <div className="flex items-center gap-1.5">
+                                        <div className={`w-5 h-5 rounded ${getPartnerColorClass(partner.color)} flex items-center justify-center`}>
+                                            <ArrowUpRight size={12} className="text-white dark:text-slate-900" />
+                                        </div>
+                                        <span className="font-extrabold text-[#0f172a] dark:text-white text-sm tracking-tight">{partner.name}</span>
                                     </div>
-                                    <span className="font-extrabold text-[#0f172a] dark:text-white text-sm tracking-tight">VEXPROFX</span>
+                                    <span className="text-[10px] font-bold text-[#94a3b8]">{(idx+1).toString().padStart(2, '0')}</span>
                                 </div>
-                                <span className="text-[10px] font-bold text-[#94a3b8]">01</span>
-                            </div>
-                            <div>
-                                <h3 className="text-base font-bold text-[#0f172a] dark:text-[#94a3b8] mb-1.5 uppercase tracking-tight">Broker Regulado</h3>
-                                <p className="text-xs text-[#64748b] mb-4 leading-relaxed">Opera CFDs, divisas y commodities con las mejores condiciones de mercado y spreads competitivos.</p>
-                            </div>
-                            <div className="flex items-center gap-2 text-[#0ea5e9] font-bold text-xs uppercase tracking-wider group-hover:text-[#0284c7] transition-colors">
-                                Registrarse
-                                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                            </div>
-                        </a>
-
-                        {/* Bitunix */}
-                        <a 
-                            href="https://www.bitunix.com/register?vipCode=fq2H" 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="raw-card p-6 flex flex-col justify-between min-h-[220px] group border border-[#e2e8f0] dark:border-[#1e2e5c] bg-white dark:bg-[#0d1326]/40"
-                        >
-                            <div className="flex justify-between items-start mb-6">
-                                <div className="flex items-center gap-1.5">
-                                    <div className="w-5 h-5 rounded bg-[#00e5ff] flex items-center justify-center">
-                                        <ArrowUpRight size={12} className="text-[#0f172a]" />
-                                    </div>
-                                    <span className="font-extrabold text-[#0f172a] dark:text-white text-sm tracking-tight">BITUNIX</span>
+                                <div>
+                                    <h3 className="text-base font-bold text-[#0f172a] dark:text-[#94a3b8] mb-1.5 uppercase tracking-tight">{partner.title}</h3>
+                                    <p className="text-xs text-[#64748b] mb-4 leading-relaxed">{partner.desc}</p>
                                 </div>
-                                <span className="text-[10px] font-bold text-[#94a3b8]">02</span>
-                            </div>
-                            <div>
-                                <h3 className="text-base font-bold text-[#0f172a] dark:text-[#94a3b8] mb-1.5 uppercase tracking-tight">Cripto Exchange</h3>
-                                <p className="text-xs text-[#64748b] mb-4 leading-relaxed">Compra, vende y opera contratos perpetuos de criptomonedas sin restricciones de liquidez.</p>
-                            </div>
-                            <div className="flex items-center gap-2 text-[#0ea5e9] font-bold text-xs uppercase tracking-wider group-hover:text-[#0284c7] transition-colors">
-                                Registrarse
-                                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                            </div>
-                        </a>
-
-                        {/* Nexo */}
-                        <a 
-                            href="https://nexo.ibportal.io/auth/register?e=Pv53ERsz4qiVgd2HvuptUkqRsXcK9CnfEJBkTBAjSrw&a=2" 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="raw-card p-6 flex flex-col justify-between min-h-[220px] group border border-[#e2e8f0] dark:border-[#1e2e5c] bg-white dark:bg-[#0d1326]/40"
-                        >
-                            <div className="flex justify-between items-start mb-6">
-                                <div className="flex items-center gap-1.5">
-                                    <div className="w-5 h-5 rounded bg-[#0284c7] flex items-center justify-center">
-                                        <ArrowUpRight size={12} className="text-white" />
-                                    </div>
-                                    <span className="font-extrabold text-[#0f172a] dark:text-white text-sm tracking-tight">NEXO</span>
+                                <div className="flex items-center gap-2 text-[#0ea5e9] font-bold text-xs uppercase tracking-wider group-hover:text-[#0284c7] transition-colors">
+                                    {partner.url.includes("tarjeta") || partner.name.toLowerCase().includes("tarjeta") ? "Obtener Tarjeta" : "Registrarse"}
+                                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                                 </div>
-                                <span className="text-[10px] font-bold text-[#94a3b8]">03</span>
-                            </div>
-                            <div>
-                                <h3 className="text-base font-bold text-[#0f172a] dark:text-[#94a3b8] mb-1.5 uppercase tracking-tight">Crypto Banking</h3>
-                                <p className="text-xs text-[#64748b] mb-4 leading-relaxed">Genera intereses pasivos diarios en criptomonedas y stablecoins con la máxima seguridad garantizada.</p>
-                            </div>
-                            <div className="flex items-center gap-2 text-[#0ea5e9] font-bold text-xs uppercase tracking-wider group-hover:text-[#0284c7] transition-colors">
-                                Registrarse
-                                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                            </div>
-                        </a>
-
-                        {/* Bridge Markets */}
-                        <a 
-                            href="https://trading.bridgemarkets.global/register?ref=4920d2e8-f6e2-48&branchUuid=de19e466-a9cd-4493-936b-1" 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="raw-card p-6 flex flex-col justify-between min-h-[220px] group border border-[#e2e8f0] dark:border-[#1e2e5c] bg-white dark:bg-[#0d1326]/40"
-                        >
-                            <div className="flex justify-between items-start mb-6">
-                                <div className="flex items-center gap-1.5">
-                                    <div className="w-5 h-5 rounded bg-[#0ea5e9] flex items-center justify-center">
-                                        <ArrowUpRight size={12} className="text-white" />
-                                    </div>
-                                    <span className="font-extrabold text-[#0f172a] dark:text-white text-sm tracking-tight">BRIDGE</span>
-                                </div>
-                                <span className="text-[10px] font-bold text-[#94a3b8]">04</span>
-                            </div>
-                            <div>
-                                <h3 className="text-base font-bold text-[#1e293b] dark:text-[#e2e8f0] mb-1.5 uppercase tracking-tight">Multi-Asset Broker</h3>
-                                <p className="text-xs text-[#64748b] mb-4 leading-relaxed">Accede a mercados globales, forex tradicional y materias primas con ejecución institucional ultra rápida.</p>
-                            </div>
-                            <div className="flex items-center gap-2 text-[#0ea5e9] font-bold text-xs uppercase tracking-wider group-hover:text-[#0284c7] transition-colors">
-                                Registrarse
-                                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                            </div>
-                        </a>
-
-                        {/* Crypto Card */}
-                        <a 
-                            href="https://url.hk/i/es/1zyvf" 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="raw-card p-6 flex flex-col justify-between min-h-[220px] group border border-[#e2e8f0] dark:border-[#1e2e5c] bg-white dark:bg-[#0d1326]/40"
-                        >
-                            <div className="flex justify-between items-start mb-6">
-                                <div className="flex items-center gap-1.5">
-                                    <div className="w-5 h-5 rounded bg-[#f59e0b] flex items-center justify-center">
-                                        <ArrowUpRight size={12} className="text-white" />
-                                    </div>
-                                    <span className="font-extrabold text-[#0f172a] dark:text-white text-sm tracking-tight">TARJETA CRIPTO</span>
-                                </div>
-                                <span className="text-[10px] font-bold text-[#94a3b8]">05</span>
-                            </div>
-                            <div>
-                                <h3 className="text-base font-bold text-[#0f172a] dark:text-[#94a3b8] mb-1.5 uppercase tracking-tight">Crypto Card</h3>
-                                <p className="text-xs text-[#64748b] mb-4 leading-relaxed">Solicita tu tarjeta de débito cripto para realizar compras y retiros directamente con tus fondos digitales.</p>
-                            </div>
-                            <div className="flex items-center gap-2 text-[#0ea5e9] font-bold text-xs uppercase tracking-wider group-hover:text-[#0284c7] transition-colors">
-                                Obtener Tarjeta
-                                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                            </div>
-                        </a>
+                            </a>
+                        ))}
                     </div>
                 </section>
 

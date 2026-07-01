@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react";
 import { updateSiteConfig, refreshTechNewsAI } from "@/actions/admin-settings";
-import { Save, User, Home, Cpu, Loader2, Sparkles, X, Info } from "lucide-react";
+import { Save, User, Home, Cpu, Loader2, Sparkles, X, Info, TrendingUp } from "lucide-react";
 import { processAllPendingSubmissions } from "@/actions/admin-grading";
 
 export default function AdminSettingsClient({ initialConfigs }: { initialConfigs: any }) {
@@ -31,13 +31,31 @@ export default function AdminSettingsClient({ initialConfigs }: { initialConfigs
         }
     };
 
+    const defaultStats = [
+        { label: "ESTUDIANTES ACTIVADOS", n: "1,500+", icon: "users" },
+        { label: "MÉTRICA DE APROBACIÓN", n: "94.6%", icon: "award" },
+        { label: "SEGURIDAD DE APRENDIZAJE", n: "PRO", icon: "shield" }
+    ];
+
+    const defaultPartners = [
+        { name: "VEXPROFX", title: "Broker Regulado", desc: "Opera CFDs, divisas y commodities con las mejores condiciones de mercado y spreads competitivos.", url: "https://my.vexprofx.com/register/DM8156", color: "emerald" },
+        { name: "BITUNIX", title: "Cripto Exchange", desc: "Compra, vende y opera contratos perpetuos de criptomonedas sin restricciones de liquidez.", url: "https://www.bitunix.com/register?vipCode=fq2H", color: "cyan" },
+        { name: "NEXO", title: "Crypto Banking", desc: "Genera intereses pasivos diarios en criptomonedas y stablecoins con la máxima seguridad garantizada.", url: "https://nexo.ibportal.io/auth/register?e=Pv53ERsz4qiVgd2HvuptUkqRsXcK9CnfEJBkTBAjSrw&a=2", color: "blue" },
+        { name: "BRIDGE", title: "Multi-Asset Broker", desc: "Accede a mercados globales, forex tradicional y materias primas con ejecución institucional ultra rápida.", url: "https://trading.bridgemarkets.global/register?ref=4920d2e8-f6e2-48&branchUuid=de19e466-a9cd-4493-936b-1", color: "sky" },
+        { name: "TARJETA CRIPTO", title: "Crypto Card", desc: "Solicita tu tarjeta de débito cripto para realizar compras y retiros directamente con tus fondos digitales.", url: "https://url.hk/i/es/1zyvf", color: "amber" }
+    ];
+
     const home = configs.home || {
         heroTitle: "Domina la Tecnología con DM Trader",
         heroSubtitle: "Accede a contenido exclusivo diseñado por expertos.",
         heroButtonText: "Empezar Ahora",
         heroButtonLink: "/register",
-        news: []
+        news: [],
+        stats: defaultStats,
+        partners: defaultPartners
     };
+    if (!home.stats) home.stats = defaultStats;
+    if (!home.partners) home.partners = defaultPartners;
 
     const about = configs.about || {
         name: "Dayan Moraga",
@@ -218,6 +236,191 @@ export default function AdminSettingsClient({ initialConfigs }: { initialConfigs
                         </div>
                     </div>
 
+                        {/* STATS SUB-EDITOR */}
+                        <div className="pt-10 border-t border-slate-200 dark:border-white/5 space-y-6">
+                            <div className="flex items-center justify-between">
+                                <h3 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-widest flex items-center gap-2 italic">
+                                    <TrendingUp size={16} className="text-[#0ea5e9]" /> MÉTRICAS Y ESTADÍSTICAS
+                                </h3>
+                                <button 
+                                    onClick={() => {
+                                        const next = [...(home.stats || []), { label: "NUEVA MÉTRICA", n: "0", icon: "users" }];
+                                        updateHome({ stats: next });
+                                    }}
+                                    className="text-[#0ea5e9] text-[10px] font-black uppercase tracking-widest px-4 py-2 border border-[#0ea5e9]/20 rounded-lg hover:bg-[#0ea5e9]/10"
+                                >
+                                    + Añadir Métrica
+                                </button>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                {(home.stats || []).map((stat: any, idx: number) => (
+                                    <div key={idx} className="bg-slate-50/50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 rounded-2xl p-6 space-y-4 relative group hover:border-[#0ea5e9]/20 transition-all">
+                                        <button 
+                                            onClick={() => {
+                                                const next = home.stats.filter((_: any, i: number) => i !== idx);
+                                                updateHome({ stats: next });
+                                            }}
+                                            className="absolute top-4 right-4 text-slate-400 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-all"
+                                        >
+                                            <X size={16} />
+                                        </button>
+
+                                        <div className="space-y-1">
+                                            <label className="text-[9px] font-black text-slate-450 dark:text-white/20 uppercase tracking-widest">Valor de Métrica (ej. 1,500+)</label>
+                                            <input 
+                                                className="w-full bg-white dark:bg-black/60 border border-slate-200 dark:border-white/5 rounded-lg p-2 text-sm text-slate-900 dark:text-white focus:border-[#0ea5e9]/40 outline-none"
+                                                value={stat.n}
+                                                onChange={(e) => {
+                                                    const next = [...home.stats];
+                                                    next[idx] = { ...stat, n: e.target.value };
+                                                    updateHome({ stats: next });
+                                                }}
+                                            />
+                                        </div>
+
+                                        <div className="space-y-1">
+                                            <label className="text-[9px] font-black text-slate-450 dark:text-white/20 uppercase tracking-widest">Etiqueta (ej. ESTUDIANTES ACTIVADOS)</label>
+                                            <input 
+                                                className="w-full bg-white dark:bg-black/60 border border-slate-200 dark:border-white/5 rounded-lg p-2 text-xs text-slate-900 dark:text-white focus:border-[#0ea5e9]/40 outline-none"
+                                                value={stat.label}
+                                                onChange={(e) => {
+                                                    const next = [...home.stats];
+                                                    next[idx] = { ...stat, label: e.target.value };
+                                                    updateHome({ stats: next });
+                                                }}
+                                            />
+                                        </div>
+
+                                        <div className="space-y-1">
+                                            <label className="text-[9px] font-black text-slate-450 dark:text-white/20 uppercase tracking-widest">Ícono</label>
+                                            <select 
+                                                className="w-full bg-white dark:bg-black/60 border border-slate-200 dark:border-white/5 rounded-lg p-2 text-xs text-slate-900 dark:text-white focus:border-[#0ea5e9]/40 outline-none"
+                                                value={stat.icon}
+                                                onChange={(e) => {
+                                                    const next = [...home.stats];
+                                                    next[idx] = { ...stat, icon: e.target.value };
+                                                    updateHome({ stats: next });
+                                                }}
+                                            >
+                                                <option value="users">Usuarios / Estudiantes</option>
+                                                <option value="award">Premio / Trofeo</option>
+                                                <option value="shield">Escudo / Seguridad</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* PARTNERS SUB-EDITOR */}
+                        <div className="pt-10 border-t border-slate-200 dark:border-white/5 space-y-6">
+                            <div className="flex items-center justify-between">
+                                <h3 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-widest flex items-center gap-2 italic">
+                                    <Award size={16} className="text-[#0ea5e9]" /> BROKERS & ASOCIACIONES RECOMENDADAS
+                                </h3>
+                                <button 
+                                    onClick={() => {
+                                        const next = [...(home.partners || []), { name: "NUEVO BROKER", title: "Rol", desc: "", url: "", color: "sky" }];
+                                        updateHome({ partners: next });
+                                    }}
+                                    className="text-[#0ea5e9] text-[10px] font-black uppercase tracking-widest px-4 py-2 border border-[#0ea5e9]/20 rounded-lg hover:bg-[#0ea5e9]/10"
+                                >
+                                    + Añadir Broker
+                                </button>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                {(home.partners || []).map((partner: any, idx: number) => (
+                                    <div key={idx} className="bg-slate-50/50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 rounded-2xl p-6 space-y-4 relative group hover:border-[#0ea5e9]/20 transition-all">
+                                        <button 
+                                            onClick={() => {
+                                                const next = home.partners.filter((_: any, i: number) => i !== idx);
+                                                updateHome({ partners: next });
+                                            }}
+                                            className="absolute top-4 right-4 text-slate-400 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-all"
+                                        >
+                                            <X size={16} />
+                                        </button>
+
+                                        <div className="grid grid-cols-2 gap-4">
+                                            <div className="space-y-1">
+                                                <label className="text-[9px] font-black text-slate-450 dark:text-white/20 uppercase tracking-widest">Nombre</label>
+                                                <input 
+                                                    className="w-full bg-white dark:bg-black/60 border border-slate-200 dark:border-white/5 rounded-lg p-2 text-sm text-slate-900 dark:text-white focus:border-[#0ea5e9]/40 outline-none"
+                                                    value={partner.name}
+                                                    onChange={(e) => {
+                                                        const next = [...home.partners];
+                                                        next[idx] = { ...partner, name: e.target.value };
+                                                        updateHome({ partners: next });
+                                                    }}
+                                                />
+                                            </div>
+                                            <div className="space-y-1">
+                                                <label className="text-[9px] font-black text-slate-450 dark:text-white/20 uppercase tracking-widest">Rol / Tipo</label>
+                                                <input 
+                                                    className="w-full bg-white dark:bg-black/60 border border-slate-200 dark:border-white/5 rounded-lg p-2 text-xs text-slate-900 dark:text-white focus:border-[#0ea5e9]/40 outline-none"
+                                                    value={partner.title}
+                                                    onChange={(e) => {
+                                                        const next = [...home.partners];
+                                                        next[idx] = { ...partner, title: e.target.value };
+                                                        updateHome({ partners: next });
+                                                    }}
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div className="space-y-1">
+                                            <label className="text-[9px] font-black text-slate-450 dark:text-white/20 uppercase tracking-widest">Descripción</label>
+                                            <textarea 
+                                                className="w-full bg-white dark:bg-black/60 border border-slate-200 dark:border-white/5 rounded-lg p-2 text-xs text-slate-900 dark:text-white h-20 focus:border-[#0ea5e9]/40 outline-none"
+                                                value={partner.desc}
+                                                onChange={(e) => {
+                                                    const next = [...home.partners];
+                                                    next[idx] = { ...partner, desc: e.target.value };
+                                                    updateHome({ partners: next });
+                                                }}
+                                            />
+                                        </div>
+
+                                        <div className="grid grid-cols-2 gap-4">
+                                            <div className="space-y-1">
+                                                <label className="text-[9px] font-black text-slate-450 dark:text-white/20 uppercase tracking-widest">Color</label>
+                                                <select 
+                                                    className="w-full bg-white dark:bg-black/60 border border-slate-200 dark:border-white/5 rounded-lg p-2 text-xs text-slate-900 dark:text-white focus:border-[#0ea5e9]/40 outline-none"
+                                                    value={partner.color}
+                                                    onChange={(e) => {
+                                                        const next = [...home.partners];
+                                                        next[idx] = { ...partner, color: e.target.value };
+                                                        updateHome({ partners: next });
+                                                    }}
+                                                >
+                                                    <option value="emerald">Esmeralda / Verde</option>
+                                                    <option value="cyan">Cian / Celeste Bitunix</option>
+                                                    <option value="blue">Azul Nexo</option>
+                                                    <option value="sky">Celeste Bridge</option>
+                                                    <option value="amber">Ámbar / Naranja</option>
+                                                    <option value="red">Rojo</option>
+                                                    <option value="gray">Gris</option>
+                                                </select>
+                                            </div>
+                                            <div className="space-y-1">
+                                                <label className="text-[9px] font-black text-slate-450 dark:text-white/20 uppercase tracking-widest">Enlace de Afiliado</label>
+                                                <input 
+                                                    className="w-full bg-white dark:bg-black/60 border border-slate-200 dark:border-white/5 rounded-lg p-2 text-xs text-slate-900 dark:text-white focus:border-[#0ea5e9]/40 outline-none font-mono text-[9px]"
+                                                    value={partner.url}
+                                                    onChange={(e) => {
+                                                        const next = [...home.partners];
+                                                        next[idx] = { ...partner, url: e.target.value };
+                                                        updateHome({ partners: next });
+                                                    }}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
                     <div className="flex justify-end pt-8 border-t border-slate-200 dark:border-white/5">
                         <button
                             onClick={() => handleSave("home", home)}
